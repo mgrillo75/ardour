@@ -6232,15 +6232,12 @@ NoteDrag::total_dy () const
 		return 0;
 	}
 
-	double const y = _view->midi_context().y_position ();
-	/* new current note */
-	uint8_t n = _view->y_to_note (current_pointer_y () - y);
-	/* clamp */
-	MidiViewBackground& mvb = _view->midi_context ();
-	n                   = max (mvb.lowest_note (), n);
-	n                   = min (mvb.highest_note (), n);
+	/* clamp y to the view-relative vertical boundaries of the view */
+	int o = _view->midi_context().y_position ();
+	int y = std::max (0, (std::min ((int) current_pointer_y(), o + _view->midi_context().contents_height() - _view->note_height())));
+
 	/* and work out delta */
-	return n - _view->y_to_note (grab_y () - y);
+	return _view->y_to_note (y - o) - _view->y_to_note (grab_y () - o);
 }
 
 void
@@ -6815,9 +6812,9 @@ NoteCreateDrag::start_grab (GdkEvent* event, Gdk::Cursor* cursor)
 
 	double const x0 = editing_context.sample_to_pixel (rrp1.samples ());
 	double const x1 = editing_context.sample_to_pixel (rrp2.samples ());
-	double const y  = _midi_view->note_to_y (_midi_view->y_to_note (y_to_region (event->button.y)));
+	int const y  = _midi_view->note_to_y (_midi_view->y_to_note (y_to_region (event->button.y)));
 
-	_drag_rect->set (ArdourCanvas::Rect (x0, y, x1, y + floor (_midi_view->midi_context ().note_height ())));
+	_drag_rect->set (ArdourCanvas::Rect (x0, y, x1, y + _midi_view->midi_context ().note_height ()));
 	_drag_rect->set_outline_all ();
 	_drag_rect->set_outline_color (0xffffff99);
 	_drag_rect->set_fill_color (0xffffff66);
@@ -6858,7 +6855,7 @@ NoteCreateDrag::finished (GdkEvent* ev, bool had_movement)
 		assert (_midi_view->midi_region());
 	}
 
-	if (_midi_view->show_source()) {
+	if (!_midi_view->on_timeline()) {
 		Beats spos = _midi_view->midi_region()->source_position().beats() + min (_note[0], _note[1]).beats();
 		start = _midi_view->midi_region ()->absolute_time_to_source_beats (timepos_t (spos));
 	} else {
@@ -6896,7 +6893,7 @@ HitCreateDrag::HitCreateDrag (EditingContext& ec, ArdourCanvas::Item* i, MidiVie
 	: Drag (ec, i, Temporal::BeatTime, ec.get_trackview_group())
 	, _midi_view (mv)
 	, _last_pos (Temporal::Beats ())
-	, _y (0.0)
+	, _y (0)
 {
 }
 
@@ -7238,9 +7235,14 @@ void
 LollipopDrag::setup_pointer_offset ()
 {
 	NoteBase* note = static_cast<NoteBase*> (_primary->get_data (X_("note")));
-#warning paul this needs to use some other math in the non-time axis view case
-	_pointer_offset = _display->midi_view().midi_region()->source_beats_to_absolute_time (note->note()->time ()).distance (raw_grab_time ());
+
+	if (_display->midi_view().show_source()) {
+		_pointer_offset = timepos_t (note->note()->time ()).distance (raw_grab_time ());
+	} else {
+		_pointer_offset = _display->midi_view().midi_region()->source_beats_to_absolute_time (note->note()->time ()).distance (raw_grab_time ());
+	}
 }
+
 
 /********/
 

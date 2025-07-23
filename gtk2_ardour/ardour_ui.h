@@ -238,6 +238,7 @@ public:
 
 	RCOptionEditor* get_rc_option_editor() { return rc_option_editor; }
 	void show_tabbable (ArdourWidgets::Tabbable*);
+	bool tabbable_visibility_button_press (GdkEventButton* ev, std::string const& tabbable_name);
 
 	enum ArdourLogLevel {
 		LogLevelNone = 0,
@@ -439,6 +440,7 @@ protected:
 	void reenable_hide_loop_punch_ruler_if_appropriate ();
 	void toggle_auto_return ();
 	void toggle_click ();
+	void toggle_click_on_rec ();
 	void toggle_session_auto_loop ();
 	void toggle_rc_options_window ();
 	void toggle_session_options_window ();
@@ -857,8 +859,6 @@ private:
 
 	bool main_window_delete_event (GdkEventAny*);
 	bool idle_ask_about_quit ();
-
-	bool tabbable_visibility_button_press (GdkEventButton* ev, std::string const& tabbable_name);
 
 	void step_up_through_tabs ();
 	void step_down_through_tabs ();

@@ -18,6 +18,7 @@
  */
 
 #include <ytkmm/action.h>
+#include <ytkmm/alignment.h>
 #include <ytkmm/frame.h>
 #include <ytkmm/notebook.h>
 #include <ytkmm/window.h>
@@ -76,18 +77,6 @@ Tabbable::default_layout ()
 	right_attachment_button.set_name ("lock button");  // TODO create dedicate button style
 	bottom_attachment_button.set_name ("lock button");
 
-#ifdef MIXBUS
-	left_attachment_button.set_tweaks (ArdourButton::ExpandtoSquare);
-	right_attachment_button.set_tweaks (ArdourButton::ExpandtoSquare);
-	bottom_attachment_button.set_tweaks (ArdourButton::ExpandtoSquare);
-
-	content_attachment_hbox.set_border_width(3);
-	content_attachment_hbox.set_spacing(3);
-	content_attachment_hbox.pack_end (right_attachment_button, false, false);
-	content_attachment_hbox.pack_end (bottom_attachment_button, false, false);
-	content_attachment_hbox.pack_end (left_attachment_button, false, false);
-	content_attachments.add (content_attachment_hbox);
-#else
 	Gtk::Table* atta_table = manage(new Gtk::Table);
 	atta_table->set_homogeneous ();
 	atta_table->set_spacings (0);
@@ -103,7 +92,6 @@ Tabbable::default_layout ()
 	content_attachment_hbox.set_border_width(1);
 	content_attachment_hbox.pack_end (*atta_table, true, true);
 	content_attachments.add (content_attachment_hbox);
-#endif
 
 	left_attachment_button.set_sensitive (0 != (_panelayout & (PaneLeft | AttLeft)));
 	right_attachment_button.set_sensitive (0 != (_panelayout & PaneRight));
@@ -115,8 +103,8 @@ Tabbable::default_layout ()
 
 	/* wrap the header eboxes in a themeable frame */
 	Gtk::Frame *toolbar_frame = manage (new Gtk::Frame);
-	toolbar_frame->set_name ("TransportFrame");
 	toolbar_frame->set_shadow_type (Gtk::SHADOW_NONE);
+	toolbar_frame->set_name ("TransportFrame");
 	toolbar_frame->add (content_header_hbox);
 
 	_content_vbox.pack_start (*toolbar_frame, false, false);
@@ -149,7 +137,11 @@ Tabbable::default_layout ()
 		content_bottom_pane.add (content_att_bottom);
 	} else {
 		content_inner_hbox.pack_start (content_main_vbox, true, true);
-		content_main_vbox.pack_start (content_att_bottom, false, false);
+
+		Gtk::Alignment* btm_align = manage (new Gtk::Alignment());
+		btm_align->set_padding (5, 0, 0, 0); // 5px at top
+		btm_align->add (content_att_bottom);
+		content_main_vbox.pack_start (*btm_align, false, false);
 	}
 
 	content_inner_hbox.pack_start (content_bus_vbox, false, false);

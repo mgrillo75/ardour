@@ -174,6 +174,7 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	virtual PBD::HistoryOwner& history() = 0;
 
 	virtual void add_command (PBD::Command *) = 0;
+	virtual void add_commands (std::vector<PBD::Command *>) = 0;
 	virtual void begin_reversible_command (std::string cmd_name) = 0;
 	virtual void begin_reversible_command (GQuark) = 0;
 	virtual void abort_reversible_command () = 0;
@@ -395,21 +396,33 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	PBD::Signal<void()> SnapChanged;
 	PBD::Signal<void()> MouseModeChanged;
 
+	typedef std::vector<MidiView*> MidiViews;
+
 	/* MIDI actions, proxied to selected MidiRegionView(s) */
 	ARDOUR::Quantize* get_quantize_op ();
 	void apply_midi_note_edit_op (ARDOUR::MidiOperator& op, const RegionSelection& rs);
+	void apply_midi_note_edit_op (ARDOUR::MidiOperator& op, const MidiViews& rs);
 	PBD::Command* apply_midi_note_edit_op_to_region (ARDOUR::MidiOperator& op, MidiView& mrv);
 	virtual void midi_action (void (MidiView::*method)());
-	std::vector<MidiView*> filter_to_unique_midi_region_views (RegionSelection const & ms) const;
+	std::vector<MidiView*> filter_to_unique_midi_region_views (RegionSelection const & rs) const;
+	std::vector<MidiView*> filter_to_unique_midi_region_views (MidiViews const & ms) const;
 
 	void quantize_region ();
 	void transform_region ();
 	void legatize_region (bool shrink_only);
 	void transpose_region ();
 
+	void quantize_regions (const MidiViews& rs);
+	void legatize_regions (const MidiViews& rs, bool shrink_only);
+	void transform_regions (const MidiViews& rs);
+	void transpose_regions (const MidiViews& rs);
+
+	void edit_notes (MidiView*);
+
 	static bool need_shared_actions;
 	void register_midi_actions (Gtkmm2ext::Bindings*, std::string const &);
 	void register_common_actions (Gtkmm2ext::Bindings*, std::string const &);
+	void register_automation_actions (Gtkmm2ext::Bindings*, std::string const &);
 
 	ArdourCanvas::Rectangle* rubberband_rect;
 
@@ -483,12 +496,19 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	virtual bool allow_trim_cursors () const;
 	virtual void make_a_region() {}
 
+	void center_screen (samplepos_t);
+	void reset_x_origin_to_follow_playhead ();
+
+	void enable_automation_bindings ();
+	void disable_automation_bindings ();
+
   protected:
 	std::string _name;
 	bool within_track_canvas;
 
 	Glib::RefPtr<Gtk::ActionGroup> _midi_actions;
 	Glib::RefPtr<Gtk::ActionGroup> _common_actions;
+	Glib::RefPtr<Gtk::ActionGroup> _automation_actions;
 	Glib::RefPtr<Gtk::ActionGroup> editor_actions;
 	Glib::RefPtr<Gtk::ActionGroup> snap_actions;
 	Glib::RefPtr<Gtk::ActionGroup> length_actions;
@@ -549,6 +569,7 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	ArdourWidgets::ArdourButton play_note_selection_button;
 	ArdourWidgets::ArdourButton note_mode_button;
 	ArdourWidgets::ArdourButton follow_playhead_button;
+	ArdourWidgets::ArdourButton follow_edits_button;
 
 	ArdourWidgets::ArdourButton zoom_in_button;
 	ArdourWidgets::ArdourButton zoom_out_button;
@@ -580,7 +601,6 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	EditorCursor* _snapped_cursor;
 
 	bool _follow_playhead;
-	virtual void reset_x_origin_to_follow_playhead () = 0;
 
 	/* selection process */
 
@@ -666,13 +686,9 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 
 	virtual RegionSelection region_selection() = 0;
 
-	void edit_notes (MidiView*);
 	void note_edit_done (int, EditNoteDialog*);
 
-	void quantize_regions (const RegionSelection& rs);
-	void legatize_regions (const RegionSelection& rs, bool shrink_only);
-	void transform_regions (const RegionSelection& rs);
-	void transpose_regions (const RegionSelection& rs);
+	MidiViews midiviews_from_region_selection (RegionSelection const &) const;
 
 	/** the adjustment that controls the overall editing vertical scroll position */
 	friend class EditorSummary;
@@ -700,7 +716,7 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	ArdourWidgets::ArdourVSpacer _grid_box_spacer;
 	ArdourWidgets::ArdourVSpacer _draw_box_spacer;
 
-	void pack_draw_box ();
+	void pack_draw_box (bool with_channel);
 	void pack_snap_box ();
 
 	Gtkmm2ext::BindingSet bindings;
@@ -805,4 +821,12 @@ class EditingContext : public ARDOUR::SessionHandlePtr, public AxisViewProvider,
 	static Glib::RefPtr<Gtk::Action> reg_sens (Glib::RefPtr<Gtk::ActionGroup> group, char const* name, char const* label, sigc::slot<void> slot);
 	static void toggle_reg_sens (Glib::RefPtr<Gtk::ActionGroup> group, char const* name, char const* label, sigc::slot<void> slot);
 	static void radio_reg_sens (Glib::RefPtr<Gtk::ActionGroup> action_group, Gtk::RadioAction::Group& radio_group, char const* name, char const* label, sigc::slot<void> slot);
+
+	void center_screen_internal (samplepos_t, float);
+
+	virtual void automation_create_point_at_edit_point() {}
+	virtual void automation_raise_points () {}
+	virtual void automation_lower_points () {};
+	virtual void automation_move_points_later () {};
+	virtual void automation_move_points_earlier () {};
 };

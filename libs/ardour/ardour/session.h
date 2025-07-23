@@ -382,6 +382,7 @@ public:
 	bool io_name_is_legal (const std::string&) const;
 	std::shared_ptr<Route> route_by_name (std::string) const;
 	std::shared_ptr<Route> route_by_id (PBD::ID) const;
+	std::shared_ptr<Stripable> stripable_by_name (std::string) const;
 	std::shared_ptr<Stripable> stripable_by_id (PBD::ID) const;
 	std::shared_ptr<Stripable> get_remote_nth_stripable (PresentationInfo::order_t n, PresentationInfo::Flag) const;
 	std::shared_ptr<Route> get_remote_nth_route (PresentationInfo::order_t n) const;
@@ -1558,7 +1559,7 @@ private:
 	 *  know when to send full MTC messages every so often.
 	 */
 	pframes_t               _pframes_since_last_mtc;
-	bool                     play_loop;
+	std::atomic<bool>        play_loop;
 	bool                     loop_changing;
 	samplepos_t              last_loopend;
 
@@ -2198,6 +2199,8 @@ private:
 	static bool _bypass_all_loaded_plugins;
 
 	mutable bool have_looped; ///< Used in \ref audible_sample
+
+	bool roll_started_loop;
 
 	void update_route_record_state ();
 	std::atomic<int> _have_rec_enabled_track;

@@ -79,12 +79,10 @@ Pianoroll::Pianoroll (std::string const & name, bool with_transport)
 	, length_label (X_("Record:"))
 	, ignore_channel_changes (false)
 	, with_transport_controls (with_transport)
+	, show_source (false)
 {
 	mouse_mode = Editing::MouseContent;
 	autoscroll_vertical_allowed = false;
-
-	build_grid_type_menu ();
-	build_draw_midi_menus();
 
 	build_upper_toolbar ();
 	build_canvas ();
@@ -92,6 +90,10 @@ Pianoroll::Pianoroll (std::string const & name, bool with_transport)
 
 	load_bindings ();
 	register_actions ();
+	bind_mouse_mode_buttons ();
+
+	build_grid_type_menu ();
+	build_draw_midi_menus();
 
 	set_mouse_mode (Editing::MouseContent, true);
 }
@@ -105,6 +107,15 @@ Pianoroll::~Pianoroll ()
 	delete view;
 	delete bg;
 	delete _canvas_viewport;
+}
+
+void
+Pianoroll::set_show_source (bool yn)
+{
+	show_source = yn;
+	if (view) {
+		view->set_show_source (yn);
+	}
 }
 
 void
@@ -123,7 +134,6 @@ Pianoroll::register_actions ()
 	editor_actions = ActionManager::create_action_group (own_bindings, editor_name());
 
 	bind_mouse_mode_buttons ();
-	register_grid_actions ();
 }
 
 ArdourCanvas::GtkCanvasViewport*
@@ -380,7 +390,7 @@ Pianoroll::build_upper_toolbar ()
 	mouse_mode_box->pack_start (*mouse_mode_align, false, false);
 
 	pack_snap_box ();
-	pack_draw_box ();
+	pack_draw_box (false);
 
 	Gtk::HBox* _toolbar_inner = manage (new Gtk::HBox);
 	Gtk::HBox* _toolbar_outer = manage (new Gtk::HBox);
@@ -433,11 +443,11 @@ Pianoroll::build_upper_toolbar ()
 	rec_enable_button.signal_button_release_event().connect (sigc::mem_fun (*this, &Pianoroll::rec_button_press), false);
 	rec_enable_button.set_name ("record enable button");
 
-	length_selector.AddMenuElem (MenuElem (_("Until Stopped"), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset ())));
-	length_selector.AddMenuElem (MenuElem (_("1 Bar"), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset (1, 0, 0))));
+	length_selector.add_menu_elem (MenuElem (_("Until Stopped"), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset ())));
+	length_selector.add_menu_elem (MenuElem (_("1 Bar"), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset (1, 0, 0))));
 	std::vector<int> b ({ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 20, 24, 32 });
 	for (auto & n : b) {
-		length_selector.AddMenuElem (MenuElem (string_compose (_("%1 Bars"), n), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset (n, 0, 0))));
+		length_selector.add_menu_elem (MenuElem (string_compose (_("%1 Bars"), n), sigc::bind (sigc::mem_fun (*this, &Pianoroll::set_recording_length), Temporal::BBT_Offset (n, 0, 0))));
 	}
 	length_selector.set_active (_("Until Stopped"));
 
@@ -510,7 +520,7 @@ Pianoroll::build_canvas ()
 	_canvas_viewport = new ArdourCanvas::GtkCanvasViewport (horizontal_adjustment, vertical_adjustment);
 
 	_canvas = _canvas_viewport->canvas ();
-	_canvas->set_background_color (UIConfiguration::instance().color ("arrange base"));
+	_canvas->set_background_color (UIConfiguration::instance().color ("midi track base"));
 	_canvas->signal_event().connect (sigc::mem_fun (*this, &Pianoroll::canvas_pre_event), false);
 	dynamic_cast<ArdourCanvas::GtkCanvas*>(_canvas)->use_nsglview (UIConfiguration::instance().get_nsgl_view_mode () == NSGLHiRes);
 
@@ -522,35 +532,35 @@ Pianoroll::build_canvas ()
 	no_scroll_group = new ArdourCanvas::Container (_canvas->root());
 
 	h_scroll_group = new ArdourCanvas::ScrollGroup (_canvas->root(), ArdourCanvas::ScrollGroup::ScrollsHorizontally);
-	CANVAS_DEBUG_NAME (h_scroll_group, "canvas h scroll");
+	CANVAS_DEBUG_NAME (h_scroll_group, "pianoroll h scroll");
 	_canvas->add_scroller (*h_scroll_group);
 
 
 	v_scroll_group = new ArdourCanvas::ScrollGroup (_canvas->root(), ArdourCanvas::ScrollGroup::ScrollsVertically);
-	CANVAS_DEBUG_NAME (v_scroll_group, "canvas v scroll");
+	CANVAS_DEBUG_NAME (v_scroll_group, "pianoroll v scroll");
 	_canvas->add_scroller (*v_scroll_group);
 
 	hv_scroll_group = new ArdourCanvas::ScrollGroup (_canvas->root(),
 	                                                 ArdourCanvas::ScrollGroup::ScrollSensitivity (ArdourCanvas::ScrollGroup::ScrollsVertically|
 		                ArdourCanvas::ScrollGroup::ScrollsHorizontally));
-	CANVAS_DEBUG_NAME (hv_scroll_group, "cue canvas hv scroll");
+	CANVAS_DEBUG_NAME (hv_scroll_group, "pianoroll hv scroll");
 	_canvas->add_scroller (*hv_scroll_group);
 
 	cursor_scroll_group = new ArdourCanvas::ScrollGroup (_canvas->root(), ArdourCanvas::ScrollGroup::ScrollsHorizontally);
-	CANVAS_DEBUG_NAME (cursor_scroll_group, "cue canvas cursor scroll");
+	CANVAS_DEBUG_NAME (cursor_scroll_group, "pianoroll cursor scroll");
 	_canvas->add_scroller (*cursor_scroll_group);
 
 	/*a group to hold global rects like punch/loop indicators */
 	global_rect_group = new ArdourCanvas::Container (hv_scroll_group);
-	CANVAS_DEBUG_NAME (global_rect_group, "cue global rect group");
+	CANVAS_DEBUG_NAME (global_rect_group, "pianoroll global rect group");
 
         transport_loop_range_rect = new ArdourCanvas::Rectangle (global_rect_group, ArdourCanvas::Rect (0.0, 0.0, 0.0, ArdourCanvas::COORD_MAX));
-	CANVAS_DEBUG_NAME (transport_loop_range_rect, "cue loop rect");
+	CANVAS_DEBUG_NAME (transport_loop_range_rect, "pianoroll loop rect");
 	transport_loop_range_rect->hide();
 
 	/*a group to hold time (measure) lines */
 	time_line_group = new ArdourCanvas::Container (h_scroll_group);
-	CANVAS_DEBUG_NAME (time_line_group, "cue  time line group");
+	CANVAS_DEBUG_NAME (time_line_group, "pianoroll time line group");
 
 	n_timebars = 0;
 
@@ -605,10 +615,15 @@ Pianoroll::build_canvas ()
 	CANVAS_DEBUG_NAME (rubberband_rect, X_("cue rubberband rect"));
 
 	prh = new ArdourCanvas::PianoRollHeader (v_scroll_group, *bg);
+	prh->SetNoteSelection.connect (sigc::mem_fun (*this, &Pianoroll::set_note_selection));
+	prh->AddNoteSelection.connect (sigc::mem_fun (*this, &Pianoroll::add_note_selection));
+	prh->ExtendNoteSelection.connect (sigc::mem_fun (*this, &Pianoroll::extend_note_selection));
+	prh->ToggleNoteSelection.connect (sigc::mem_fun (*this, &Pianoroll::toggle_note_selection));
 
 	view = new PianorollMidiView (nullptr, *data_group, *no_scroll_group, *this, *bg, 0xff0000ff);
 	view->AutomationStateChange.connect (sigc::mem_fun (*this, &Pianoroll::automation_state_changed));
 	view->VisibleChannelChanged.connect (view_connections, invalidator (*this), std::bind (&Pianoroll::visible_channel_changed, this), gui_context());
+	view->set_show_source (show_source);
 
 	bg->set_view (view);
 	prh->set_view (view);
@@ -638,8 +653,17 @@ Pianoroll::build_canvas ()
 	_canvas->set_name ("MidiCueCanvas");
 	_canvas->add_events (Gdk::POINTER_MOTION_HINT_MASK | Gdk::SCROLL_MASK | Gdk::KEY_PRESS_MASK | Gdk::KEY_RELEASE_MASK);
 	_canvas->set_can_focus ();
-
+	_canvas->signal_show().connect (sigc::mem_fun (*this, &Pianoroll::catch_pending_show_region));
 	_toolbox.pack_start (*_canvas_viewport, true, true);
+}
+
+void
+Pianoroll::catch_pending_show_region ()
+{
+	if (_visible_pending_region) {
+		set_region (_visible_pending_region);
+		_visible_pending_region.reset ();
+	}
 }
 
 bool
@@ -754,6 +778,10 @@ Pianoroll::maybe_update ()
 
 	} else {
 		_playhead_cursor->set_position (0);
+	}
+
+	if (_follow_playhead) {
+		reset_x_origin_to_follow_playhead ();
 	}
 }
 
@@ -1133,9 +1161,9 @@ Pianoroll::button_release_handler (ArdourCanvas::Item* item, GdkEvent* event, It
 				return true;
 			}
 		}
-	}
 
-	if (Keyboard::is_context_menu_event (&event->button)) {
+	} else {
+
 		switch (item_type) {
 		case NoteItem:
 			if (internal_editing()) {
@@ -1143,12 +1171,56 @@ Pianoroll::button_release_handler (ArdourCanvas::Item* item, GdkEvent* event, It
 				return true;
 			}
 			break;
+		case RegionItem:
+			if (internal_editing()) {
+				popup_region_context_menu (item, event);
+				return true;
+			}
+			break;
 		default:
 			break;
 		}
+
+		popup_note_context_menu (item, event);
+		return true;
 	}
 
 	return false;
+}
+
+void
+Pianoroll::popup_region_context_menu (ArdourCanvas::Item* item, GdkEvent* event)
+{
+	using namespace Gtk::Menu_Helpers;
+
+	if (!view) {
+		return;
+	}
+
+	const uint32_t sel_size = view->selection_size ();
+	MidiViews mvs ({view});
+
+	MenuList& items = _region_context_menu.items();
+	items.clear();
+
+	if (sel_size > 0) {
+		items.push_back (MenuElem(_("Delete"), sigc::mem_fun (*view, &MidiView::delete_selection)));
+	}
+
+	items.push_back(MenuElem(_("Edit..."), sigc::bind(sigc::mem_fun(*this, &EditingContext::edit_notes), view)));
+	items.push_back(MenuElem(_("Transpose..."),  sigc::bind(sigc::mem_fun(*this, &EditingContext::transpose_regions), mvs)));
+	items.push_back(MenuElem(_("Legatize"), sigc::bind(sigc::mem_fun(*this, &EditingContext::legatize_regions), mvs, false)));
+	if (sel_size < 2) {
+		items.back().set_sensitive (false);
+	}
+	items.push_back(MenuElem(_("Quantize..."), sigc::bind(sigc::mem_fun(*this, &EditingContext::quantize_regions), mvs)));
+	items.push_back(MenuElem(_("Remove Overlap"), sigc::bind(sigc::mem_fun(*this, &EditingContext::legatize_regions), mvs, true)));
+	if (sel_size < 2) {
+		items.back().set_sensitive (false);
+	}
+	items.push_back(MenuElem(_("Transform..."), sigc::bind(sigc::mem_fun(*this, &EditingContext::transform_regions), mvs)));
+
+	_region_context_menu.popup (event->button.button, event->button.time);
 }
 
 bool
@@ -1233,6 +1305,7 @@ RegionSelection
 Pianoroll::region_selection()
 {
 	RegionSelection rs;
+	/* there is never any region-level selection in a pianoroll */
 	return rs;
 }
 
@@ -2553,6 +2626,11 @@ Pianoroll::update_solo_display ()
 void
 Pianoroll::set_region (std::shared_ptr<ARDOUR::MidiRegion> r)
 {
+	if (!get_canvas()->is_visible()) {
+		_visible_pending_region = r;
+		return;
+	}
+
 	unset (false);
 
 	if (!r) {
@@ -2563,6 +2641,8 @@ Pianoroll::set_region (std::shared_ptr<ARDOUR::MidiRegion> r)
 	view->set_region (r);
 	view->show_start (true);
 	view->show_end (true);
+
+	set_visible_channel (view->pick_visible_channel());
 
 	r->DropReferences.connect (object_connections, invalidator (*this), std::bind (&Pianoroll::unset, this, false), gui_context());
 	r->PropertyChanged.connect (object_connections, invalidator (*this), std::bind (&Pianoroll::region_prop_change, this, _1), gui_context());
@@ -2604,22 +2684,20 @@ Pianoroll::set_region (std::shared_ptr<ARDOUR::MidiRegion> r)
 		zoom_to_show (timecnt_t (timepos_t (max_extents_scale() * max_zoom_extent ().second.samples())));
 	}
 
+	bg->display_region (*view);
+
 	_update_connection = Timers::rapid_connect (sigc::mem_fun (*this, &Pianoroll::maybe_update));
 }
 
 void
 Pianoroll::zoom_to_show (Temporal::timecnt_t const & duration)
 {
-	if (!_visible_canvas_width) {
+	if (!_track_canvas_width) {
 		zoom_in_allocate = true;
 		return;
 	}
 
-	/* make it 20% wider than we need */
-	samplecnt_t samples = duration.samples();
-	samplecnt_t spp = floor (samples / _track_canvas_width);
-
-	reset_zoom (spp);
+	reset_zoom ((samplecnt_t) floor (duration.samples() / _track_canvas_width));
 }
 
 bool
@@ -2754,10 +2832,10 @@ Pianoroll::build_zoom_focus_menu ()
 	using namespace Gtk::Menu_Helpers;
 	using namespace Editing;
 
-	zoom_focus_selector.AddMenuElem (MenuElem (zoom_focus_strings[(int)ZoomFocusLeft], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusLeft)));
-	zoom_focus_selector.AddMenuElem (MenuElem (zoom_focus_strings[(int)ZoomFocusRight], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusRight)));
-	zoom_focus_selector.AddMenuElem (MenuElem (zoom_focus_strings[(int)ZoomFocusCenter], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusCenter)));
-	zoom_focus_selector.AddMenuElem (MenuElem (zoom_focus_strings[(int)ZoomFocusMouse], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusMouse)));
+	zoom_focus_selector.add_menu_elem (MenuElem (zoom_focus_strings[(int)ZoomFocusLeft], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusLeft)));
+	zoom_focus_selector.add_menu_elem (MenuElem (zoom_focus_strings[(int)ZoomFocusRight], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusRight)));
+	zoom_focus_selector.add_menu_elem (MenuElem (zoom_focus_strings[(int)ZoomFocusCenter], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusCenter)));
+	zoom_focus_selector.add_menu_elem (MenuElem (zoom_focus_strings[(int)ZoomFocusMouse], sigc::bind (sigc::mem_fun(*this, &EditingContext::zoom_focus_selection_done), (ZoomFocus) ZoomFocusMouse)));
 	zoom_focus_selector.set_sizing_texts (zoom_focus_strings);
 }
 
@@ -2766,12 +2844,17 @@ std::pair<Temporal::timepos_t,Temporal::timepos_t>
 Pianoroll::max_zoom_extent() const
 {
 	if (view && view->midi_region()) {
-		/* XXX make this dependent on view _show_source setting */
 
-		Temporal::Beats slen = view->midi_region()->midi_source()->length().beats();
+		Temporal::Beats len;
 
-		if (slen != Temporal::Beats()) {
-			return std::make_pair (Temporal::timepos_t (Temporal::Beats()), Temporal::timepos_t (slen));
+		if (show_source) {
+			len = view->midi_region()->midi_source()->length().beats();
+		} else {
+			len = view->midi_region()->length().beats();
+		}
+
+		if (len != Temporal::Beats()) {
+			return std::make_pair (Temporal::timepos_t (Temporal::Beats()), Temporal::timepos_t (len));
 		}
 	}
 
@@ -2963,6 +3046,13 @@ Pianoroll::select_all_within (Temporal::timepos_t const & start, Temporal::timep
 }
 
 void
+Pianoroll::session_going_away ()
+{
+	unset (true);
+	CueEditor::session_going_away ();
+}
+
+void
 Pianoroll::set_session (ARDOUR::Session* s)
 {
 	CueEditor::set_session (s);
@@ -3057,4 +3147,60 @@ Pianoroll::update_tempo_based_rulers ()
 	bbt_metric.units_per_pixel = samples_per_pixel;
 	compute_bbt_ruler_scale (_leftmost_sample, _leftmost_sample + current_page_samples());
 	bbt_ruler->set_range (_leftmost_sample, _leftmost_sample+current_page_samples());
+}
+
+void
+Pianoroll::set_note_selection (uint8_t note)
+{
+	if (!view) {
+		return;
+	}
+
+	uint16_t chn_mask = view->midi_track()->get_playback_channel_mask();
+
+	begin_reversible_selection_op (X_("Set Note Selection"));
+	view->select_matching_notes (note, chn_mask, false, false);
+	commit_reversible_selection_op();
+}
+
+void
+Pianoroll::add_note_selection (uint8_t note)
+{
+	if (!view) {
+		return;
+	}
+
+	const uint16_t chn_mask = view->midi_track()->get_playback_channel_mask();
+
+	begin_reversible_selection_op (X_("Add Note Selection"));
+	view->select_matching_notes (note, chn_mask, true, false);
+	commit_reversible_selection_op();
+}
+
+void
+Pianoroll::extend_note_selection (uint8_t note)
+{
+	if (!view) {
+		return;
+	}
+
+	const uint16_t chn_mask = view->midi_track()->get_playback_channel_mask();
+
+	begin_reversible_selection_op (X_("Extend Note Selection"));
+	view->select_matching_notes (note, chn_mask, true, true);
+	commit_reversible_selection_op();
+}
+
+void
+Pianoroll::toggle_note_selection (uint8_t note)
+{
+	if (!view) {
+		return;
+	}
+
+	const uint16_t chn_mask = view->midi_track()->get_playback_channel_mask();
+
+	begin_reversible_selection_op (X_("Toggle Note Selection"));
+	view->toggle_matching_notes (note, chn_mask);
+	commit_reversible_selection_op();
 }

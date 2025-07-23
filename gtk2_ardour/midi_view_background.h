@@ -41,8 +41,10 @@ namespace ARDOUR {
 
 namespace ArdourCanvas {
 	class Item;
-	class LineSet;
+	class RectSet;
 }
+
+class EditingContext;
 
 /** A class that provides various context for a MidiVieww:
         = note ranges
@@ -53,7 +55,7 @@ namespace ArdourCanvas {
 class MidiViewBackground : public virtual ViewBackground
 {
   public:
-	MidiViewBackground (ArdourCanvas::Item* parent);
+	MidiViewBackground (ArdourCanvas::Item* parent, EditingContext& ec);
 	~MidiViewBackground ();
 
 	Gtk::Adjustment note_range_adjustment;
@@ -93,44 +95,59 @@ class MidiViewBackground : public virtual ViewBackground
 
 	void maybe_extend_note_range (uint8_t note_num);
 
-	double note_to_y (uint8_t note) const {
-		return contents_height() - (note + 1 - lowest_note()) * note_height() + 1;
+	int note_height() const {
+		return (int) ceil ((double) contents_height() / contents_note_range());
 	}
 
-	uint8_t y_to_note(double y) const;
+	int note_to_y (uint8_t note) const {
+		return (highest_note() - note) * note_height();
+	}
+
+	uint8_t y_to_note (int y) const;
 
 	uint8_t contents_note_range() const {
-		return highest_note() - lowest_note() + 1;
-	}
-
-	double note_height() const {
-		return contents_height() / (double)contents_note_range();
+		return highest_note() - lowest_note();
 	}
 
 	sigc::signal<void> NoteRangeChanged;
-	void apply_note_range (uint8_t lowest, uint8_t highest, bool to_children);
-	void maybe_apply_note_range (uint8_t lowest, uint8_t highest, bool to_children);
+
+	enum RangeCanMove {
+		CanMoveTop = 0x1,
+		CanMoveBottom = 0x2
+	};
+
+	bool apply_note_range (uint8_t lowest, uint8_t highest, bool to_children, RangeCanMove = RangeCanMove (CanMoveTop|CanMoveBottom));
+	void maybe_apply_note_range (uint8_t lowest, uint8_t highest, bool to_children, RangeCanMove = RangeCanMove (CanMoveTop|CanMoveBottom));
 
 	/** @return y position, or -1 if hidden */
-	virtual double y_position () const { return 0.; }
+	virtual int y_position () const { return 0; }
 
 	virtual uint8_t get_preferred_midi_channel () const = 0;
 	virtual void set_note_highlight (bool) = 0;
 	virtual void record_layer_check (std::shared_ptr<ARDOUR::Region>, samplepos_t) = 0;
 
-	virtual void set_size (double w, double h) {}
+	virtual void set_size (int w, int h) {}
 	PBD::Signal<void()> HeightChanged;
 
 	virtual ARDOUR::InstrumentInfo* instrument_info() const = 0;
 
+	void get_note_positions (std::vector<int>& numbers, std::vector<int>& pos, std::vector<int>& heights) const;
+
+	EditingContext& editing_context() const { return _editing_context; }
+
+	sigc::signal<void,bool> NoteVisibilityShouldChange;
+
+	bool update_data_note_range (uint8_t min, uint8_t max);
+
   protected:
+	EditingContext&           _editing_context;
 	bool                      _range_dirty;
 	double                    _range_sum_cache;
 	uint8_t                   _lowest_note;   ///< currently visible
 	uint8_t                   _highest_note;  ///< currently visible
 	uint8_t                   _data_note_min; ///< in data
 	uint8_t                   _data_note_max; ///< in data
-	ArdourCanvas::LineSet*    _note_lines;
+	ArdourCanvas::RectSet*    _note_lines;
 	ARDOUR::NoteMode          _note_mode;
 	Gtkmm2ext::Color          _region_color;
 	ARDOUR::ColorMode         _color_mode;
@@ -140,8 +157,7 @@ class MidiViewBackground : public virtual ViewBackground
 	void color_handler ();
 	void parameter_changed (std::string const &);
 	void note_range_adjustment_changed();
-	void draw_note_lines();
-	bool update_data_note_range (uint8_t min, uint8_t max);
+	void setup_note_lines();
 	void update_contents_height ();
 	virtual void apply_note_range_to_children () = 0;
 	virtual bool updates_suspended() const { return false; }

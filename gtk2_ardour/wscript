@@ -236,6 +236,7 @@ gtk2_ardour_sources = [
         'port_matrix_labels.cc',
         'port_matrix_row_labels.cc',
 	'prh.cc',
+	'prh_base.cc',
 	'processor_box.cc',
         'processor_selection.cc',
         'patch_change_dialog.cc',
@@ -486,10 +487,6 @@ def configure(conf):
     autowaf.check_pkg(conf, 'pangoft2', uselib_store='PANGOFT2', atleast_version='1.36.8', mandatory=False)
     autowaf.check_pkg(conf, 'fontconfig', uselib_store='FONTCONFIG')
 
-    if not conf.is_defined('YTK'):
-        autowaf.check_pkg(conf, 'gtk+-2.0', uselib_store='GTK', atleast_version='2.18')
-        autowaf.check_pkg(conf, 'gtkmm-2.4', uselib_store='GTKMM', atleast_version='2.18', mandatory=True)
-
     if conf.env.CC_NAME == 'gcc' and Options.options.strict:
         conf.define('GLIB_DISABLE_DEPRECATION_WARNINGS', 1)
         for var in ['CFLAGS', 'CXXFLAGS']:
@@ -554,12 +551,9 @@ def build(bld):
         obj.linkflags = ''
         obj.uselib       = 'UUID FLAC FONTCONFIG GTHREAD GTK OGG PANGOMM CURL DL CANVAS FFTW3F LO TAGLIB XML LILV RUBBERBAND AUBIO LRDF ARCHIVE VAMPSDK VAMPHOSTSDK'
         obj.source += [ 'luadoc.cc', 'bundle_env_linux.cc' ]
-        obj.use += [ 'X11' ]
-        if bld.is_defined('YTK'):
-            obj.use    += [ 'libytk', 'libytkmm' ]
-            obj.uselib += ' GLIBMM GIOMM PANGOMM PANGOFT2 LIBPNG'
-        else:
-            obj.uselib += ' GTKMM'
+        obj.use    += [ 'X11' ]
+        obj.use    += [ 'libytk', 'libytkmm' ]
+        obj.uselib += ' GLIBMM GIOMM PANGOMM PANGOFT2 LIBPNG'
 
         if False and bld.is_defined('USE_EXTERNAL_LIBS'):
             obj.uselib += ' LIBAAF'
@@ -570,10 +564,7 @@ def build(bld):
             obj.uselib += ' USB'
         if bld.is_defined('HAVE_SUIL'):
             obj.source += [ 'lv2_plugin_ui.cc' ]
-            if bld.is_defined('YTK'):
-                obj.use += [ 'libsuil' ]
-            else:
-                obj.uselib += ' SUIL'
+            obj.use += [ 'libsuil' ]
         if bld.is_defined('LXVST_SUPPORT'):
             obj.source += [ 'vst_plugin_ui.cc' ]
             obj.source += [ 'linux_vst_gui_support.cc', 'lxvst_plugin_ui.cc' ]
@@ -645,6 +636,8 @@ def build(bld):
                      'libwaveview',
                      'libwidgets',
                      'libptformat',
+                     'libytk',
+                     'libytkmm',
                      ]
 
     obj.defines = [
@@ -654,14 +647,8 @@ def build(bld):
         'LOCALEDIR="' + os.path.normpath(bld.env['LOCALEDIR']) + '"',
         ]
     obj.install_path = bld.env['DLLDIR']
-    obj.linkflags    = ''
-    obj.uselib       = 'UUID FLAC FONTCONFIG GTHREAD OGG PANGOMM CURL DL CANVAS FFTW3F LO TAGLIB XML LILV RUBBERBAND AUBIO LRDF ARCHIVE VAMPSDK VAMPHOSTSDK'
-
-    if bld.is_defined('YTK'):
-        obj.use    += [ 'libytk', 'libytkmm' ]
-        obj.uselib += ' GLIBMM GIOMM PANGOFT2 LIBPNG'
-    else:
-        obj.uselib += ' GTKMM GTK'
+    obj.linkflags    = bld.env['compiler_flags_dict']['execstack']
+    obj.uselib       = 'UUID FLAC FONTCONFIG GTHREAD OGG PANGOMM CURL DL CANVAS FFTW3F LO TAGLIB XML LILV RUBBERBAND AUBIO LRDF ARCHIVE VAMPSDK VAMPHOSTSDK GLIBMM GIOMM PANGOFT2 LIBPNG'
 
     if False and bld.is_defined('USE_EXTERNAL_LIBS'):
         obj.uselib += ' LIBAAF'
@@ -678,7 +665,6 @@ def build(bld):
         obj.source += [ 'bundle_env_mingw.cc' ]
         obj.source += [ 'windows_icon.rc' ]
     else:
-        obj.linkflags += ' -zexecstack'
         obj.source += [ 'bundle_env_linux.cc' ]
         obj.use += [ 'X11' ]
 
@@ -785,7 +771,7 @@ def build(bld):
                 'MASSIVE' : '60',
         }
         font_names = {
-                'MONOSPACE' : 'Monaco',
+                'MONOSPACE' : 'ArdourMono',
                 'CLOCKFONT' : 'ArdourMono',
                 }
     else: # Linux/X11 & Windows fonts
@@ -945,7 +931,7 @@ def build(bld):
     for b in [ 'ardour' ] :
         obj = bld(
             target = b + '.keys',
-            source = [ b + '.keys.in', 'mixer.bindings', 'processor_box.bindings', 'step_editing.bindings', 'monitor.bindings', 'trigger.bindings', 'regionfx_box.bindings' ],
+            source = [ b + '.keys.in', 'mixer.bindings', 'processor_box.bindings', 'step_editing.bindings', 'monitor.bindings', 'trigger.bindings', 'regionfx_box.bindings', 'automation.bindings' ],
             rule = a_rule
             )
         obj.install_path = bld.env['CONFDIR']

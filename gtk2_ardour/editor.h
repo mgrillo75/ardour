@@ -372,8 +372,6 @@ public:
 	double get_y_origin () const;
 	void reposition_and_zoom (samplepos_t, double);
 
-	void reset_x_origin_to_follow_playhead ();
-
 	void toggle_meter_updating();
 
 	void show_rhythm_ferret();
@@ -408,8 +406,6 @@ public:
 	void get_regionviews_by_id (PBD::ID const id, RegionSelection & regions) const;
 	void get_per_region_note_selection (std::list<std::pair<PBD::ID, std::set<std::shared_ptr<Evoral::Note<Temporal::Beats> > > > >&) const;
 
-	void center_screen (samplepos_t);
-
 	TrackViewList axis_views_from_routes (std::shared_ptr<ARDOUR::RouteList>) const;
 
 	void set_snapped_cursor_position (Temporal::timepos_t const & pos);
@@ -420,7 +416,8 @@ public:
 	void abort_reversible_selection_op ();
 	void undo_selection_op ();
 	void redo_selection_op ();
-	void add_command (PBD::Command * cmd);
+	void add_command (PBD::Command* cmd);
+	void add_commands (std::vector<PBD::Command*> cmds);
 
 	PBD::HistoryOwner& history();
 
@@ -512,6 +509,8 @@ public:
 	void temporal_zoom_selection (Editing::ZoomAxis);
 	void temporal_zoom_session ();
 	void temporal_zoom_extents ();
+
+	void find_and_display_track ();
 
 protected:
 	void map_transport_state ();
@@ -1097,7 +1096,6 @@ private:
 	sigc::connection _tvl_redisplay_connection;
 
 	sigc::connection super_rapid_screen_update_connection;
-	void center_screen_internal (samplepos_t, float);
 
 	void super_rapid_screen_update ();
 
@@ -1606,6 +1604,11 @@ private:
 
 protected:
 	void _commit_tempo_map_edit (Temporal::TempoMap::WritableSharedPtr&, bool with_update = false);
+	void automation_create_point_at_edit_point();
+	void automation_raise_points ();
+	void automation_lower_points ();
+	void automation_move_points_later ();
+	void automation_move_points_earlier ();
 
 private:
 	friend class DragManager;

@@ -40,6 +40,7 @@
 
 #include <ytkmm/messagedialog.h>
 
+#include "pbd/convert.h"
 #include "pbd/error.h"
 #include "pbd/basename.h"
 #include "pbd/pthread_utils.h"
@@ -51,6 +52,7 @@
 
 #include "temporal/tempo.h"
 
+#include "gtkmm2ext/string_completion.h"
 #include "gtkmm2ext/utils.h"
 
 #include "widgets/choice.h"
@@ -159,6 +161,14 @@ Editor::add_command (PBD::Command * cmd)
 {
 	if (_session) {
 		_session->add_command (cmd);
+	}
+}
+
+void
+Editor::add_commands (std::vector<PBD::Command *> cmds)
+{
+	if (_session) {
+		_session->add_commands (cmds);
 	}
 }
 
@@ -3743,22 +3753,69 @@ Editor::trim_region (bool front)
 
 	begin_reversible_command (front ? _("trim front") : _("trim back"));
 
-	for (list<RegionView*>::const_iterator i = rs.by_layer().begin(); i != rs.by_layer().end(); ++i) {
-		if (!(*i)->region()->locked()) {
+	list<RegionView*> rsl (rs.by_layer());
+	vector<std::shared_ptr<Playlist> > playlists;
 
-			(*i)->region()->clear_changes ();
+	for (auto & rv : rsl) {
 
-			if (front) {
-				(*i)->region()->trim_front (where);
-			} else {
-				(*i)->region()->trim_end (where);
-			}
+		std::shared_ptr<Region> region (rv->region());
 
-			_session->add_command (new StatefulDiffCommand ((*i)->region()));
+		if (region->locked()) {
+			continue;
 		}
+
+		std::shared_ptr<Playlist> playlist = region->playlist();
+
+		if (!playlist) {
+			// is this check necessary?
+			continue;
+		}
+
+		if (std::find (playlists.begin(), playlists.end(), playlist) == playlists.end()) {
+			playlists.push_back (playlist);
+
+			playlist->clear_changes ();
+			playlist->clear_owned_changes ();
+			playlist->freeze ();
+		}
+
+		region->clear_changes ();
+		timepos_t old_pos = region->position();
+		timecnt_t delta;
+
+		if (front) {
+			delta = where.distance (region->position());
+			region->trim_front (where);
+		} else {
+			old_pos = region->end();
+			delta = region->end().distance (where);
+			region->trim_end (where);
+		}
+
+		if (should_ripple()) {
+			do_ripple (playlist, old_pos, delta, std::shared_ptr<Region>(), false);
+		}
+
+		add_command (new StatefulDiffCommand (region));
 	}
 
-	commit_reversible_command ();
+	bool commit_result = false;
+
+	for (auto & pl : playlists) {
+		commit_result = true;
+		pl->thaw ();
+
+		vector<Command*> cmds;
+		pl->rdiff (cmds);
+		add_commands (cmds);
+		add_command (new StatefulDiffCommand (pl));
+	}
+
+	if (commit_result) {
+		commit_reversible_command ();
+	} else {
+		abort_reversible_command ();
+	}
 }
 
 /** Trim the end of the selected regions to the position of the edit cursor */
@@ -4085,7 +4142,7 @@ Editor::bounce_range_selection (BounceTarget target, bool with_processing)
 
 			for (int c = 0; c < TriggerBox::default_triggers_per_box; ++c) {
 				std::string lbl = cue_marker_name (c);
-				tslot->AddMenuElem (Menu_Helpers::MenuElem (lbl, sigc::bind ([] (uint32_t* t, uint32_t v, ArdourWidgets::ArdourDropdown* s, std::string l) {*t = v; s->set_text (l);}, &trigger_slot, c, tslot, lbl)));
+				tslot->add_menu_elem (Menu_Helpers::MenuElem (lbl, sigc::bind ([] (uint32_t* t, uint32_t v, ArdourWidgets::ArdourDropdown* s, std::string l) {*t = v; s->set_text (l);}, &trigger_slot, c, tslot, lbl)));
 			}
 			tslot->set_active ("A");
 
@@ -8442,7 +8499,7 @@ Editor::fit_tracks (TrackViewList & tracks)
 	 *  - height of the ruler/hscroll area
 	 */
 	uint32_t h = (uint32_t) floor ((trackviews_height() - child_heights) / visible_tracks);
-	double first_y_pos = DBL_MAX;
+	int first_y_pos = std::numeric_limits<int>::max();
 
 	if (h < TimeAxisView::preset_height (HeightSmall)) {
 		ArdourMessageDialog msg (_("There are too many tracks to fit in the current window"));
@@ -9525,3 +9582,64 @@ Editor::edit_region_in_pianoroll_window ()
 	selection->foreach_midi_regionview (&MidiRegionView::edit_in_pianoroll_window);
 }
 
+
+void
+Editor::find_and_display_track ()
+{
+	ArdourDialog d (_("Find Track/Bus"), true, false);
+	Gtk::Entry text;
+	Gtk::HBox hpacker;
+	Gtk::Label l (_("Name:"));
+	hpacker.set_spacing (12);
+	hpacker.set_border_width (12);
+	hpacker.pack_start (l, true, false);
+	hpacker.pack_start (text, true, true);
+
+	d.get_vbox()->set_spacing (12);
+	d.get_vbox()->set_border_width (12);
+	d.get_vbox()->pack_start (hpacker, false, false);
+	d.get_vbox()->show_all ();
+
+	text.set_activates_default ();
+	d.add_button (Stock::CANCEL, RESPONSE_CANCEL);
+	d.add_button (Stock::OK, RESPONSE_OK);
+	d.set_default_response (RESPONSE_OK);
+
+	std::vector<Glib::ustring> matching_names;
+
+	{
+		ARDOUR::StripableList sl;
+		_session->get_stripables (sl, ARDOUR::PresentationInfo::AllStripables);
+
+		for (auto & s : sl) {
+			matching_names.push_back (s->name());
+		}
+	}
+
+	Glib::RefPtr<StringCompletion> comp = StringCompletion::create (matching_names);
+	comp->set_minimum_key_length (1);
+	comp->set_match_anywhere ();
+	comp->set_case_fold (true);
+	comp->set_inline_completion (true);
+	comp->set_inline_selection (true);
+	text.set_completion (comp);
+
+	switch (d.run()) {
+	case RESPONSE_OK:
+		break;
+	default:
+		return;
+	}
+
+	std::shared_ptr<Stripable> s = _session->stripable_by_name (text.get_text());
+
+	if (!s) {
+		return;
+	}
+
+	StripableTimeAxisView* stv = get_stripable_time_axis_by_id (s->id());
+
+	if (stv) {
+		ensure_time_axis_view_is_visible (*stv, true);
+	}
+}

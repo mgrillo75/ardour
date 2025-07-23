@@ -34,7 +34,7 @@ def build(bld):
     obj.source       = 'luasession.cc'
     obj.target       = 'luasession'
     obj.includes     = ['../libs']
-    obj.linkflags    = ''
+    obj.linkflags    = bld.env['compiler_flags_dict']['execstack']
     obj.use          = ['liblua',
                         'libpbd',
                         'libardour',
@@ -56,10 +56,7 @@ def build(bld):
     obj.uselib       += ' FFTW3F LO TAGLIB LILV RUBBERBAND AUBIO LRDF ARCHIVE VAMPSDK VAMPHOSTSDK'
 
     if bld.is_defined('HAVE_SUIL'):
-        if bld.is_defined('YTK'):
-            obj.use += [ 'libsuil' ]
-        else:
-            obj.uselib += ' SUIL'
+        obj.use += [ 'libsuil' ]
 
     if bld.is_defined('HAVE_USB'):
         obj.uselib += ' USB'
@@ -69,8 +66,6 @@ def build(bld):
         obj.use    += ' libappleutility'
     elif bld.env['build_target'] == 'mingw':
         obj.linkflags += ' -mwindows'
-    else:
-        obj.linkflags += ' -zexecstack'
 
     if bld.is_defined('NEED_INTL'):
         obj.linkflags += ' -lintl'

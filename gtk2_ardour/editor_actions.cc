@@ -39,6 +39,8 @@
 #include "ardour/session.h"
 #include "ardour/types.h"
 
+#include "temporal/bbt_time.h"
+
 #include "canvas/canvas.h"
 #include "canvas/pixbuf.h"
 
@@ -46,6 +48,7 @@
 
 #include "actions.h"
 #include "ardour_ui.h"
+#include "control_point.h"
 #include "editing.h"
 #include "editor.h"
 #include "gui_thread.h"
@@ -350,6 +353,8 @@ Editor::register_actions ()
 	reg_sens (editor_actions, "set-punch-from-edit-range", _("Set Punch from Selection"), sigc::mem_fun(*this, &Editor::set_punch_from_selection));
 	reg_sens (editor_actions, "set-session-from-edit-range", _("Set Session Start/End from Selection"), sigc::mem_fun(*this, &Editor::set_session_extents_from_selection));
 
+	reg_sens (editor_actions, "find-and-display-stripable", _("Find & Display Track/Bus"), sigc::mem_fun (*this, &Editor::find_and_display_track));
+
 	if (Profile->get_mixbus ()) {
 		reg_sens (editor_actions, "copy-paste-section", _("Copy/Paste Range Section to Playhead"), sigc::bind (sigc::mem_fun(*this, &Editor::cut_copy_section), CopyPasteSection));
 		reg_sens (editor_actions, "cut-paste-section", _("Cut/Paste Range Section to Playhead"), sigc::bind (sigc::mem_fun(*this, &Editor::cut_copy_section), CutPasteSection));
@@ -470,7 +475,6 @@ Editor::register_actions ()
 		sigc::bind (sigc::mem_fun (*this, &Editor::move_range_selection_start_or_end_to_region_boundary), true, true)
 		);
 
-	toggle_reg_sens (editor_actions, "toggle-follow-playhead", _("Follow Playhead"), (sigc::mem_fun(*this, &Editor::toggle_follow_playhead)));
 	act = reg_sens (editor_actions, "remove-last-capture", _("Remove Last Capture"), (sigc::mem_fun(*this, &Editor::remove_last_capture)));
 	act = reg_sens (editor_actions, "tag-last-capture", _("Tag Last Capture"), (sigc::mem_fun(*this, &Editor::tag_last_capture)));
 
@@ -543,8 +547,6 @@ Editor::register_actions ()
 		act->set_sensitive (false);
 	}
 
-	bind_mouse_mode_buttons ();
-
 	ActionManager::register_action (editor_actions, "step-mouse-mode", _("Step Mouse Mode"), sigc::bind (sigc::mem_fun(*this, &Editor::step_mouse_mode), true));
 
 	RadioAction::Group edit_point_group;
@@ -563,8 +565,6 @@ Editor::register_actions ()
 	ActionManager::register_action (editor_actions, "set-ripple-selected", _("Selected"), bind (mem_fun (*this, &Editor::set_ripple_mode), RippleSelected));
 	ActionManager::register_action (editor_actions, "set-ripple-all", _("All"), sigc::bind (sigc::mem_fun (*this, &Editor::set_ripple_mode), RippleAll));
 	ActionManager::register_action (editor_actions, "set-ripple-interview", S_("Interview"), sigc::bind (sigc::mem_fun (*this, &Editor::set_ripple_mode), RippleInterview));
-
-	register_grid_actions ();
 
 	ActionManager::register_toggle_action (editor_actions, X_("show-marker-lines"), _("Show Marker Lines"), sigc::mem_fun (*this, &Editor::toggle_marker_lines));
 
@@ -1334,3 +1334,128 @@ Editor::register_region_actions ()
 	sensitize_all_region_actions (false);
 }
 
+void
+Editor::automation_create_point_at_edit_point ()
+{
+	AutomationTimeAxisView* atv = dynamic_cast<AutomationTimeAxisView*> (entered_track);
+	if (!atv) {
+		return;
+	}
+
+	timepos_t where (get_preferred_edit_position());;
+	GdkEvent event;
+
+	event.type = GDK_KEY_PRESS;
+	event.button.button = 1;
+	event.button.state = 0;
+
+	atv->line()->add (atv->control(), &event, where, atv->line()->the_list()->eval (where), false, true);
+}
+
+void
+Editor::automation_lower_points ()
+{
+	PointSelection& points (selection->points);
+
+	if (points.empty()) {
+		return;
+	}
+
+	AutomationTimeAxisView* atv = dynamic_cast<AutomationTimeAxisView*> (entered_track);
+
+	if (!atv) {
+		return;
+	}
+
+	begin_reversible_command (_("automation event lower"));
+	add_command (new MementoCommand<AutomationList> (atv->line()->memento_command_binder(), &atv->line()->the_list()->get_state(), 0));
+	atv->line()->the_list()->freeze ();
+	for (auto & p : points) {
+		atv->line()->the_list()->modify (p->model(), (*p->model())->when, max (0.0, (*p->model())->value - 0.1));
+	}
+	atv->line()->the_list()->thaw ();
+	add_command (new MementoCommand<AutomationList>(atv->line()->memento_command_binder (), 0, &atv->line()->the_list()->get_state()));
+	commit_reversible_command ();
+}
+
+void
+Editor::automation_raise_points ()
+{
+	PointSelection& points (selection->points);
+
+	if (points.empty()) {
+		return;
+	}
+
+	AutomationTimeAxisView* atv = dynamic_cast<AutomationTimeAxisView*> (entered_track);
+
+	if (!atv) {
+		return;
+	}
+
+	begin_reversible_command (_("automation event raise"));
+	add_command (new MementoCommand<AutomationList> (atv->line()->memento_command_binder(), &atv->line()->the_list()->get_state(), 0));
+	atv->line()->the_list()->freeze ();
+	for (auto & p : points) {
+		atv->line()->the_list()->modify (p->model(), (*p->model())->when, min (1.0, (*p->model())->value + 0.1));
+	}
+	atv->line()->the_list()->thaw ();
+	add_command (new MementoCommand<AutomationList>(atv->line()->memento_command_binder (), 0, &atv->line()->the_list()->get_state()));
+	commit_reversible_command ();
+}
+
+void
+Editor::automation_move_points_later ()
+{
+	PointSelection& points (selection->points);
+
+	if (points.empty()) {
+		return;
+	}
+
+	AutomationTimeAxisView* atv = dynamic_cast<AutomationTimeAxisView*> (entered_track);
+
+	if (!atv) {
+		return;
+	}
+
+	begin_reversible_command (_("automation points move later"));
+	add_command (new MementoCommand<AutomationList> (atv->line()->memento_command_binder(), &atv->line()->the_list()->get_state(), 0));
+	atv->line()->the_list()->freeze ();
+	for (auto & p : points) {
+		timepos_t model_time ((*p->model())->when);
+		model_time += Temporal::BBT_Offset (0, 1, 0);
+		atv->line()->the_list()->modify (p->model(), model_time, (*p->model())->value);
+	}
+	atv->line()->the_list()->thaw ();
+	add_command (new MementoCommand<AutomationList>(atv->line()->memento_command_binder (), 0, &atv->line()->the_list()->get_state()));
+	commit_reversible_command ();
+}
+
+void
+Editor::automation_move_points_earlier ()
+{
+	PointSelection& points (selection->points);
+
+	if (points.empty()) {
+		return;
+	}
+
+	AutomationTimeAxisView* atv = dynamic_cast<AutomationTimeAxisView*> (entered_track);
+
+	if (!atv) {
+		return;
+	}
+
+	begin_reversible_command (_("automation points move earlier"));
+	add_command (new MementoCommand<AutomationList> (atv->line()->memento_command_binder(), &atv->line()->the_list()->get_state(), 0));
+	atv->line()->the_list()->freeze ();
+	for (auto & p : points) {
+		timepos_t model_time ((*p->model())->when);
+		model_time = model_time.earlier (Temporal::BBT_Offset (0, 1, 0));
+		atv->line()->the_list()->modify (p->model(), model_time, (*p->model())->value);
+	}
+	atv->line()->the_list()->thaw ();
+	add_command (new MementoCommand<AutomationList>(atv->line()->memento_command_binder (), 0, &atv->line()->the_list()->get_state()));
+	commit_reversible_command ();
+}

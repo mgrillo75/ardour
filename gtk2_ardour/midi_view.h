@@ -147,6 +147,8 @@ class MidiView : public virtual sigc::trackable, public LineMerger
 
 	void set_show_source (bool yn);
 	bool show_source () const { return _show_source; }
+	bool on_timeline () const { return _on_timeline; }
+	void set_on_timeline (bool yn);
 
 	NoteBase* add_note(const std::shared_ptr<NoteType> note, bool visible);
 
@@ -378,6 +380,7 @@ class MidiView : public virtual sigc::trackable, public LineMerger
 
 	int visible_channel() const { return _visible_channel; }
 	void set_visible_channel (int, bool clear_selection = true);
+	int pick_visible_channel () const;
 	PBD::Signal<void()> VisibleChannelChanged;
 
   protected:
@@ -538,6 +541,7 @@ class MidiView : public virtual sigc::trackable, public LineMerger
 	StartBoundaryRect*                   _start_boundary_rect;
 	EndBoundaryRect*                     _end_boundary_rect;
 	bool                                 _show_source;
+	bool                                 _on_timeline;
 	Drag*                                 selection_drag;
 	Drag*                                 draw_drag;
 	int                                  _visible_channel;
@@ -630,11 +634,11 @@ class MidiView : public virtual sigc::trackable, public LineMerger
 
 	virtual double height() const;
 
-	virtual double contents_height() const { return height() - 2; }
-	inline double note_height() const { return contents_height() / _midi_context.contents_note_range(); }
+	virtual int contents_height() const { return height() - 2; }
+	inline int note_height() const { return contents_height() / _midi_context.contents_note_range(); }
 
-	double note_to_y (uint8_t note) const { return _midi_context.note_to_y (note); }
-	uint8_t y_to_note (double y) const { return _midi_context.y_to_note (y); }
+	int note_to_y (uint8_t note) const { return _midi_context.note_to_y (note); }
+	uint8_t y_to_note (int y) const { return _midi_context.y_to_note (y); }
 
 	void update_patch_changes ();
 	void update_sysexes ();
@@ -691,6 +695,7 @@ class MidiView : public virtual sigc::trackable, public LineMerger
 	virtual void add_control_points_to_selection (Temporal::timepos_t const &, Temporal::timepos_t const &, double y0, double y1) {}
 
 	void color_note (NoteBase*, int channel);
+	virtual bool post_paste (Temporal::timepos_t const & pos, const ::Selection& selection, PasteContext& ctx) { return false; }
 };
 
 

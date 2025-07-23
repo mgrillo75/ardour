@@ -30,7 +30,7 @@
 #include <gtkmm2ext/gtk_ui.h>
 
 #include "canvas/rectangle.h"
-#include "canvas/line_set.h"
+#include "canvas/rect_set.h"
 
 #include "ardour/midi_region.h"
 #include "ardour/midi_source.h"
@@ -64,7 +64,7 @@ using namespace Editing;
 
 MidiStreamView::MidiStreamView (MidiTimeAxisView& tv)
 	: StreamView (tv)
-	, MidiViewBackground (_canvas_group)
+	, MidiViewBackground (_canvas_group, tv.editor())
 	, _updates_suspended (false)
 {
 	/* use a dedicated group for MIDI regions (on top of the grid and lines) */
@@ -207,7 +207,9 @@ MidiStreamView::display_region (MidiRegionView* region_view, bool)
 		return;
 	}
 
-	_range_dirty = update_data_note_range (source->model()->lowest_note(), source->model()->highest_note());
+	if (!source->model()->empty()) {
+		_range_dirty = update_data_note_range (source->model()->lowest_note(), source->model()->highest_note());
+	}
 
 	// Display region contents
 	region_view->display_model (source->model());
@@ -219,7 +221,7 @@ MidiStreamView::display_track (std::shared_ptr<Track> tr)
 {
 	StreamView::display_track (tr);
 
-	draw_note_lines();
+	setup_note_lines();
 
 	NoteRangeChanged(); /* EMIT SIGNAL*/
 }
@@ -453,7 +455,7 @@ MidiStreamView::resume_updates ()
 {
 	_updates_suspended = false;
 
-	draw_note_lines ();
+	setup_note_lines ();
 	apply_note_range_to_children ();
 
 	_canvas_group->redraw ();
@@ -531,8 +533,3 @@ MidiStreamView::record_layer_check (std::shared_ptr<ARDOUR::Region> r, samplepos
 	check_record_layers (r, t);
 }
 
-double
-MidiStreamView::y_position () const
-{
-	return _trackview.y_position();
-}

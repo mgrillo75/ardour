@@ -149,6 +149,7 @@ public:
 	void region_resized (const PBD::PropertyChange&);
 	bool canvas_group_event (GdkEvent*);
 	void add_control_points_to_selection (Temporal::timepos_t const &, Temporal::timepos_t const &, double y0, double y1);
+	bool post_paste (Temporal::timepos_t const & pos, const ::Selection& selection, PasteContext& ctx);
 
   private:
 
@@ -177,7 +178,7 @@ public:
 	void leave_internal ();
 	void mouse_mode_changed ();
 
-	double contents_height() const { return (_height - TimeAxisViewItem::NAME_HIGHLIGHT_SIZE - 2); }
+	int contents_height() const { return (_height - TimeAxisViewItem::NAME_HIGHLIGHT_SIZE - 2); }
 
 	void connect_to_diskstream ();
 	bool pianoroll_window_deleted (GdkEventAny*);

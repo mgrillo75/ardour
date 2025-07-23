@@ -20,16 +20,19 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "ardour/smf_source.h"
+#include "ardour/midi_region.h"
+
 #include "pianoroll.h"
 #include "pianoroll_background.h"
 #include "midi_view.h"
 
 PianorollMidiBackground::PianorollMidiBackground (ArdourCanvas::Item* parent, Pianoroll& pr)
-	: MidiViewBackground (parent)
+	: MidiViewBackground (parent, pr)
 	, view (nullptr)
 	, pianoroll (pr)
-	, _width (0.)
-	, _height (0.)
+	, _width (0)
+	, _height (0)
 {
 }
 
@@ -38,7 +41,7 @@ PianorollMidiBackground::~PianorollMidiBackground ()
 }
 
 void
-PianorollMidiBackground::set_size (double w, double h)
+PianorollMidiBackground::set_size (int w, int h)
 {
 	_width = w;
 	_height = h;
@@ -48,19 +51,19 @@ PianorollMidiBackground::set_size (double w, double h)
 	HeightChanged (); /* EMIT SIGNAL */
 }
 
-double
+int
 PianorollMidiBackground::contents_height() const
 {
 	return _height;
 }
 
-double
+int
 PianorollMidiBackground::height() const
 {
 	return _height;
 }
 
-double
+int
 PianorollMidiBackground::width() const
 {
 	return _width;
@@ -100,4 +103,12 @@ PianorollMidiBackground::apply_note_range_to_children ()
 	if (view) {
 		view->apply_note_range (lowest_note(), highest_note());
 	}
+}
+
+void
+PianorollMidiBackground::display_region (MidiView& mv)
+{
+	std::shared_ptr<ARDOUR::SMFSource> smf (std::dynamic_pointer_cast<ARDOUR::SMFSource> (mv.midi_region()->source()));
+	assert (smf);
+	(void) update_data_note_range (smf->model()->lowest_note(), smf->model()->highest_note());
 }

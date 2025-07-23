@@ -538,8 +538,6 @@ MidiRegionView::ghost_add_note (NoteBase* nb)
 
 		MidiGhostRegion* gr;
 
-		std::cerr << "GAN on " << ghost << std::endl;
-
 		if ((gr = dynamic_cast<MidiGhostRegion*>(ghost)) != 0) {
 			gr->add_note (nb);
 		}
@@ -592,7 +590,9 @@ uint32_t
 MidiRegionView::get_fill_color() const
 {
 	Gtkmm2ext::Color c;
-	if (_selected) {
+	Editing::MouseMode mm = trackview.editor().effective_mouse_mode ();
+
+	if (_selected && (mm != Editing::MouseDraw && mm != Editing::MouseContent)) {
 		c = UIConfiguration::instance().color ("selected region base");
 	} else if ((!UIConfiguration::instance().get_show_name_highlight() || high_enough_for_name) && !UIConfiguration::instance().get_color_regions_using_track_color()) {
 		c = UIConfiguration::instance().color (fill_color_name);
@@ -710,6 +710,7 @@ MidiRegionView::edit_in_pianoroll_window ()
 	PianorollWindow* pr = new PianorollWindow (string_compose (_("Pianoroll: %1"), _region->name()), track->session());
 
 	pr->set (track, midi_region());
+	pr->set_show_source (false);
 	pr->show_all ();
 	pr->present ();
 
@@ -757,4 +758,22 @@ MidiRegionView::trim_front_ending ()
 		/* Trim drag made start time -ve; fix this */
 		midi_region()->fix_negative_start (_editing_context.history());
 	}
+}
+
+bool
+MidiRegionView::post_paste (Temporal::timepos_t const & pos, const ::Selection& selection, PasteContext& ctx)
+{
+	// Paste control points to automation children, if available
+
+	typedef RouteTimeAxisView::AutomationTracks ATracks;
+	ATracks const & atracks = dynamic_cast<StripableTimeAxisView*>(&trackview)->automation_tracks();
+	bool commit = false;
+
+	for (auto & at : atracks) {
+		if (at.second->paste(pos, selection, ctx)) {
+			commit = true;
+		}
+	}
+
+	return commit;
 }

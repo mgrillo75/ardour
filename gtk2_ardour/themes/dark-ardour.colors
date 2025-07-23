@@ -199,6 +199,7 @@
     <ColorAlias name="location marker" alias="theme:contrasting less"/>
     <ColorAlias name="location punch" alias="widget:ruddy"/>
     <ColorAlias name="location range" alias="theme:contrasting less"/>
+    <ColorAlias name="location session" alias="theme:contrasting less"/>
     <ColorAlias name="lock button: fill active" alias="widget:bg"/>
     <ColorAlias name="lock button: led active" alias="alert:red"/>
     <ColorAlias name="lua action button: fill" alias="widget:bg"/>
@@ -326,7 +327,7 @@
     <ColorAlias name="piano key highlight" alias="alert:ruddy"/>
     <ColorAlias name="piano key white" alias="neutral:foreground2"/>
     <ColorAlias name="piano roll black" alias="theme:contrasting selection"/>
-    <ColorAlias name="piano roll black outline" alias="neutral:foreground2"/>
+    <ColorAlias name="piano roll black outline" alias="neutral:background"/>
     <ColorAlias name="piano roll white" alias="neutral:foreground2"/>
     <ColorAlias name="pinrouting custom: led active" alias="alert:ruddy"/>
     <ColorAlias name="pinrouting sidechain: led active" alias="alert:green"/>

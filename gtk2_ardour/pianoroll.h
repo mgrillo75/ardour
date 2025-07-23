@@ -25,6 +25,7 @@
 #include <ytkmm/adjustment.h>
 
 #include "canvas/ruler.h"
+#include "widgets/eventboxext.h"
 
 #include "cue_editor.h"
 
@@ -142,12 +143,15 @@ class Pianoroll : public CueEditor
 
 	PianorollMidiView* midi_view() const { return view; }
 	void set_session (ARDOUR::Session*);
+	void session_going_away ();
 	bool allow_trim_cursors () const;
 
 	void shift_midi (Temporal::timepos_t const &, bool model);
 	void make_a_region();
 
 	ARDOUR::InstrumentInfo* instrument_info() const;
+
+	void set_show_source (bool);
 
   protected:
 	void load_bindings ();
@@ -210,7 +214,7 @@ class Pianoroll : public CueEditor
 
 	ArdourCanvas::Rectangle* transport_loop_range_rect;
 
-	Gtk::EventBox _contents;
+	ArdourWidgets::EventBoxExt _contents;
 	Gtk::VBox     _toolbox;
 
 	Gtk::HBox                    button_bar;
@@ -347,4 +351,16 @@ class Pianoroll : public CueEditor
 	void ruler_locate (GdkEventButton*);
 	void scrolled ();
 	void update_tempo_based_rulers ();
+
+	Gtk::Menu _region_context_menu;
+	void popup_region_context_menu (ArdourCanvas::Item* item, GdkEvent* event);
+
+	std::shared_ptr<ARDOUR::MidiRegion> _visible_pending_region;
+	void catch_pending_show_region ();
+
+	bool show_source;
+	void set_note_selection (uint8_t note);
+	void add_note_selection (uint8_t note);
+	void extend_note_selection (uint8_t note);
+	void toggle_note_selection (uint8_t note);
 };
