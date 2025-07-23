@@ -1,0 +1,204 @@
+<p>
+	Steinberg CC121 is a compact control surface originally designed for use with
+	the Cubase&trade; digital audio workstation.
+</p>
+
+<figure>
+  <img
+  	style="width:75%;"
+	src="/images/steinberg-cc121.svg"
+	alt="Steinberg CC121"
+	class="invert-in-dark">
+  <figcaption>
+    Steinberg CC121
+  </figcaption>
+</figure>
+
+<h2>Connecting the CC121</h2>
+
+<p>
+	Plug the USB cable from the CC121 into a USB2 or USB3 port on your computer.
+	The device will be automatically recognized by your operating system and will
+	appear in any of the lists of possible MIDI ports in Ardour.
+</p>
+
+<p>
+	To connect the CC121 to Ardour, open the <kbd class="window">Preferences</kbd>
+	dialog, and then click <kbd>Control Surfaces</kbd>. Tick the
+	<kbd class="option">Enable</kbd> checkbox opposite to "Steinberg CC121" to
+	activate Ardour's CC121 support.
+</p>
+
+<p>
+	Once the device is activated, click <kbd>Show Protocol Settings</kbd> and in
+	the newly opened window select the device in the drop-down lists for incoming
+	and outgoing MIDI events.
+</p>
+
+<p>
+	Once you select the input and output port, the CC121 will be ready to use.
+	You only need do this once: once these ports are connected and your session
+	has been saved, the connections will be made automatically in this and other
+	future sessions.
+</p>
+
+<h2>CC121 Configuration</h2>
+
+<p>
+	Ardour supports a subset of features available in the CC121. Various actions
+	in the program can be mapped to the following buttons and encoders on the
+	device:
+</p>
+
+<ul>
+	<li>
+		<kbd class="button">Function 1</kbd> through
+		<kbd class="button">Function 4</kbd> buttons
+	</li>
+	<li>
+		<kbd class="button">Value</kbd> encoder
+	</li>
+	<li>
+		<kbd class="button">Lock</kbd> button
+	</li>
+	<li>
+		<kbd class="button">EQ type</kbd> button
+	</li>
+	<li>
+		<kbd class="button">All Bypass</kbd> button
+	</li>
+	<li>
+		<kbd class="button">EQ1</kbd> through
+		<kbd class="button">EQ4</kbd> toggles
+	</li>
+</ul>
+
+<p>
+	Here is an example of a customized setup: 
+</p>
+
+<figure>
+  <img style="width:50%;" src="/images/steinberg-cc121-settings.png" alt="Steinberg CC121 settings">
+  <figcaption>
+    Steinberg CC121 settings
+  </figcaption>
+</figure>
+
+<p>
+	Some additional behavior cannot be configured:
+</p>
+
+<table class="dl">
+  <tr>
+  	<th>Fader</th>
+  	<td>Controls the fader of the selected track or bus</td>
+  </tr>
+  <tr>
+  	<th>Pan encoder</th>
+  	<td>Controls the panner of the selected track or bus</td>
+  </tr>
+  <tr>
+  	<th><kbd class="button">M</kbd> button</th>
+  	<td>Mutes the selected track or bus</td>
+  </tr>
+  <tr>
+  	<th><kbd class="button">S</kbd> button</th>
+  	<td>Soloes the selected track or bus</td>
+  </tr>
+  <tr>
+  	<th><kbd class="button">R</kbd> button</th>
+  	<td>
+  		Read automation, sets the fader to the play mode, can only be disabled
+  		by pressing <kbd class="button">E</kbd>, <kbd class="button">Edit 
+  		instrument</kbd> or <kbd class="button">Write automation</kbd></td>
+  </tr>
+  <tr>
+  	<th><kbd class="button">W</kbd> button</th>
+  	<td>
+  		Write automation, sets the fader to the write mode, can only be disabled
+  		by pressing <kbd class="button">E</kbd>, <kbd class="button">Edit
+  		instrument</kbd> or <kbd class="button">Read automation</kbd></td>
+  </tr>
+  <tr>
+  	<th>Speaker button</th>
+  	<td>
+  		Alternate between <em>In</em>, <em>Disk</em>, <em>In/Disk</em>, and
+  		<em>In</em> and <em>Disk</em> both disabled</td>
+  </tr>
+	<tr>
+		<th><kbd class="button">O</kbd> button</th>
+		<td>Arms a track for recording</td>
+	</tr>
+  <tr>
+  	<th><kbd class="button">E</kbd> (edit) button</th>
+  	<td>
+  		Sets the fader to touch mode, can only be disabled by pressing
+  		<kbd class="button">Edit instrument</kbd>, <kbd class="button">Read
+  		automation</kbd>, or <kbd class="button">Write automation</kbd>
+  	</td>
+  </tr>
+  <tr>
+  	<th>Edit instrument button</th>
+  	<td>
+  		Sets the fader to the manual mode, can only be disabled by pressing
+  		<kbd class="button">E</kbd>, <kbd class="button">Read automation</kbd> or
+  		<kbd class="button">Write automation</kbd>
+  	</td>
+  </tr>
+  <tr>
+  	<th>Channel Select</th>
+  	<td>
+  		Left-pointing button selects the previous track, right-pointing button
+  		selects the next track
+  	</td>
+  </tr>
+
+  <tr>
+  	<th>Jog Wheel</th>
+  	<td>
+  		Jogs through audio with <kbd class="button">Jog</kbd> button enabled,
+  		zooms in/out with <kbd class="button">Jog</kbd> button disabled
+  	</td>
+  </tr>
+  <tr>
+  	<th>Previous button</th>
+  	<td>Moves the playhead to the previous marker</td>
+  </tr>
+  <tr>
+  	<th>Rewind</th>
+  	<td>Moves the playhead back in time</td>
+  </tr>
+  <tr>
+  	<th>Forward</th>
+  	<td>Moves the playhead forward in time</td>
+  </tr>
+  <tr>
+  	<th>Next button</th>
+  	<td>Moves the playhead to the next marker</td>
+  </tr>
+  <tr>
+  	<th>Loop/Cycle button</th>
+  	<td>Enables/disables region looping</td>
+  </tr>
+  <tr>
+  	<th>Stop</th>
+  	<td>Stops the transport</td>
+  </tr>
+  <tr>
+  	<th>Play</th>
+  	<td>Rolls the transport</td>
+  </tr>
+  <tr>
+  	<th>Record</th>
+  	<td>
+  		<p>
+  			Starts to blink when pressed, when a track has record enable set and play is pressed, recording to the track will start and it will be lit during recording. When pressed again during recording, track will keep playing but is no longer recording and the button will no longer be lit.
+  		</p>
+			<p>
+				When a track does not have record enable set, the record button will keep blinking when play is pressed, the track will play but not record. Once the record enable button is pressed, recording has started and the button will be lit.
+			</p>
+		</td>
+  </tr>
+</table>
+
+

@@ -1,0 +1,39 @@
+
+<p>
+  Every MIDI note consists of two messages, a NoteOn and a NoteOff. Each one
+  has a note number and a channel (also a velocity, but that isn't relevant
+  here). The MIDI standard stresses that it is invalid to send a second NoteOn
+  for the same note number on the same channel before a NoteOff for the first
+  NoteOn. It is more or less impossible to do this with a physical MIDI
+  controller such as a keyboard, but remarkably easy to trigger when editing
+  in a DAW&mdash;simply overlapping two instances of the same note will do it.
+</p>
+<p>
+  Ardour offers many options for how to deal with instances where  two instances
+  of the same note overlap. Which one to use is a per-session property and can
+  be modified from <kbd class="menu">Session &gt; Properties &gt; Misc &gt; MIDI
+  Options</kbd>.
+</p>
+
+<table class="dl">
+  <tr><th>never allow them</th>
+  <td>Edits that would create note overlaps are not allowed</td></tr>
+  <tr><th>don't do anything in particular</th>
+  <td>Ardour leaves overlapping notes alone&mdash;the behaviour of a MIDI receiver (plugin or hardware) is undefined</td></tr>
+  <tr><th>replace any overlapped existing note</th>
+  <td>When one note is moved to overlap another, remove the one that wasn't being moved</td></tr>
+  <tr><th>shorten the overlapped existing note</th>
+  <td>When one note is moved to overlap another, shorten the one that wasn't moved so that there is no overlap</td></tr>
+  <tr><th>shorten the overlapping new note</th>
+  <td>When one note is moved to overlap another, shorten the one that was moved so that there is no overlap</td></tr>
+  <tr><th>replace both overlapping notes with a single note</th>
+  <td>When one note is moved to overlap another, merge them both to form one (longer) note</td></tr>
+</table>
+<p>
+  Changing the option in use will not retroactively make changes&mdash;it will
+  only affect new note overlaps created while the option remains chosen.
+</p>
+<p class="warning">
+  Ardour does not check for note overlaps across tracks or even across regions.
+  Dealing with the consequences is up to the user.
+</p>

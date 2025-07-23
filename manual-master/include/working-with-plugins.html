@@ -1,0 +1,61 @@
+
+<p>
+  <dfn>Plugins</dfn> are bits of software that get loaded by Ardour in order to:</p>
+<ul>
+  <li>Create various audio or MIDI effects</li>
+  <li>Generate audio by functioning as "software instruments"</li>
+</ul>
+
+<p>
+  They are usually written by 3rd parties, though a few
+  <a href="@@bundled-plugins">come bundled with Ardour</a> (some are only
+  available in official builds distributed from ardour.org). The sources for
+  plugins are many and varied; see <a href="@@getting-more-plugins">here</a>
+  for some information on how to get them.
+</p>
+
+<p>
+  Ardour supports a variety of different plugin standards:
+</p>
+
+<table class="dl">
+  <tr>
+    <th><abbr title="Linux Audio Developers' Simple Plugin API">LADSPA</abbr></th>
+    <td>
+      An early, simple, lightweight plugin <abbr title="Application
+      Programming Interface">API</abbr>, audio effects only, plugins have no
+      editors/GUI of their own (Ardour provides one, however).</td>
+  </tr>
+  <tr>
+    <th><abbr title="LADSPA Version 2">LV2</abbr></th>
+    <td>
+      An extensible, full-featured plugin API, audio and <abbr
+      title="Musical Instrument Digital Interface">MIDI</abbr>, plugins can
+      provide their own  <abbr title="Graphical User Interface">GUI</abbr>s but
+      may use the one Ardour provides instead.
+    </td>
+  </tr>
+  <tr>
+    <th><abbr title="Audio Unit">AU</abbr></th>
+    <td>
+      OS X only, full featured, audio and MIDI, plugins can provide their own
+      GUI
+    </td>
+  </tr>
+  <tr>
+    <th><abbr title="Virtual Studio Technology">VST</abbr></th>
+    <td>
+      Plugins using Steinberg's VST2 and VST3 plugin standard.
+    </td>
+  </tr>
+</table>
+
+<h2>Adding/Removing/Copying Plugins</h2>
+
+<p>
+  Within Ardour, plugins are just another type of <dfn>Processor</dfn> and so
+  the techniques for adding/removing/copying/moving processors apply to plugins
+  as well. These techniques are covered on the
+  <a href="@@processor-box">Processor Box</a> page.
+</p>
+

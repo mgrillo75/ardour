@@ -1,0 +1,143 @@
+
+
+<figure>
+	<img src="/images/toolbar-grid.png" alt="Snap & Grid">
+	<figcaption>
+		Snap & Grid
+	</figcaption>
+</figure>
+
+<h2 id="grid_controls-snap">Snap</h2>
+
+<p>
+  <dfn>Snap</dfn> will cause region drags and other mouse-driven
+  operations to jump to positions determined by the nearest snap
+  setting when the mouse is close enough to this snap point. Snapping
+  is sometimes (improperly) referred to as magnetism.
+</p>
+<p>
+  The Snap options are set in the <a
+  href="@@preferences#preferences-editor-snap">Preferences</a>. Those
+  include the Snap Threshold which determines how close the mouse has
+  to be to a snap anchor to induce a snap, and the snap anchors
+  themselves, among:
+</p>
+<ul>
+  <li>Markers</li>
+  <li>Region Sync points</li>
+  <li>Region Starts</li>
+  <li>Region Ends</li>
+  <li>Grid.</li>
+</ul>
+
+<h2 id="grid_controls-grid">Grid</h2>
+<p>
+  The <em>Grid</em> helps visually placing items in time. It will draw
+  lines at selected intervals as chosen in the drop-down selector.
+  Musical grid settings (<em>Bar</em> to <em>Sextuplets</em>) obviously
+  depend on the <a href="@@tempo-and-meter">tempo and time signature</a>, so
+  changing the tempo or time signature will rescale the grid, while absolute
+  grid settings (<em>Timecode</em>, etc&hellip;) won't be affected.
+</p>
+
+<p class="note">
+  A word about time signature in this context: a time signature
+  consists of 2 numbers. The upper one determines how many beats are in
+  a bar, the lower one, what division of a note a beat represents (e.g.
+  : <em>4</em> stands for a quarter note). At e.g. 80 <abbr
+  title="beats per minute">bpm</abbr>, one beat lasts 1/80th min, so
+  0.75 sec. If the time signature is 3/4, there are 3 beats in a bar so
+  a bar lasts for 3 &times; 0.75 = 2.25 sec. Choosing <em>1/8 Note</em>
+  as the grid setting will draw grid lines every 0.75 &divide; 1/4
+  &times; 1/8 = 0.375 sec.
+</p>
+
+<p>
+  The grid density can be either based on musical time:
+</p>
+
+<ul>
+  <li><em>No Grid</em>: hides the Grid</li>
+  <li><em>Bar</em>: shows one grid line per bar (e.g, in 4/4 at 120bpm, one line every 2 seconds)</li>
+  <li><em>1/4</em>: shows one grid line per quarter bar, or 4 grid lines per bar (e.g, in 4/4 at 120bpm, one line every .5 seconds)</li>
+  <li><em>...</em></li>
+  <li><em>1/128</em>: shows one grid line per 128<sup>th</sup> bar, or 128 grid lines per bar</li>
+  <li><em>Triplets</em>: groups the ternary divisions of time:
+	<ul>
+	  <li><em>1/3 (8th triplet)</em>: shows one grid line per third bar</li>
+	  <li><em>...</em></li>
+	  <li><em>1/24 (64th triplet)</em>: shows one grid line per 24<sup>th</sup> bar</li>
+	</ul>
+  </li>
+  <li><em>Quintuplets</em>: groups the 1/5<sup>th</sup> divisions of time:
+	<ul>
+	  <li><em>1/5 (8th quintuplet)</em>: shows one grid line per fifth bar</li>
+	  <li><em>...</em></li>
+	  <li><em>1/20 (32th quintuplet)</em>: shows one grid line per 20<sup>th</sup> bar</li>
+	</ul>
+  </li>
+  <li><em>Septuplets</em>: groups the 1/7<sup>th</sup> divisions of time:
+	<ul>
+	  <li><em>1/7 (8th septuplet)</em>: shows one grid line per seventh bar</li>
+	  <li><em>...</em></li>
+	  <li><em>1/28 (32th septuplet)</em>: shows one grid line per 28<sup>th</sup> bar</li>
+	</ul>
+  </li>
+</ul>
+
+<p>
+  Or absolute time:
+</p>
+
+<ul>
+  <li><em>Timecode</em>: shows one grid every <a href="@@on-clock-and-time">frame</a></li>
+  <li><em>MinSec</em>: shows one grid line every thousandth of a second</li>
+  <li><em>CD Frames</em>: shows one grid line per CD Frame (1/75<sup>th</sup> second)</li>
+</ul>
+
+<p>
+  Alternatively, Ardour can disable the usual musical/non-musical time grid
+  and make the current playhead position the only snappable target. To do
+  that, select the "Playhead" item in the drop-down list.
+</p>
+
+<p class="warning">
+The grid consist of lines running vertically in the edit canvas. When
+zooming too far out, the grid can become too coarse. Ardour tries not
+to show “too many” or “too few” grid lines depending on the zoom level,
+based on the <em>Approximate Grid/Ruler granularity (pixels)</em> <a
+href="@@preferences#preferences-editor-snap">Preferences</a> parameter.
+As a consequence, when the Grid is in the Snap anchors, it is possible
+that items snap in-between the grid lines sometimes. That’s expected
+behavior.
+</p>
+
+<h3>Syncing Regions to the Grid</h2>
+
+<p>
+  By default, a region's beginning will be used as the reference for
+  both types of snapping, this behaviour can be changed by setting a
+  <dfn>sync point</dfn> in the region, by selecting the region(s) and
+  pressing <kbd>V</kbd>. This will set the sync point to the current <a
+  href="@@edit-point-control">edit point</a>.
+</p>
+
+<h3>Keyboard modifiers</h3>
+
+<p>
+  Snapping can be temporarily disabled by using a keyboard modifier while
+  editing, <kbd class="mod2n"></kbd> by default.
+</p>
+<p>
+  Snapping can also be temporarily set to relative, i.e. snapping will
+  occur relative to the current position of the dragged item. E.g. if
+  the Grid is in the Snap options, and the grid is set to
+  <em>Bars</em>, using this keyboard modifier while dragging will snap
+  at every bar relative to the region's beginning (or sync point)
+  instead of the absolute musical bars.
+</p>
+<p>
+  The keyboard modifiers are defined in the <a
+  href="@@preferences#preferences-editor-modifiers">Preferences</a>.
+</p>
+

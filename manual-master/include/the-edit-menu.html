@@ -1,0 +1,105 @@
+
+<p>
+	The <dfn>Edit</dfn> menu groups together the actions related to the edition, and so will be mostly used while in Editor mode.
+</p>
+<table class="dl">
+	<tr><th>Undo (<em>action</em>)</th><td>Reverts the last editing operation, namely <em>action</em></td></tr>
+	<tr><th>Redo</th><td>Does the last editing operation again, after an Undo</td></tr>
+
+	<tr><th>Undo Selection Change</th><td>Reverts the last selection operation</td></tr>
+	<tr><th>Redo Selection Change</th><td>Does the last selection operation again after an Undo Selection Change</td></tr>
+
+	<tr><th>Cut</th><td>Deletes the current selection, but puts it in memory ready to be pasted</td></tr>
+	<tr><th>Copy</th><td>Copies the current selection to memory</td></tr>
+	<tr><th>Paste</th><td>Pastes the memory at the <a href="@@edit-point-control">edit point</a>, after a Cut or Copy operation</td></tr>
+
+	<tr><th colspan="2">Select</th></tr>
+		<tr><th class="sub1">Select All Objects</th><td>Selects all the regions and automation points in the session</td></tr>
+		<tr><th class="sub1">Select All Tracks</th><td>Selects all the tracks, busses and control masters in the session</td></tr>
+		<tr><th class="sub1">Select All Visible Lanes</th><td>Selects all the visible tracks, busses and control masters, i.e. those marked <kbd class="check">v</kbd> in the <a href="@@editor-lists">Editor List</a></td></tr>
+		<tr><th class="sub1">Deselect All</th><td>Deselects all objects or tracks, nothing is selected</td></tr>
+		<tr><th class="sub1">Invert Note Selection</th><td>Select the previously unselected regions, and deselect the previously selected ones</td></tr>
+
+		<tr><th class="sub1">Set Range to Loop Range</th><td>Creates a range selection on the selected tracks, based on the selected loop markers, and switches to <a href="@@toolbox">Range Mode tool</a></td></tr>
+		<tr><th class="sub1">Set Range to Punch Range</th><td>Same as above, based on the selected punch markers</td></tr>
+		<tr><th class="sub1">Set Range to Selected Regions</th><td>Same as above, based on the selected regions (i.e. from the start of the earliest region to the end of the latest one)</td></tr>
+
+		<tr><th class="sub1">Select All After Edit Point</th><td>Select all the regions and automation points that exist after the Edit Point, even if the region starts before it. If some tracks are selected, only selects on these tracks.</td></tr>
+		<tr><th class="sub1">Select All Before Edit Point</th><td>Same as above, but before the Edit point (i.e. to the left of it)</td></tr>
+		<tr><th class="sub1">Select All Overlapping Edit Range</th><td>Select all the regions and automation points of which at least a part is in the current selection range</td></tr>
+		<tr><th class="sub1">Select All Inside Edit Range</th><td>Selects all the regions that are completely inside the selection range, i.e. their start and end are inside the range. If some tracks are selected, only selects on these tracks.</td></tr>
+		<tr><th class="sub1">Select All in Punch Range</th><td>Selects all the regions of which a part in in the punch range. If some tracks are selected, only selects on these tracks.</td></tr>
+		<tr><th class="sub1">Select All in Loop Range</th><td>Same as above, based on the loop range</td></tr>
+
+		<tr><th class="sub1">Move Range Start to Previous Region Boundary</th><td>Extends the left boundary of the range to the left to the next region start or end. The region must be in the range.</td></tr>
+		<tr><th class="sub1">Move Range Start to Next Region Boundary</th><td>Same as above, to the right (reduces the selection)</td></tr>
+		<tr><th class="sub1">Move Range End to Previous Region Boundary</th><td>Same as above, with the right edge of the range, to the left (reduces the selection)</td></tr>
+		<tr><th class="sub1">Move Range End to Next Region Boundary</th><td>Same as above, with the right edge, to the right (extends the selection)</td></tr>
+
+		<tr><th class="sub1">Start Range</th><td>Sets the left edge of the range to the Edit point</td></tr>
+		<tr><th class="sub1">Finish Range</th><td>Sets the right edge of the range to the Edit point</td></tr>
+
+		<tr><th class="sub1">Select Next Track or Bus</th><td>Select the track or bus under the currently selected one. If multiple tracks are selected, only the first one is considered</td></tr>
+		<tr><th class="sub1">Select Previous Track or Bus</th><td>Same as above, with the track/bus above the first one selected.</td></tr>
+
+	<tr><th>Delete</th><td>Deletes all that is currently selected</td></tr>
+	<tr><th>Crop</th><td>Cuts the parts of the regions that are outside the range boundaries. Only applies on the regions that belong at least in part to the range.</td></tr>
+	<tr><th>Split/Separate</th><td>Cuts the selected regions at the Edit point, separating them in two regions</td></tr>
+	<tr><th colspan="2">Separate</th></tr>
+		<tr><th class="sub1">Separate Under</th><td>Removes all the parts of the regions that are under the selected one. Once done, the selected region is alone on its part of the track.</td></tr>
+		<tr><th class="sub1">Separate Using Loop Range</th><td>Cuts the selected regions or the regions on the selected tracks along the Loop range's start and end markers. If nothing is selected, acts on all tracks at once.</td></tr>
+		<tr><th class="sub1">Separate Using Punch Range</th><td>Same as above, with the Punch range markers</td></tr>
+	<tr><th colspan="2">Consolidate</th></tr>
+		<tr><th class="sub1">Consolidate Range</th><td>Group all parts of regions in the range and on the same track as one (Audio or MIDI but not both). Optionally, add it to the Cue Grid and/or to the Clip library.</td></tr>
+		<tr><th class="sub1">Consolidate Range (with processing)</th><td>Same as above, with processing (effects, plugins, gain&hellip) applied before grouping.</td></tr>
+		<tr><th class="sub1">Combine</th><td>Group all the selected regions belonging to the same track as one (Audio or MIDI but not both).</td></tr>
+		<tr><th class="sub1">Uncombine</th><td>(Audio only) splits back a compound into its original regions.</td></tr>
+	<tr><th colspan="2">Align</th></tr>
+		<tr><th class="sub1">Align Start</th><td>Moves the selected regions to align the beginning of the regions to the Edit point</td></tr>
+		<tr><th class="sub1">Align Start Relative</th><td>When multiple regions are selected, moves all the regions together as a block to align the beginning of the earliest one to the Edit point.</td></tr>
+		<tr><th class="sub1">Align End</th><td>Moves the selected regions to align the end of the regions to the Edit point</td></tr>
+		<tr><th class="sub1">Align End Relative</th><td>When multiple regions are selected, moves all the regions together as a block to align the end of the latest one to the Edit point.</td></tr>
+		<tr><th class="sub1">Align Sync</th><td>Moves the selected regions to align the Sync point of the regions to the Edit point</td></tr>
+		<tr><th class="sub1">Align Sync Relative</th><td>When multiple regions are selected, moves all the regions together as a block to align the earliest Sync point to the Edit point.</td></tr>
+	<tr><th colspan="2">Fade</th></tr>
+		<tr><th class="sub1">Fade Range Selection</th><td>For all the regions that either begin or end in the range, create a fade in or out on the regions length.</td></tr>
+		<tr><th class="sub1">Set Fade In Length</th><td>If the edit point is within the region boundaries, adjusts selected audio regions' fade in to end at the edit point.</td></tr>
+		<tr><th class="sub1">&square; Fade In</th><td>Toggles the fade in on the selected region on or off</td></tr>
+		<tr><th class="sub1">Set Fade Out Length</th><td>Same as above, for the fade out</td></tr>
+		<tr><th class="sub1">&square; Fade Out</th><td>Toggles the fade out on the selected region on or off</td></tr>
+
+	<tr><th colspan="2">Analyze</th></tr>
+		<tr><th class="sub1">Spectral Analysis</th><td>For the selected range and tracks, shows the Spectral analysis, showing a frequency vs dBFS graph.</td></tr>
+		<tr><th class="sub1">Loudness Analysis</th><td>For the selected range, one tab per track, shows the <a href="@@export-dialog#export_analyze">Audio Report/Analysis</a>, showing in particular a time vs dBFS graph.</td></tr>
+		<tr><th class="sub1">Loudness Assistant</th><td>For the selected range and tracks, shows the <a href="@@loudness-analyzer">Loudness Analyzer and Normalizer</a>.</td></tr>
+
+	<tr><th>Tag Last Capture</th><td>Prompts for a text to tag the last record, this tag is visible in the <a href="@@the-region-list">Region list</a></td></tr>
+	<tr><th>Remove Last Capture</th><td>Destroy the last recording. A prompt reminds the user this <em>cannot</em> be undone.</td></tr>
+
+	<tr><th colspan="2">Edit point</th></tr>
+		<tr><th class="sub1">Change Edit Point</th><td>Toggles between the mouse and the playhead as the Edit point</td></tr>
+		<tr><th class="sub1">Change Edit Point Including Marker</th><td>Toggles between the mouse, the playhead and marker as the Edit point</td></tr>
+	<tr><th>Toggle Snap</th><td>Activates/deactivates snapping, which aligns region boundaries to the closest selected time marker when moved</td></tr>
+	<tr><th colspan="2">Snap &amp; Grid</th></tr>
+		<tr><th class="sub1">Previous Quantize Grid Choice</th><td>Changes the snap quantization to the previous one in the list below</td></tr>
+		<tr><th class="sub1">Next Quantize Grid Choice</th><td>Changes the snap quantization to the next one in the list below</td></tr>
+			
+		<tr><th class="sub1">&cir; No Grid</th><td>Disables <a href="@@grid-controls">snapping</a>, i.e. allows free movement of regions and boundaries</td></tr>
+		<tr><th class="sub1">&cir; Bar</th><td>Snaps to the closest musical bar, bars can be set and seen in the <a href="@@ruler">Ruler</a></td></tr>
+		<tr><th class="sub1">&cir; 1/4 Note &rarr; 1/28 (32nd septuplet)</th><td>Selects the division of musical time to snap to</td></tr>
+		<tr><th class="sub1">&cir; Timecode</th><td>Snaps to the closest frame, a timecode being Hrs:Min:Sec:Frame. The number of frames per second is defined in the <a href="@@session-properties#properties-timecode">Session Properties</a>.</td></tr>
+		<tr><th class="sub1">&cir; MinSec</th><td>Snaps to the closest second in the timeline.</td></tr>
+		<tr><th class="sub1">&cir; CD Frames</th><td>Snaps to the closest CD Frame, one CD frame being 1/75<sup>th</sup> of a second.</td></tr>
+
+	<tr><th colspan="2">Tempo</th></tr>
+		<tr><th class="sub1">Set Tempo from Region = Bar</th><td>Computes the tempo so that the duration of the first selected region is 1 bar. Ardour prompts if the user wants it to be the global tempo, or a tempo marker at the beginning of the region used</td></tr>
+		<tr><th class="sub1">Set Tempo from Edit Range = Bar</th><td>Same thing, with the current Range instead of a region</td></tr>
+	<tr><th>&square; Smart Mode</th><td>Toggles the Smart Mode, allowing the mouse to be in Range Mode in the upper half of a region, and in Grab Mode in the lower half</td></tr>
+	<tr><th>&square; Show Automation Lane on Touch</th><td>When toggled on, clicking on a plugin parameter, hardware controller, etc&hellip; makes Ardour show the relevant <a href="@@automation">automation</a> lane</td></tr>
+
+	<tr><th colspan="2">Lua Scripts</th></tr>
+		<tr><th class="sub1">&square; Script Manager</th><td>Shows the <a href="@@lua-scripting">Script manager</a>, allowing to use and manage the Lua scripts in the session</td></tr>
+		<tr><th class="sub1"><em>Action script #n</em></th><td>Executes the <em>n</em>th script. The script list is defined in the Script Manager.</td></tr>
+
+	<tr><th>Preferences</th><td>Displays the <a href="@@preferences">Preferences</a> panels, allowing to change Ardour's behaviour</td></tr>
+</table>

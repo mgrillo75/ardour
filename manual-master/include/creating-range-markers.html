@@ -1,0 +1,212 @@
+
+<p>
+  <dfn>Range markers</dfn> are essentially two
+  <a href="@@creating-location-markers"> location markers</a> that appear in the
+  <a href="@@ruler">Range Markers</a> ruler, and are grouped together to mark
+  the beginning and end of a section on the timeline.
+</p>
+
+<p>
+  Ardour combines regular range markers, loop ranges, and punch ranges in the
+  same Range Markers ruler.
+</p>
+
+<h2 id="creating-range-on-timeline">Creating a Range on the Timeline</h2>
+
+<p>
+  There are multiple ways to create range markers:
+</p>
+
+<ul>
+  <li>
+    <kbd class="mouse">Right</kbd>-clicking on the Range Markers ruler at the
+    top of the timeline, then selecting <kbd class="menu">Add &gt; Range</kbd>.
+    For loop ranges and punch ranges, please select
+    <kbd class="menu">Add &gt; Loop Range</kbd> and
+    <kbd class="menu">Add &gt; Punch Range</kbd> respectively.
+  </li>
+<!--   <li>
+    <kbd class="mouse mod1">Left</kbd>-clicking and dragging right on the Range
+    Markers ruler. This will render a red-filled area across all tracks and
+    busses to help preview the extent of the range in creation. Once the mouse
+    button is released, a paired range marker will be created.
+  </li> -->
+  <li>
+    Selecting a range in the Editor window, then
+    <kbd class="mouse">right</kbd>-clicking and selecting
+    <kbd class="menu">Add Range Markers</kbd>,
+    <kbd class="menu">Set Loop from Selection</kbd> or
+    <kbd class="menu">Set Punch from Selection</kbd>.
+  </li>
+  <li>
+    Clicking <kbd class="button">New Range</kbd> button at the bottom of the
+    <kbd class="window">Ranges&nbsp;&amp; Marks</kbd> sidebar. The markers will
+    be created around the playhead position, unless the playhead in at the time
+    origin (in which case the markers will be placed at the time origin
+    position).
+  </li>
+  <li>
+    <kbd class="mouse">Right</kbd>-clicking a location or a CD marker and
+    selecting <kbd class="menu">Create Range to Next Marker</kbd>. This will
+    create a pair of range markers that start at the selected marked and end at
+    the position of the next location or CD marker (both rulers are taken into
+    account).
+  </li>
+</ul>
+
+<h2 id="editing-range">Editing a Range</h2>
+
+<p>
+  Both markers of a range can be independently moved along the timeline by
+  clicking and dragging them to the desired location. They can also be moved
+  together by <kbd class="mod2n"></kbd>-dragging one of the markers.
+</p>
+
+<p>
+  Any pair or range markers, including session start/end markers, can be
+  repositioned to the extents of an existing range selection on the timeline by 
+  <kbd class="mouse">right</kbd>-clicking on either of the markers and selecting
+  <kbd class="menu">Set Range from Selection</kbd> in the menu.
+</p>
+
+<h3 id="renaming-range-markers">Renaming Range Markers</h3>
+
+<p>
+  Ardour provides several ways to rename an existing pair of range markers:
+</p>
+
+<ul>
+  <li>
+    Double-clicking either of the two range markers will show a dialog for
+    setting a new caption for the markers.
+  </li>
+  <li>
+    The same can be achieved by right-clicking on either of the markers and
+    selecting the <kbd class="menu">Rename Range…</kbd> menu item.
+  </li>
+  <li>
+    Additionally, the name can be edited in the
+    <kbd class="window">Ranges&nbsp;&amp; Marks</kbd> sidebar.
+  </li>
+</ul>
+
+<h2 id="removing-range-markers">Removing Range Markers</h2>
+
+<p>
+  Range markers can be deleted in several ways:
+</p>
+
+<ul>
+  <li>
+    By clicking on one of the markers and pressing the <kbd>Del</kbd> key.
+  </li>
+  <li>
+    By right-clicking on one of the markers and selecting
+    <kbd class="menu">Remove Range</kbd>.
+  </li>
+  <li>
+    By clicking the markers' <kbd class="button">x</kbd> button in the
+    <em>Ranges&nbsp;&amp; Marks</em> sidebar.
+  </li>
+</ul>
+
+<p>
+  Additionally, all ranges can be removed at once by
+  <kbd class="mouse">right</kbd>-clicking on an empty part of the Range Markers
+  ruler and selecting the <kbd class="menu">Clear All Ranges</kbd> menu item.
+
+<h2 id="more-options">More Options</h2>
+
+<p>
+  The context (right-click) menu for range markers has more options than the
+  ones mentioned above:
+</p>
+
+<table class="dl">
+  <tr>
+    <th>Play Range</th>
+    <td>
+      Starts playback at the left marker in the pair and stops at the right
+      marker.</td>
+  </tr>
+  <tr>
+    <th>Locate to Marker</th>
+    <td>
+      Moves the playhead to the selected marker.
+    </td>
+  </tr>
+  <tr>
+    <th>Play from Marker</th>
+    <td>
+      Moves the playhead to the selected marker and starts playback.
+    </td>
+  </tr>
+  <tr>
+    <th>Loop Range</th>
+    <td>
+      Creates a loop range off the selected range markers pair and starts
+      playback.
+    </td>
+  </tr>
+  <tr>
+    <th>Set Marker from Playhead</th>
+    <td>
+      Changes the position of the selected marker to that of the playhead.
+    </td>
+  </tr>
+  <tr>
+    <th>Zoom to Range</th>
+    <td>
+      Changes the zoom so that the area defined by the range markers would be
+      maximized yet visible entirely within Ardour's window.
+    </td>
+  </tr>
+  <tr>
+    <th>Loudness Assistant…</th>
+    <td>
+      Launches the Loudness Assistant to analyze the selection defined by the
+      selected pair of range markers.
+    </td>
+  </tr>
+  <tr>
+    <th>Export Range…</th>
+    <td>
+      Exports the selection defined by the selected pair of range markers.
+    </td>
+  </tr>
+  <tr>
+    <th>Promote to Time Origin</th>
+    <td>
+      This makes the position of the chosen range marker the origin time. This
+      is mostly useful when the <em>Display delta to origin marker</em> clock
+      mode is enabled to display the difference between current playhead
+      position and the origin time. Absolute time stays unaffected.
+    </td>
+  </tr>
+  <tr>
+    <th>Hide Range</th>
+    <td>
+      This hides the range from the Range Markers ruler. Marker's visibility
+      can be restored in the <em>Ranges&nbsp;&amp; Marks</em> sidebar.
+    </td>
+  </tr>
+  <tr>
+    <th>Separate Regions in Range</th>
+    <td>
+      Cuts all regions crossing the positions of the range markers.
+    </td>
+  </tr>
+  <tr>
+    <th>Select All in Range</th>
+    <td>
+      Select entire regions that cross the borders of the range markers.
+    </td>
+  </tr>
+  <tr>
+    <th>Select Range</th>
+    <td>
+      Create a selection from the range markers in all selected tracks and
+      busses.
+    </td>
+  </tr>
+</table>

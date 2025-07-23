@@ -1,0 +1,106 @@
+
+<p>
+  The plugin editor can be shown by double-clicking on the plugin within the
+  <a href="@@processor-box">processor box</a>.
+  A new window will appear showing the editor/GUI for the plugin.
+</p>
+
+<figure class="right">
+  <img class="mini" style="width:400px;" src="/images/example-plugin.png" alt="A generic plugin Editor (A-Eq)">
+  <figcaption>
+    A generic plugin editor (ACE Compressor)
+    <ol>
+      <li>Parameters</li>
+      <li>Description</li>
+      <li>CPU Profile</li>
+      <li>Analysis graph</li>
+    </ol>
+  </figcaption>
+</figure>
+
+<h2>Generic Plugin Editor</h2>
+
+<p>
+  If a plugin does not have its own GUI, Ardour will construct a
+  <dfn>generic plugin editor</dfn> from a small set of common control
+  elements. Ardour will do this even for plugins that have their
+  own, if <kbd class="menu">Edit &gt; Preferences &gt;
+  GUI &gt; Use Plugins' own interface instead of Ardour's</kbd> is disabled.
+</p>
+
+<p>
+  The generic UI can be temporarily switched to by <kbd class="mouse">right</kbd> clicking on
+  a processor and selecting <kbd class="menu">Edit with generic controls</kbd>.
+  This is necessary in order to access the <a href="@@automation">plugin
+  automation controls</a>.
+</p>
+
+<p>
+  In the generic UI, any controller can be reset to its default state by
+  <kbd class=mod3n></kbd><kbd class=mouse>Left</kbd>-clicking on it.
+</p>
+
+<h2>Description</h2>
+
+<p>
+  This is a rarely used section that displays the contents of the description
+  metadata of a plugin.
+</p>
+
+<h2>CPU Profile</h2>
+
+<p>
+  This section displays CPU time measurements for the currently opened plugin.
+  For more information, please see the documentation on the
+  <a href="/troubleshooting/plugin-dsp-load/">Plugin DSP Load window</a>.
+</p>
+
+<h2>Analysis Graph</h2>
+
+<p>
+  At the bottom of the generic plugin editor, clicking the arrow displays the
+  <dfn>Analysis Graph</dfn>.
+</p>
+<p>
+  This graph displays:
+</p>
+<ul>
+  <li>the <span style="background-color:black; color:white;">transfer function</span> in white,</li>
+  <li>the <span style="background-color:black; color:red;">phase response</span> in red (optional),</li>
+  <li>the <span style="background-color:black; color:green;">post effect spectrum</span> in green.</li>
+</ul>
+
+<p>
+  The <dfn>transfer function</dfn> plots the output amplitude of the plugin (considered
+  as a "black box") against its input amplitude, along the audio spectrum.
+</p>
+<p>
+  The <dfn>phase response</dfn>, that can be switched on or off using the
+  <kbd class="option">Show phase</kbd> checkbox, plots the phase of the
+  plugins output against its input phase, along the audio spectrum. The scale is
+  shown in <span style="background-color:black; color:yellow;">yellow</span> on
+  the right.
+</p>
+<p>
+  The green spectrum plots the <dfn>output signal spectrum</dfn>, after the plugin
+  (for tracks that have a signal on).
+</p>
+<p>
+  The <kbd class="menu">dB scale</kbd> selector in the bottom left allows to
+  change the vertical scale of the graphs.
+</p>
+
+<h2>MIDI instruments specificities</h2>
+
+<figure>
+  <img src="/images/instrument_plugins-keyboard.png" alt="The MIDI keyboard in instruments plugins">
+  <figcaption>
+    The MIDI keyboard in instruments plugins
+  </figcaption>
+</figure>
+
+<p>
+  The generic UI provides, for all MIDI instruments plugins, a keyboard, that can
+  be used either with the mouse, or by using a QWERTY keyboard as a piano. Both the
+  channel and the velocity can be set above the keyboard.
+</p>

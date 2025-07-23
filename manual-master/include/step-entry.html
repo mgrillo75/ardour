@@ -1,0 +1,104 @@
+
+<p>
+  Entering notes in Ardour can be done by using a connected MIDI device like a MIDI keyboard or pad controller, or by using the mouse. A third option, which provides for fine-grained control, precision and speed comes from using Ardour's Step Entry dialog.
+</p>
+
+<figure>
+<img class="fit" src="/images/step_entry.png" alt="Ardour's Step Entry dialog">
+<figcaption class="center">Ardour's Step Entry dialog.</figcaption>
+</figure>
+
+<p>
+  The step entry dialog is accessed by <kbd class="mouse">right</kbd>-clicking  on the <kbd class="menu" style="color:red;">&#9679;</kbd> (Rec-Enable) button of the <a href="@@midi-track-controls">MIDI track</a> to be edited and selecting <kbd class="menu">Step Entry</kbd> from the menu that appears.
+</p>
+
+<p class="note">
+  Step editing and recording MIDI via the track's MIDI port cannot happen simultaneously.
+</p>
+
+<p>
+  The dialog (closely modelled on Logic's) contains:
+</p>
+
+<ul>
+  <li>
+    Chord entry switch (successive notes are stacked in a chord until
+    it is released)
+  </li>
+  <li>Note length selectors</li>
+  <li>Triplet toggle</li>
+  <li>Normal, single, double and triple dotted note selectors</li>
+  <li>Sustain button</li>
+  <li>Buttons to:
+    <ul>
+     <li>Insert a rest of the current selected note duration</li>
+     <li>Insert a rest of the current grid step size</li>
+     <li>Move back to the last inserted note</li>
+     <li>Move forward to the next beat, or bar</li>
+     <li>Move to the edit point</li>
+    </ul>
+  </li>
+  <li>Dynamics controls from pianississimo to fortississimo</li>
+  <li>Channel selector</li>
+  <li>
+    Explicit numerical velocity selector, for more precise control
+    than the dynamics selectors offer
+  </li>
+  <li>Octave selector</li>
+  <li>A full 10-octave virtual keyboard</li>
+</ul>
+
+<p>
+  Almost all actions in the step entry dialog can be driven directly from the
+  keyboard, so that moving back and forth from the keyboard to the mouse is
+  typically not necessary&mdash;even for complex data entry. The default key
+  bindings are:
+</p>
+
+<table>
+  <tr><td><kbd>`</kbd> (grave accent)</td><td>Set octave 0</td></tr>
+  <tr><td><kbd>1</kbd> to <kbd>9</kbd></td><td>Set octave 1 to 9</td></tr>
+  <tr><td><kbd>0</kbd></td><td>Set octave 10</td></tr>
+
+  <tr><td><kbd>f1</kbd></td><td>Set note length to whole</td></tr>
+  <tr><td><kbd>f2</kbd></td><td>Set note length to half</td></tr>
+  <tr><td><kbd>f3</kbd></td><td>Set note length to third</td></tr>
+  <tr><td><kbd>f4</kbd> to <kbd>f8</kbd></td><td>Set note length to quarter to sixtyfourth</td></tr>
+
+  <tr><td><kbd>a</kbd></td><td>Insert C</td></tr>
+  <tr><td><kbd>w</kbd></td><td>Insert C&sharp;</td></tr>
+  <tr><td><kbd>s</kbd></td><td>Insert D</td></tr>
+  <tr><td><kbd>e</kbd></td><td>Insert D&sharp;</td></tr>
+  <tr><td><kbd>d</kbd></td><td>Insert E</td></tr>
+  <tr><td><kbd>f</kbd></td><td>Insert F</td></tr>
+  <tr><td><kbd>t</kbd></td><td>Insert F&sharp;</td></tr>
+  <tr><td><kbd>g</kbd></td><td>Insert G</td></tr>
+  <tr><td><kbd>y</kbd></td><td>Insert G&sharp;</td></tr>
+  <tr><td><kbd>h</kbd></td><td>Insert A</td></tr>
+  <tr><td><kbd>u</kbd></td><td>Insert A&sharp;</td></tr>
+  <tr><td><kbd>j</kbd></td><td>Insert B</td></tr>
+
+  <tr><td><kbd>tab</kbd></td><td>Insert a one note length rest</td></tr>
+  <tr><td><kbd class="mod1">tab</kbd></td><td>Insert a one grid unit rest</td></tr>
+  <tr><td><kbd>backspace</kbd></td><td>Moves the cursor back one note length</td></tr>
+
+  <tr><td><kbd>z</kbd></td><td>Set note velocity &#119183;&#119183;&#119183;</td></tr>
+  <tr><td><kbd>x</kbd></td><td>Set note velocity &#119183;&#119183;</td></tr>
+  <tr><td><kbd>c</kbd></td><td>Set note velocity &#119183;</td></tr>
+  <tr><td><kbd>v</kbd></td><td>Set note velocity &#119184;&#119183;</td></tr>
+  <tr><td><kbd>b</kbd></td><td>Set note velocity &#119184;&#119185;</td></tr>
+  <tr><td><kbd>n</kbd></td><td>Set note velocity &#119185;</td></tr>
+  <tr><td><kbd>m</kbd></td><td>Set note velocity &#119185;&#119185;</td></tr>
+  <tr><td><kbd>,</kbd> (comma)</td><td>Set note velocity &#119185;&#119185;&#119185;</td></tr>
+
+  <tr><td><kbd>&uarr;</kbd></td><td>Set next note velocity</td></tr>
+  <tr><td><kbd>&darr;</kbd></td><td>Set prev note velocity</td></tr>
+  <tr><td><kbd class="mod1">&uarr;</kbd></td><td>Set next note length</td></tr>
+  <tr><td><kbd class="mod1">&darr;</kbd></td><td>Set prev note length</td></tr>
+
+  <tr><td><kbd>'</kbd></td><td>Toggle triplet</td></tr>
+  <tr><td><kbd>.</kbd></td><td>Set single dotted</td></tr>
+  <tr><td><kbd class="mod1">.</kbd></td><td>Clear dotted</td></tr>
+  <tr><td><kbd>|</kbd> (bar)</td><td>Toggle chord</td></tr>
+</table>
+

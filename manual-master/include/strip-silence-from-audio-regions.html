@@ -1,0 +1,55 @@
+<figure>
+  <img src="/images/strip-silence-window.png" alt="The Strip Silence window">
+  <figcaption>
+    The Strip Silence window
+  </figcaption>
+</figure>
+
+<p>
+  The <dfn>Strip Silence</dfn> tool allows to remove the parts of one or multiple
+  regions that are below a user-defined silence threshold. It does <em>not</em>
+  destroy the underlying audio, but trims the regions according to the silence
+  threshold parameter. The edit applies to all selected regions, allowing batch
+  processing.
+</p>
+
+<p>
+  The window, accessible either through the <kbd class="menu">Region &gt; Edit &gt; Strip
+  Silence</kbd> menu or <kbd class="menu"><kbd class="mouse">right</kbd> click on a region
+  &gt; <em>Name_Of_The_Region</em> &gt; Edit &gt; Strip Silence</kbd>is made of:
+</p>
+
+<table class="dl">
+  <tr><th><dfn>Threshold</dfn></th>
+    <td>The audio level under which the audio is considered silent (in <abbr
+    title="Decibels relative to Full Scale">dBFS</abbr>)</td></tr>
+  <tr><th><dfn>Minimum length</dfn></th>
+    <td>A minimum number of samples for Ardour to create a split. Under this
+      number, the region won't be sliced</td></tr>
+  <tr><th><dfn>Fade length</dfn></th>
+    <td>Ardour adds fades, both in and out, to the trimmed regions, to the created
+      region (so the sliced regions are longer by both the in and out fades duration,
+      expressed in samples)</td></tr>
+  <tr><th>A progress bar</th>
+    <td>showing the time Ardour takes to compute the trimming based on the current
+      parameters</td></tr>
+</table>
+
+<p>
+  Changing any parameter in the window is reflected in the main editor: the silent
+  segments are highlighted and the number and durations of the shortest segments is
+  displayed, helping fine-tune the parameters.
+</p>
+
+<figure>
+  <img src="/images/strip-silence-audio.png" alt="strip silence: view of the audio">
+  <img src="/images/strip-silence-after.png" alt="strip silence: view of the audio after">
+  <figcaption>
+    Strip Silence : a view of the audio while changing the parameters, and after treatment
+  </figcaption>
+</figure>
+
+<p class="note">The minimum length for silence can be useful when editing very
+  percussive material and just needing to automatically trim the ends of a region.
+</p>
+

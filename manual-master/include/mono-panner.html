@@ -1,0 +1,85 @@
+
+<p>
+The default <dfn>mono panner</dfn> distributes 1 input to 2 outputs. Its
+behaviour is controlled by a single parameter, the <dfn>position</dfn>. By
+default, the panner is centered.
+</p>
+
+<h2>Mono Panner User Interface</h2>
+
+<figure class="left">
+    <img src="/images/mono-panner.png" alt="The mono panner">
+    <figcaption>
+      The mono panner
+    </figcaption>
+</figure>
+
+
+<p>
+  The mono panner looks quite similar to the <a href="@@stereo-panner">stereo panner</a>
+  interface. The difference is that the L/R labels in the lower half
+  of the mono panner do not move because there is no "width" to
+  control.
+</p>
+<p>
+  On the adjacent picture, the panner is centered, as shown by the central
+  position of the slider, called <dfn>position indicator</dfn>.
+</p>
+
+<h2>Using the mouse</h2>
+
+<p>To change the position smoothly, press the right button and drag
+  anywhere within the panner. <em>Note: grabbing the position indicator is not
+  needed in order to drag.</em>
+</p>
+
+<table class="dl">
+
+<tr><th>Reset to defaults</th>
+<td>Click <kbd class="mod3 mouse">right</kbd></td></tr>
+
+<tr><th>Change to a "hard left"</th>
+<td>Double click <kbd class="mouse">right</kbd> in the left side
+  of the panner</td></tr>
+
+<tr><th>Change to a "hard right"</th>
+<td>Double click <kbd class="mouse">right</kbd> in the right side
+  of the panner</td></tr>
+
+<tr><th>Set the position to center</th>
+<td>Double Click <kbd class="mouse">right</kbd> in the middle of the panner</td></tr>
+</table>
+
+<h2>Keyboard bindings</h2>
+
+<p>
+When the pointer is within a mono panner user interface, the following
+keybindings are available to operate on that panner:
+</p>
+
+<table class="dl">
+  <tr><th><kbd>&larr;</kbd> / <kbd class="mod1">&larr;</kbd></th>
+  <td>move position 1&deg; / 5&deg; to the left</td></tr>
+  <tr><th><kbd>&rarr;</kbd> / <kbd class="mod1">&rarr;</kbd></th>
+  <td>move position 1&deg; / 5&deg; to the right</td></tr>
+  <tr><th><kbd>0</kbd></th>
+  <td>reset position to center</td></tr>
+</table>
+
+<h2>Using the scroll wheel/touch scroll</h2>
+
+<p>
+When the pointer is within a mono panner user interface, the scroll
+wheel may be used as follows:
+</p>
+
+<table class="dl">
+  <tr><th><kbd class="mouse">&uArr;</kbd> or <kbd class="mouse">&lArr;</kbd></th>
+  <td>move position to the left by 1&deg;</td></tr>
+  <tr><th><kbd class="mod1 mouse">&uArr;</kbd> or <kbd class="mod1 mouse">&lArr;</kbd></th>
+  <td>move position to the left by 5&deg;</td></tr>
+  <tr><th><kbd class="mouse">&dArr;</kbd> or <kbd class="mouse">&rArr;</kbd></th>
+  <td>move position to the right by 1&deg;</td></tr>
+  <tr><th><kbd class="mod1 mouse">&dArr;</kbd> or <kbd class="mod1 mouse">&rArr;</kbd></th>
+  <td>move position to the right by 5&deg;</td></tr>
+</table>

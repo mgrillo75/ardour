@@ -1,0 +1,90 @@
+
+<p>
+	The <dfn>Transport</dfn> menu handles how Ardour handles the playback and playhead.
+</p>
+
+<table class="dl">
+	<tr><th>Start/Stop</th><td>Starts or stops the playhead, and recording if it is armed</td></tr>
+	<tr><th colspan="2">Play</th></tr>
+		<tr><th class="sub1">Play Selection</th><td>Only plays the selected duration of the session, based on the current range or selected region(s)</td></tr>
+		<tr><th class="sub1">Solo Selection</th><td>Only plays the selected regions of the session. Regions that are not selected, even on a track with selected regions, wont be played</td></tr>
+		<tr><th class="sub1">Play w/Preroll</th><td>As the previous menu, except it starts the playback a few bars or seconds before the beginning of the selection (the amount of time can be set in the <a href="@@preferences#preferences-transport">Preferences</a>)</td></tr>
+		<tr><th class="sub1">Start/Continue/Stop</th><td>Leaves loop play or range play mode but without stopping the transport</td></tr>
+		<tr><th class="sub1">Play from Edit Point and Return</th><td>Starts the playback at the <a href="@@edit-point-control">Edit point</a>, and when stopped, goes back to the original location</td></tr>
+		<tr><th class="sub1">Play Loop Range</th><td>If a <a href="@@the-loop-range">Loop range</a> is defined, play it and loop until stopped</td></tr>
+	<tr><th>Start Recording</th><td>This is a shortcut to trigger the global recording, and start playback at once</td></tr>
+	<tr><th>Stop and Forget Capture</th><td>Stops the recording, removes the newly created material, and goes back to the original position</td></tr>
+	<tr><th>Enable Record</th><td>Triggers the global recording. Next time "Play" is pressed, it will record on the track(s) that are armed for recording</td></tr>
+	<tr><th>Record w/Preroll</th><td>As the Start Recording menu, except it starts the recording a few bars or seconds before the playhead's position (the amount of time can be set in the <a href="@@preferences#preferences-transport">Preferences</a>)</td></tr>
+	<tr><th>Record w/Count-In</th><td>As the Start Recording menu, except it waits for 2 bars before the playhead's position. The Metronome will tick (even if disabled) during the count-in</td></tr>
+
+	<tr><th>Forward</th><td>Plays the audio forwards from the playhead on. If the audio is already playing forwards, increment its speed by 50&percnt;.</td></tr>
+	<tr><th>Rewind</th><td>Plays the audio backwards from the playhead on. If the audio is already playing backwards, increment its speed by 50&percnt;.</td></tr>
+	<tr><th>Transition to Roll</th><td>Plays the audio forwards, with a speed of 1 (real time)</td></tr>
+	<tr><th>Transition to Reverse</th><td>Plays the audio backwards, with a speed of 1 (real time)</td></tr>
+
+	<tr><th>Set Loop from Selection</th><td>Converts the selection into a <a href="@@the-loop-range">Loop range</a> by placing loop markers at the start and end of the selected range</td></tr>
+	<tr><th>Set Punch from Selection</th><td>Same thing, for <a href="@@punch-range">Punch</a></td></tr>
+	<tr><th>Set Session Start/End from Selection</th><td>Same thing, for the start and end markers of the session, defining the session's length</td></tr>
+	<tr><th colspan="2">Playhead</th></tr>
+		<tr><th class="sub1">Playhead to Mouse</th><td>Set the position of the playhead at the current position of the mouse cursor</td></tr>
+		<tr><th class="sub1">Playhead to Active Mark</th><td>If a marker is selected, set the position of the playhead at the position of the marker</td></tr>
+		<tr><th class="sub1">Center Playhead</th><td>Centers the view on the playhead without changing the zoom level (putting the playhead in the middle of the screen)</td></tr>
+
+		<tr><th class="sub1">Nudge Playhead Forward</th><td>Shifts the position of the playhead to the right by the amount shown in the <a href="@@nudge-controls">nudge timer</a></td></tr>
+		<tr><th class="sub1">Nudge Playhead Backward</th><td>Same thing, to the left</td></tr>
+
+		<tr><th class="sub1">Move to Next Transient</th><td>When transient have been set, moves the playhead to the next one to the right</td></tr>
+		<tr><th class="sub1">Move to Previous Transient</th><td>Same, to the left</td></tr>
+
+		<tr><th class="sub1">Playhead to Next Grid</th><td>Regardless of the state of the Grid Mode, goes to the next grid to the right, as set by the <a href="@@grid-controls">Snap/Grid unit</a></td></tr>
+		<tr><th class="sub1">Playhead to Previous Grid</th><td>Same, to the left</td></tr>
+
+		<tr><th class="sub1">Playhead to Next Region Boundary</th><td>Moves the playhead to the right to the next beginning or end of region on the selected track or, if no track is selected, on all tracks</td></tr>
+		<tr><th class="sub1">Playhead to Previous Region Boundary</th><td>Same, to the left</td></tr>
+		<tr><th class="sub1">Playhead to Next Region Boundary (No Track Selection)</th><td>Moves the playhead to next beginning or end of region, be it on the selected track or any other</td></tr>
+		<tr><th class="sub1">Playhead to Previous Region Boundary (No Track Selection)</th><td>Same, to the left</td></tr>
+		<tr><th class="sub1">Playhead to Next Region Sync</th><td>Moves the playhead to next Region Sync Point, that is by default the beginning of a region but <a href="@@grid-controls">can be moved</a></td></tr>
+		<tr><th class="sub1">Playhead to Previous Region Sync</th><td>Same, to the left</td></tr>
+
+		<tr><th class="sub1">Jump to Next Mark</th><td>moves the playhead to the next <a href="@@creating-location-markers">marker</a> on the Ruler</td></tr>
+		<tr><th class="sub1">Jump to Previous Mark</th><td>Same, to the left</td></tr>
+
+		<tr><th class="sub1">Jump to Loop Start</th><td>moves the playhead to the <a href="@@the-loop-range">loop</a> start marker if a loop exists</td></tr>
+		<tr><th class="sub1">Jump to Loop End</th><td>Same, for the loop end marker</td></tr>
+		
+		<tr><th class="sub1">Go to Zero</th><td>Sends the playhead to the 00:00:00:00 time, regardless of the sessions Start marker</td></tr>
+		<tr><th class="sub1">Go to Start</th><td>Sends the playhead to the Start marker of the session</td></tr>
+		<tr><th class="sub1">Go to End</th><td>Sends the playhead to the End marker of the session</td></tr>
+		<tr><th class="sub1">Go to Wall Clock</th><td>Sends the playhead to the current value of system time, as shown on the top right of the <a href="@@status-bar">Status bar</a></td></tr>
+	<tr><th colspan="2">Active Mark</th></tr>
+		<tr><th class="sub1">To Next Region Boundary</th><td>Moves the currently selected <a href="@@working-with-markers">marker</a> to the next region beginning or end</td></tr>
+		<tr><th class="sub1">To Previous Region Boundary</th><td>Same, to the left</td></tr>
+		<tr><th class="sub1">To Next Region Sync</th><td>Moves the currently selected to the next region sync point (by default: beginning or end of the region)</td></tr>
+		<tr><th class="sub1">To Previous Region Sync</th><td>Same, to the left</td></tr>
+	<tr><th colspan="2">Markers</th></tr>
+		<tr><th class="sub1">Add Mark from Playhead</th><td>Creates a Marker at the position of the playhead</td></tr>
+		<tr><th class="sub1">Remove Mark at Playhead</th><td>Removes any marker at the position of the playhead</td></tr>
+		<tr><th class="sub1">Toggle Mark at Playhead</th><td>Combine the 2 previous: if a marker exists, deletes it, otherwise create it</td></tr>
+
+		<tr><th class="sub1">Locate to Mark <em>n</em></th><td>If it exists, goes to the <em>n-th</em> marker</td></tr>
+
+		<tr><th class="sub1">Set Session Start from Playhead</th><td>Puts the Start of the session marker at the playhead's position</td></tr>
+		<tr><th class="sub1">Set Session End from Playhead</th><td>Puts the End of the session marker at the playhead's position</td></tr>
+	<tr><th colspan="2">Cues</th></tr>
+		<tr><th class="sub1">Trigger Cue <em>A &rarr; H</em></th><td>Starts the playback and triggers the <em>A &rarr; H</em> line of the <a href="@@cue-window-elements#cue_window_grid">Cue grid</a></td></tr>
+	
+	<tr><th>&square; Time Master</th><td>Sets Ardour as the Time master, i.e. Ardour sends the time information to the audio system</td></tr>
+	<tr><th>&square; Punch In/Out</th><td>Based on the Punch in and Punch out markers if they exist, tells Ardour to record only between those two points</td></tr>
+	<tr><th>&square; Punch In</th><td>Based on the Punch in marker, only allow to record from this point on</td></tr>
+	<tr><th>&square; Punch Out</th><td>Based on the Punch out marker, forbids recording before this point</td></tr>
+	<tr><th>&square; Auto Input</th><td>If checked, automatically switch the <a href="@@monitor-setup-in-ardour">monitor</a> from <em>input</em> to <em>playback</em>mode when playing</td></tr>
+	<tr><th>&square; Follow Range</th><td>If checked, selecting a range moves the playhead to its beginning</td></tr>
+	<tr><th>&square; Auto Play</th><td>If checked, moving the playhead in the ruler starts the playback</td></tr>
+	<tr><th>&square; Auto Return</th><td>If checked, when the playback is stopped, go back to the previous position of the playhead. If not, the playhead stays where it is when the playback is stopped</td></tr>
+	<tr><th>&square; Click</th><td>Activates/deactivates the click track (metronome)</td></tr>
+	<tr><th>&square; Follow Playhead</th><td>If checked, while playing, when the playhead reaches the right of the screen, Ardour scrolls one screen to the right to keep the playhead visible at all times</td></tr>
+	<tr><th>&square; Stationary Playhead</th><td>If checked <em>and</em> if <kbd class="menu">Follow playhead</kbd> is checked, on playback, the playhead stays at the center of the screen, and the session scrolls</td></tr>
+	<tr><th>&square; Use External Positional Sync Source</th><td> If checked, allows Ardour to be controlled by external program</td></tr>
+	<tr><th>Panic (Send MIDI all-notes-off)</th><td>Immediately stops all MIDI playback (useful e.g. when a MIDI bug in encountered)</td></tr>
+</table>

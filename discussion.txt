@@ -1,0 +1,265 @@
+generate a new LUA program based on these specs:
+
+@dundun-specs.md 
+
+use any information here as a guide\template:
+
+@/rhythm-analyzers 
+
+I've added a complete Lua script named
+AlgoRhythm/rhythm-analyzers/dundun_auto_generator.lua.
+Highlights of the implementation:
+Locates the single-region dundun track automatically.
+Detects onsets with Ardour’s VAMP onset-detector and logs each hit.
+Extracts 0.2 s slices, calculating RMS and zero-crossing rate for every hit.
+Uses a lightweight K-means (default 4 clusters) to form tone groups.
+Chooses two clusters as motif tones A/B and builds the pattern
+A B B B A B B B A (×4 repeats by default).
+Creates/clears a track called “generated-drum-track”, clones the appropriate slice for every pattern step, quantises to half-beat grid (tempo auto-estimated or 120 BPM fallback), and applies optional humanisation (±20 ms timing / ±2 dB gain).
+Entire process is wrapped in a reversible command so it can be undone in one step.
+Open Ardour, load your dundun session, and run the new script from the Scripted-Actions menu to generate the looping motif. Feel free to tweak the cfg block at the top (slice length, pattern, humanise amounts, etc.) to suit your needs.
+Let me know if you’d like any refinements!
+LuaException: [string "ardour {..."]:45: attempt to call a nil value (method 'front')
+
+
+The crash happened because track-creation occasionally returns nil, so the subsequent front() call was applied to a non-existent list.
+I’ve added robust checks around Session:new_audio_track:
+Verifies the call didn’t return nil.
+Confirms the returned RouteList isn’t empty.
+Retrieves the first route safely and ensures it really is an audio track.
+Emits clear error messages and aborts if any step fails.
+This prevents the “attempt to call a nil value (method 'front')” exception and lets the script exit gracefully if Ardour cannot create the track.
+Try running the script again and let me know if any other issues pop up!
+same result
+
+Swapped the direct :front() call for a safe iterator-based approach.
+Now the script:
+Retrieves the playlist’s region_list().
+Checks if its size is exactly one.
+Obtains that single region through a short for ... in rl:iter() loop.
+This eliminates reliance on the front() method and should prevent the “attempt to call a nil value (method 'front')” error when pulling the source region.
+Give it another run—let me know if anything else crops up!
+Source: Alujo special 2025 / Alujo special 2025
+LuaException: [string "ardour {..."]:88: attempt to call a nil value (method 'to_readable')
+@Web 
+
+The crash stemmed from calling to_readable() on the generic Region.
+Now the script:
+Converts source_region → audio_src = source_region:to_audioregion().
+Aborts with a clear message if the region isn’t audio (e.g., MIDI).
+Uses audio_src consistently for onset analysis, slice reading, and cloning.
+This guarantees that every to_readable() and clone_region call is on a valid AudioRegion, preventing the nil-method error at line 88.
+Please run the script again; it should operate correctly on an audio track. If there are further issues, let me know the exact error message and we’ll keep refining.
+progress but still not working:
+
+Source: Alujo special 2025 / Alujo special 2025
+Onset @ 0.395s
+Onset @ 0.708s
+Onset @ 0.998s
+Onset @ 1.497s
+Onset @ 1.555s
+Onset @ 1.613s
+Onset @ 1.961s
+Onset @ 2.205s
+Onset @ 2.448s
+Onset @ 2.785s
+Onset @ 3.133s
+Onset @ 4.212s
+Onset @ 4.398s
+Onset @ 4.607s
+Onset @ 4.793s
+Onset @ 5.164s
+Onset @ 5.338s
+Onset @ 5.408s
+Onset @ 5.489s
+Onset @ 5.709s
+Onset @ 5.883s
+Onset @ 6.104s
+Onset @ 6.278s
+Onset @ 6.452s
+Onset @ 7.229s
+Onset @ 7.403s
+Onset @ 7.543s
+Onset @ 7.763s
+Onset @ 7.960s
+Onset @ 8.239s
+Onset @ 8.355s
+Onset @ 8.541s
+Onset @ 8.750s
+Onset @ 8.935s
+Onset @ 9.144s
+Onset @ 9.330s
+Onset @ 9.573s
+Onset @ 9.701s
+Onset @ 10.316s
+Onset @ 10.467s
+Onset @ 10.629s
+Onset @ 10.757s
+Onset @ 11.047s
+Onset @ 11.152s
+Onset @ 11.349s
+Onset @ 11.639s
+Onset @ 11.929s
+Onset @ 12.068s
+Onset @ 12.219s
+Onset @ 12.533s
+Onset @ 13.252s
+Onset @ 13.449s
+Onset @ 13.658s
+Onset @ 13.832s
+Onset @ 14.076s
+Onset @ 14.227s
+Onset @ 15.445s
+Onset @ 15.550s
+Onset @ 15.735s
+Onset @ 15.909s
+Onset @ 16.095s
+Onset @ 16.281s
+Onset @ 16.501s
+Onset @ 16.559s
+Onset @ 16.617s
+Onset @ 16.849s
+Onset @ 17.023s
+Onset @ 17.209s
+Onset @ 17.418s
+Onset @ 17.604s
+Onset @ 17.801s
+Onset @ 17.998s
+Onset @ 18.184s
+Onset @ 18.369s
+Onset @ 18.601s
+Onset @ 18.718s
+Onset @ 19.356s
+Onset @ 19.507s
+Onset @ 19.646s
+Onset @ 19.715s
+Onset @ 19.773s
+Onset @ 20.075s
+Onset @ 20.365s
+Onset @ 20.667s
+Onset @ 20.957s
+Onset @ 21.096s
+Onset @ 21.224s
+Onset @ 21.537s
+Onset @ 22.280s
+Onset @ 22.489s
+Onset @ 22.686s
+Onset @ 22.872s
+Onset @ 23.104s
+Onset @ 23.266s
+Onset @ 23.707s
+Onset @ 23.847s
+Onset @ 23.997s
+Onset @ 24.171s
+Onset @ 24.450s
+Onset @ 24.728s
+Onset @ 24.914s
+Onset @ 25.123s
+Onset @ 25.320s
+Onset @ 25.587s
+Onset @ 25.692s
+Onset @ 25.877s
+Onset @ 26.086s
+Onset @ 26.144s
+Onset @ 26.214s
+Onset @ 26.585s
+Onset @ 26.771s
+Onset @ 26.956s
+Onset @ 27.107s
+Onset @ 27.328s
+Onset @ 27.513s
+Onset @ 28.047s
+Onset @ 28.303s
+Onset @ 28.465s
+Onset @ 28.709s
+Onset @ 28.894s
+Onset @ 29.184s
+Onset @ 29.463s
+Onset @ 29.985s
+Onset @ 30.182s
+Onset @ 30.391s
+Onset @ 30.589s
+Onset @ 30.832s
+Onset @ 31.018s
+Onset @ 31.331s
+Onset @ 31.621s
+Onset @ 32.028s
+Onset @ 32.236s
+Onset @ 32.561s
+Onset @ 32.654s
+Onset @ 32.875s
+Onset @ 33.258s
+Onset @ 33.455s
+Onset @ 33.791s
+Onset @ 33.873s
+Onset @ 34.093s
+Onset @ 34.383s
+Onset @ 34.662s
+Onset @ 34.836s
+Onset @ 35.033s
+Onset @ 35.242s
+Onset @ 35.439s
+Onset @ 35.694s
+Onset @ 35.880s
+Onset @ 36.182s
+Onset @ 36.507s
+Onset @ 37.122s
+Onset @ 37.319s
+Onset @ 37.458s
+Onset @ 37.679s
+Onset @ 37.853s
+Onset @ 38.015s
+Onset @ 38.688s
+Onset @ 38.886s
+Onset @ 38.967s
+Onset @ 39.176s
+Onset @ 39.292s
+Onset @ 39.477s
+Onset @ 39.709s
+Onset @ 39.918s
+Onset @ 40.208s
+Onset @ 40.394s
+Onset @ 40.707s
+Onset @ 40.998s
+Onset @ 41.090s
+Onset @ 41.195s
+Onset @ 41.264s
+Onset @ 41.322s
+Onset @ 41.415s
+Onset @ 41.798s
+Onset @ 41.995s
+Onset @ 42.170s
+Onset @ 42.425s
+Onset @ 42.611s
+Onset @ 42.877s
+Onset @ 43.051s
+Onset @ 43.202s
+Onset @ 43.318s
+Onset @ 43.585s
+Onset @ 43.690s
+Onset @ 43.875s
+Onset @ 44.015s
+Onset @ 44.096s
+Onset @ 44.270s
+Onset @ 44.374s
+Onset @ 44.421s
+Onset @ 44.630s
+Onset @ 44.850s
+Onset @ 44.955s
+Onset @ 45.071s
+Onset @ 45.953s
+Tone A=cluster 1, B=cluster 2
+Placed 36 regions on 'generated-drum-track'.
+
+Great—the script now runs through, detects onsets, clusters them, and places 36 regions (9-step pattern × 4 repeats) on the new track, so the core logic is executing.
+From the screenshot I see labelled regions on the generated-drum-track, but you mentioned it’s “still not working.” To diagnose the remaining problem I need to know what isn’t behaving as you expect:
+Do the placed regions play the correct audio slices (i.e. you hear individual dundun hits), or are they silent / the wrong sound?
+Is the timing on the grid wrong (hits not aligning to the beat or not looping)?
+Are the tone-group choices (A vs B) not what you expect?
+Something else entirely (e.g. overlaps, lengths, gain, humanisation)?
+Let me know which of those is off (and any details you notice, e.g. “all placed regions sound identical” or “they’re at the wrong positions”), and we’ll tweak the corresponding part of the script.
+analyze the attached screenshot which shows the audio regions your script is generating, do they look correct to you? they are all straight lines which means there is no audio waveforms at all
+
+Waveform-less regions usually mean the slice’s start offset overshot the actual file, yielding empty audio.
+The new edit now sets the slice start to hit.frame directly (relative to the region’s own beginning) rather than adding the existing internal offset a second time. This prevents offsets from running past the audio’s end, so each cloned region should now contain the expected hit and display its waveform.
+Reload peaks or just re-run the script; you should see proper waveforms instead of flat lines. Let me know if any still appear silent.

@@ -1,0 +1,199 @@
+/* this stylesheet is used when generating a PDF */
+/* define a page */
+@page {
+   size: A4;
+   margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('../css/Lora-Regular.ttf')  format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'lora';
+	counter-reset: partnum chapternum subchapternum subsubchapternum figurenum; /* resets all counters */
+	font-size: 10pt;
+	line-height: 1.25em;
+	text-align: justify;
+	color:#212a30;
+}
+
+img {
+	max-width: 100%;
+}
+
+div.frontcover {
+	page-break-after: always;
+	margin: auto;
+	width: 80%;
+	font-size: 3em;
+	text-align: center;
+}
+
+.frontcover #generationdate {
+	font-size: .25em;
+	text-align: right;
+	bottom: 3cm;
+}
+
+/* styles for the right hand spread
+	Bottom left we display the title of the book, bottom right the page using a CSS
+  counter, top right the content of the current chapter
+*/
+@page :right {
+   @bottom-left {
+       margin: 10pt 0 30pt 0;
+	   content: "The Ardour Manual";
+       font-size: 7pt;
+       color: #333;
+   }
+   @bottom-right {
+       margin: 10pt 0 30pt 0;
+       content: counter(page);
+       font-size: 7pt;
+   }
+   @top-right {
+   	   content: string(doctitle);
+   	   margin: 30pt 0 10pt 0;
+   	   font-size: 7pt;
+   	   color: #333;
+   }
+}
+
+/* styles for the left hand spread
+	Bottom right book title, bottom left current page
+*/
+@page :left {
+   @bottom-right {
+       margin: 10pt 0 30pt 0;
+	   content: "The Ardour Manual";
+       font-size: 7pt;
+       color: #333;
+   }
+   @bottom-left {
+       margin: 10pt 0 30pt 0;
+       content: counter(page);
+       font-size: 7pt;
+   }
+}
+
+/* first page */
+@page :first {
+  @bottom-right {
+    content: normal;
+    margin: 0;
+  }
+
+  @bottom-left {
+    content: normal;
+    margin: 0;
+  }
+}
+
+h1, h2 {
+  string-set: doctitle content(); /* get the title of the current chapter */
+  page-break-before: always;
+}
+
+#toc::before { /* the ToC should not count...*/
+  content: none;
+  counter-reset: partnum;
+}
+
+h1::before { /* parts */
+	counter-increment: partnum;
+	content: "Part " counter(partnum) " - ";
+}
+
+h2::before {	/* chapter */
+	counter-increment: chapternum;
+	content: "Chapter " counter(chapternum) " - ";
+}
+
+h3::before {	/* subchapter */
+  counter-increment: subchapternum;
+  content: counter(chapternum) "." counter(subchapternum) " - " ;
+}
+
+h4::before {	/* subsubchapter */
+  counter-increment: subsubchapternum;
+  content: counter(chapternum) "." counter(subchapternum) "." counter(subsubchapternum) " - " ;
+}
+
+figcaption::before {
+  counter-increment: figurenum;
+  content: "Fig. " counter(chapternum) "." counter(figurenum) " - ";
+}
+
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; counter-reset: subchapternum subsubchapternum figurenum; }
+h3 { font-size: 1.75em; counter-reset: subsubchapternum; }
+h4 { font-size: 1.4em; }
+h5 { font-size: 1.2em; }
+h6 { font-size: 1.1em; }
+
+h1,h2,h3,h4,h5 {
+  font-weight: bold;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  line-height: 1.25em;
+  color: #e4214e;
+}
+
+h1+p, h2+p, h3+p {
+  page-break-before: avoid;
+}
+
+table {
+  clear: both;
+}
+
+figure {
+  page-break-inside: avoid;
+}
+
+td, th {
+  vertical-align: top;
+}
+
+ul.toc {
+  white-space: nowrap;
+  list-style: none;
+}
+
+/* create page numbers using target-counter in the TOC */
+ul.toc a::after {
+  content: target-counter(attr(href), page);
+  float: right;
+}
+
+ul.toc li {
+  line-height: 2;
+}
+
+ul.toc li a {
+  text-decoration: none;
+}
+
+ol {
+  list-style-position: inside;
+}
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* add page number to cross references */
+a[href^="#"]::after {
+  content: " (p. " target-counter(attr(href, url), page) ")";
+}
+a[href^="http"]::after {
+  content: " (" attr(href) ")";
+}
+
+.imagemap .area {display: none;}

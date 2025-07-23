@@ -1,0 +1,256 @@
+
+<figure class="right">
+	<img width="75%" src="/images/import-window.png" alt="The import window">
+	<figcaption>
+		The import window.
+	</figcaption>
+</figure>
+
+<p>
+  Many sessions will require the use of <dfn>existing material</dfn>,
+  whether it consists of audio and/or MIDI data. Using existing samples,
+  loops and riffs from files stored on the system can be the basis for
+  a new session, or a way to deepen and improve one that is already
+  underway.
+</p>
+<p>
+  Importing audio and MIDI data into the session is done with the
+  <dfn>Add Existing Media</dfn> dialog, accessed either by the
+  <kbd class="menu"> Session &gt; Import</kbd> menu or, if any tracks have
+  already been added, by right-clicking on the canvas of the <dfn>Editor</dfn>
+  window and choosing <kbd class="menu">Insert Existing Media</kbd>.
+</p>
+
+<h2>The Soundfile Information Box</h2>
+<p>
+  This box will display information about the currently selected file:
+</p>
+<ul>
+  <li>number of channels,</li>
+  <li>sample rate,</li>
+  <li>file format,</li>
+  <li>length,</li>
+  <li>embedded timestamp (applies to some professional formats such as
+  Broadcast WAVE), and</li>
+  <li><a href="@@searching-for-files-using-tags">tags</a> (attached metadata to help categorize files in a library).</li>
+</ul>
+<p>
+  If the sample rate differs from the current session rate, it is displayed
+  in red, which indicates that the file must be resampled before
+  importing.
+</p>
+<p>
+  Resampling is controlled by the <kbd class="menu">Conversion quality</kbd>
+  option described below.
+</p>
+<p>
+
+</p>
+
+<h2>Auditioner</h2>
+<p>
+  Files can be auditioned before importing. The slider under the play and
+  stop buttons allows to scrub around, a fader on the right side allows
+  to control the playback volume.
+</p>
+<p>
+  Auditioning MIDI files requires a MIDI instrument to be chosen in the <kbd class="menu">
+  Instrument</kbd> dropdown list.
+</p>
+
+<h2>Importing options</h2>
+<p>
+  Through the <kbd class="menu">Add files&hellip;</kbd> option, imported files can be inserted in the session:
+</p>
+<table class="dl">
+  <tr><th>as new tracks</th><td>automatically creates new tracks and import the files in it</td></tr>
+  <tr><th>to region list</th><td>adds the files to the <a href="@@the-region-list">region list</a>, from where then can be manually dragged into a track</td></tr>
+  <tr><th>as new tape tracks</th><td>adds the files as <a href="@@track-types">Tape tracks.</a></td></tr>
+</table>
+<p>
+  The <kbd class="menu">Insert at</kbd> option chooses where in time the file will be imported, amongst:
+</p>
+<ul>
+  <li>the <dfn>file timestamp</dfn> (if available, zero by default)</li>
+  <li>at the <a href="@@edit-point-control"><dfn>edit point</dfn></a></li>
+  <li>at the <dfn>playhead</dfn></li>
+  <li>at the <dfn>session start</dfn>.</li>
+</ul>
+<p>
+  The Channel <kbd class="menu">Mapping</kbd> option is only available for
+  multi-channel files (i.e. all but mono ones). It is either
+</p>
+<table class="dl">
+  <tr><th>one track/region per file</th><td>Creates a multi channel track for each imported file</td></tr>
+  <tr><th>one track/region per channel</th><td>Creates only mono channels, as many as there are channels in the imported files</td></tr>
+  <tr><th>sequence files</th><td>If multiple files are imported, they can be sequenced into a single track in the order of selection</td></tr>
+</table>
+<p>
+  The <kbd class="menu">Conversion quality</kbd> drop-down controls the
+  quality of the resampling process, if the sampling rate of the source file
+  differs from the session rate.
+</p>
+<p>
+  There are three MIDI-specific options as well. First off, you can set a track 
+  naming scheme:
+</p>
+<table class="dl">
+  <tr>
+    <th>
+      by track number
+    </th>
+    <td>
+      will automatically assign every track a name that consists of the
+      imported file name and a track number
+    </td>
+  </tr>
+  <tr>
+    <th>
+      by track name
+    </th>
+   <td>
+      will automatically assign every track a name that consists of the
+      imported track's name and number
+    </td>
+  </tr>
+  <tr>
+    <th>
+      by instrument name
+    </th>
+    <td>
+      will automatically assign every track a name that consists of the
+      imported instrument's name and a track number
+    </td>
+  </tr>
+</table>
+<p>
+<p>
+  You can also optionally import a tempo map from a MIDI file.
+  The <kbd class="menu">Use MIDI Tempo Map</kbd> option appears when a MIDI
+  file is selected in the file selection dialog.
+<p>
+<p>
+  The last MIDI-specific option is <kbd class="menu">Import MIDI Markers</kbd>.
+  If those are present in a MIDI file, they will be rendered right above MIDI
+  clips on the canvas. Editing the MIDI markers is currently unavailable.
+  If MIDI lyrics is available in the file, it was also be imported as region
+  markers (that can be later promoted to location markers).
+</p>
+<figure class="right">
+	<img src="/images/imported-midi-markers.png" alt="MIDI markers imported from a .mid file" width="75%">
+	<figcaption>
+		MIDI markers imported from a .mid file
+	</figcaption>
+</figure>
+</p>
+<p>
+  Finally, and most importantly, the files can be linked or copied to the session
+  with the <kbd class="option">Copy files to session</kbd> checkbox. Please read
+  <a href="@@copying-versus-linking">Copying
+  versus Linking</a> for details.
+</p>
+
+<h2>Importing from FreeSound.org</h2>
+
+<p>
+  Ardour can import sounds from the public library at FreeSound.org.
+  This feature requires an account with the online service.
+</p>
+
+<p>
+  Sound clips on FreeSound.org typically have metadata in form of tags
+  that give a general idea what sound is recorded in a clip. Ardour will
+  use that metadata to find sound clips that match your request.
+</p>
+
+<figure class="right">
+  <img src="/images/freesound-clips-list.png" alt="List of sound clips found on FreeSound.org" width="75%">
+  <figcaption>
+    List of sound clips found on FreeSound.org
+  </figcaption>
+</figure>
+
+<p>
+  There are two more options for the search:
+</p>
+
+<ol>
+  <li><dfn>Sort</dfn>: allows sorting all sound clips that match your
+  request in a particular order. Changing the type of sorting requires
+  running the search again.</li>
+  <li><dfn>License</dfn>: allows limiting your search by choosing
+  a particular license depending on how you license your own work.</li>
+</ol>
+
+<p>
+  Ardour will list all sounds clips that match your request right in the
+  window. If there are a lot of option, click the
+  <kbd class="button">More</kbd> button to load the next page with results.
+</p>
+
+<p>
+  When you click on any sound clip in the list for the first time,
+  a FreeSound.org login page will open in your preferred web browser.
+</p>
+
+<figure class="right">
+  <img src="/images/freesound-login.png" alt="Log into FreeSound.org" width="75%">
+  <figcaption>
+    Log into FreeSound.org
+  </figcaption>
+</figure>
+</p>
+
+<p>
+  You will then be asked to grant access to Ardour.
+</p>
+
+<figure class="right">
+  <img src="/images/freesound-grant-access.png" alt="Grant access to Ardour" width="75%">
+  <figcaption>
+    Grant access to Ardour
+  </figcaption>
+</figure>
+</p>
+
+<p>
+  Once you do that, FreeSound.org will generate authorization code that you need to select and copy to the clipboard.
+</p>
+
+<figure class="right">
+  <img src="/images/freesound-auth-code.png" alt="Authorization token" width="75%">
+  <figcaption>
+    Authorization code
+  </figcaption>
+</figure>
+</p>
+
+<p>
+  Finally, insert the code into the entry box here and click <kbd class="button">OK</kbd>.
+</p>
+
+<figure class="right">
+  <img src="/images/freesound-code-insert.png" alt="Insert authorization token" width="75%">
+  <figcaption>
+    Insert authorization code
+  </figcaption>
+</figure>
+</p>
+
+<p>
+  After that, Ardour will be able to download clips for preview in a folder
+  for temporary files that you can select in the
+  <kbd class="window">Preferences</kbd> dialog on the
+  <kbd class="windows">General</kbd> page.
+</p>
+
+<p>
+  You can preview and insert clips from FreeSound.org like any other sound
+  files.
+</p>
+
+<p>
+  Please note that authorization code only works as long as Ardour is running.
+  The next time you start Ardour, you will need to authorize it again. This is
+  implementation specifics of FreeSound.org.
+</p>

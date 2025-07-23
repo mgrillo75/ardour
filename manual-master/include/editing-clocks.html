@@ -1,0 +1,148 @@
+<h2 id="clock-modes">Clock Modes</h2>
+
+<p>
+  Every clock in Ardour has multiple different, selectable <dfn>clock
+  modes</dfn>. Each mode displays time using different units.
+  The clock mode can be changed by <kbd class="mouse">Right</kbd>-clicking
+  on the clock and selecting the desired mode from the menu. Some clocks are
+  entirely independent of any other clock's mode; others are linked so that
+  changing one changes all clocks in that group. The different modes are:
+</p>
+
+<table class="dl">
+  <tr>
+	  <th>Timecode</th>
+	  <td>Time is shown as <dfn><abbr title="Society of Motion Picture and Television Engineers">SMPTE</abbr>
+	  timecode</dfn> in Hours:Minutes:Seconds:Frames, measured from the 
+	  timecode zero point on the timeline (which may not correspond to 
+	  the session start and/or absolute zero on the timeline, depending 
+	  on configurable timecode offsets). The frames value is dictated 
+	  by either the Timecode frames-per-second <a 
+	  href="@@session-properties#properties-timecode">session 
+	  property</a>, or, if slaved to an external timecode master, the 
+	  master's setting. Under the transport clocks is an indication of 
+	  the current timecode source (<samp>INT</samp> means that Ardour 
+	  is its own timecode source).
+	  </td>
+  </tr>
+  <tr>
+	  <th>Bars:Beats</th>
+	  <td>Time is shown as Bars:Beats:Ticks, indicating <dfn>musical 
+	  time</dfn>.
+	  </td>
+  </tr> 
+  <tr>
+	  <th>Minutes:Seconds</th>
+	  <td>Time is shown as Hours:Minutes:Seconds.Milliseconds.
+	  </td>
+  </tr>
+  <tr>
+	  <th>Seconds</th>
+	  <td>Time is shown as Seconds.Deciseconds.
+	  </td>
+  </tr>
+  <tr>
+	  <th>Samples</th>
+	  <td>Time is shown as a <dfn>sample count</dfn>. The number of 
+	  samples per second is given by the current sample rate.
+	  </td>
+  </tr>
+</table>
+
+<h2>Changing clock values with the keyboard</h2>
+
+<p>
+  New values for the clock can be typed in after clicking on the 
+  relevant clock. Clicking on the clock will show a thin vertical 
+  cursor bar just to the right of the next character to be overwritten. 
+  Time should be typed in the same order as the current clock 
+  mode&mdash;if the clock is in Timecode mode, it should be hours, 
+  minutes, seconds, frames. So, to change to a time of 12:15:20:15 one 
+  would type <kbd>1</kbd><kbd>2</kbd><kbd>1</kbd><kbd>5</kbd><kbd>2</kbd>
+  <kbd>0</kbd><kbd>1</kbd><kbd>5</kbd>. 
+  Freshly typed numbers will appear in a different color, from right to 
+  left, overwriting the existing value. Mid-edit, after typing 
+  <kbd>3</kbd><kbd>2</kbd><kbd>2</kbd><kbd>2</kbd> the clock might look 
+  like this:
+</p>
+
+<figure>
+    <img src="/images/clockedit.png" alt="A clock being edited in Ardour">
+    <figcaption>
+      A clock being edited in Ardour
+    </figcaption>
+</figure>
+
+<p>
+  Finishing the edit is done by pressing <kbd>ENTER</kbd> or 
+  <kbd>Tab</kbd>. The <kbd>ESC</kbd> key allows to exit an edit without 
+  changing the clock. If an entry is mis-typed  so that the new value 
+  would be illegal (for example, resulting in more than 30 frames when 
+  Timecode is set to 30 frames per second), the clock will reset at the 
+  end of the edit, and move the cursor back to the start to allow for 
+  another try.
+</p>
+
+<h2>Avoiding the mouse entirely</h2>
+
+<p>
+  There is a shortcut available to edit the transport clocks entirely 
+  without the mouse. It can be found in the <a 
+  href="@@keyboard-shortcuts">Keyboard Shortcuts</a> window, <kbd 
+  class="menu">Global &gt; Transport &gt; Focus On Clock</kbd>. If 
+  bound to a key (<kbd>/</kbd> by default), then pressing that key is 
+  equivalent to clicking on the primary (left) transport clock, and 
+  editing can begin immediately.
+</p>
+
+<h2>Entering Partial Times</h2>
+
+<p>
+  One detail of the editing design that is not immediately obvious is that it is
+  possible to enter part of a full time value.
+</p>
+<p>
+  As an example, supposing that the clock is in Bars:Beat mode, displaying
+  <samp>024|03|0029</samp>, altering the value to the first beat of the current
+  bar can be done by clicking on the clock and typing
+  <kbd>0</kbd><kbd>1</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd>.
+  Similarly, if it is in Minutes:Seconds mode, displaying
+  <samp>02:03:04.456</samp>, getting to exactly 2 hours can be achieved by
+  clicking on the clock and typing
+  <kbd>0</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd>
+  to reset the minutes, seconds and milliseconds fields.
+</p>
+
+<h2>Entering Delta Times</h2>
+
+<p>
+  Values can also be typed into the clock that are intended as a relative change,
+  rather than a new absolute value, by <em>ending</em> the edit by pressing
+  <kbd>+</kbd> or <kbd>-</kbd> (the ones on any keypad will also work). The plus
+  key will add the entered value to the current value of the clock, minus will
+  subtract it. For example, if the clock is in Samples mode and displays
+  <samp>2917839</samp>, moving it back 2000 samples is done by typing
+  <kbd>2</kbd><kbd>0</kbd><kbd>0</kbd><kbd>0</kbd> and <kbd>-</kbd>, rather than
+  ending with <kbd>Enter</kbd> or <kbd>Tab</kbd>.
+</p>
+
+<h2>Changing clock values with the mouse</h2>
+
+<h3>Using a scroll wheel</h3>
+
+<p>
+  With the mouse pointer over the clock, moving the scroll wheel changes the
+  clock values. Moving the scroll wheel up (<kbd class="mouse">&uArr;</kbd>)
+  increases the value shown on the clock, moving it down  (<kbd
+  class="mouse">&dArr;</kbd>) decreases it. The step size is equal to the unit
+  of the field hovered over (seconds, hours, etc.).
+</p>
+
+<h3>Dragging the mouse</h3>
+
+<p>
+  With the mouse pointer over the clock, pressing the left mouse button and
+  dragging also affects the clocks: dragging upwards increases the value shown
+  on the clock, dragging downwards decreases it, again with a step size equal to
+  the unit of the field where the drag began on.
+</p>

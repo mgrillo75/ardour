@@ -1,0 +1,2544 @@
+<!-- exploded -->
+
+---
+title: About Ardour
+link: about-ardour
+part: part
+---
+
+---
+title: About Ardour's documentation
+include: about-ardours-documentation.html
+link: about-ardour-doc
+uri: welcome-to-ardour/about-ardour-documentation
+part: chapter
+---
+
+---
+title: Ardour Overview
+include: ardour-overview.html
+link: ardour-overview
+uri: welcome-to-ardour
+part: chapter
+---
+
+---
+title: Why is it called Ardour?
+include: why-is-it-called-ardour.html
+link: why-is-it-called-ardour
+uri: welcome-to-ardour/about-ardour/why-is-it-called-ardour
+part: chapter
+---
+
+---
+title: Why Write a DAW for Linux?
+include: why-write-a-daw-for-linux.html
+link: why-write-a-daw-for-linux
+uri: welcome-to-ardour/about-ardour/why-write-a-daw-for-linux
+part: chapter
+---
+
+---
+title: Isn't This a Really Complicated Program?
+menu_title: Isn't This a Complex Program?
+include: isnt-this-a-really-complicated-program.html
+link: isnt-this-a-really-complicated-program
+uri: welcome-to-ardour/about-ardour/isnt-this-a-really-complicated-program
+part: chapter
+---
+
+---
+title: Creating Music with Ardour
+include: creating-music-with-ardour.html
+link: creating-music-with-ardour
+uri: introducing-ardour/creating-music-with-ardour
+part: chapter
+---
+
+---
+title: Additional Resources
+include: additional-resources.html
+link: additional-resources
+uri: welcome-to-ardour/additional-resources
+part: chapter
+---
+
+---
+title: Getting Started
+link: ardour-basics
+uri: introducing-ardour
+part: part
+---
+
+---
+title: Starting Ardour
+include: starting-ardour.html
+link: starting-ardour
+uri: setting-up-your-system/starting-ardour
+part: chapter
+---
+
+---
+title: Understanding Basic Concepts and Terminology
+menu_title: Basic Concepts and Terminology
+include: understanding-basic-concepts-and-terminology.html
+link: understanding-basic-concepts-and-terminology
+uri: introducing-ardour/understanding-basic-concepts-and-terminology
+part: chapter
+---
+
+---
+title: Using the Mouse
+include: using-the-mouse.html
+link: using-the-mouse
+uri: introducing-ardour/basic-gui-operations/using-the-mouse
+part: chapter
+---
+
+---
+title: Default Keyboard Bindings
+menu_title: Default Key Bindings
+include: default-keyboard-bindings.html
+link: default-keyboard-bindings
+uri: default-keyboard-bindings
+part: chapter
+---
+
+---
+title: Basic GUI Operations
+include: basic-gui-operations.html
+link: basic-gui-operations
+uri: introducing-ardour/basic-gui-operations
+part: chapter
+---
+
+
+---
+title: Ardour Configuration
+part: part
+---
+
+---
+title: Ardour Systems
+include: ardour-systems.html
+link: ardour-systems
+part: chapter
+---
+
+---
+title: The Right Computer System for Digital Audio
+menu_title: The Right Computer System
+include: the-right-computer-system-for-digital-audio.html
+link: the-right-computer-system-for-digital-audio
+uri: setting-up-your-system/the-right-computer-system-for-digital-audio
+part: subchapter
+---
+
+---
+title: The Right Mouse
+include: mouse.html
+link: mouse
+uri: setting-up-your-system/mouse
+part: subchapter
+---
+
+---
+title: System Specific Setup
+include: setting-up-your-system.html
+link: setting-up-your-system
+uri: setting-up-your-system
+part: chapter
+---
+
+---
+title: Ubuntu Linux
+include: ubuntu-linux.html
+link: ubuntu-linux
+uri: setting-up-your-system/platform-specifics/ubuntu-linux
+part: subchapter
+---
+
+---
+title: Microsoft Windows
+include: microsoft-windows.html
+link: microsoft-windows
+uri: setting-up-your-system/platform-specifics/microsoft-windows
+part: subchapter
+---
+
+---
+title: KDE Plasma 5
+include: kde-plasma-5.html
+link: kde-plasma-5
+part: subchapter
+---
+
+---
+title: I/O Setup
+link: io-setup
+part: chapter
+---
+
+---
+title: Connecting Audio and MIDI Devices
+menu_title: Audio and MIDI Devices
+include: connecting-audio-and-midi-devices.html
+link: connecting-audio-and-midi-devices
+uri: setting-up-your-system/connecting-audio-and-midi-devices
+part: subchapter
+---
+
+---
+title: Monitor Setup in Ardour
+menu_title: Monitor Setup in Ardour
+include: monitor-setup-in-ardour.html
+link: monitor-setup-in-ardour
+uri: recording/monitoring/monitor-setup-in-ardour
+part: subchapter
+---
+
+---
+title: Synchronization
+link: working-with-synchronization
+uri: synchronization
+part: chapter
+---
+
+---
+title: On Clock and Time
+include: on-clock-and-time.html
+link: on-clock-and-time
+uri: synchronization/on-clock-and-time
+part: subchapter
+---
+
+---
+title: Latency and Latency-Compensation
+menu_title: Latency
+include: latency-and-latency-compensation.html
+link: latency-and-latency-compensation
+uri: synchronization/latency-and-latency-compensation
+part: subchapter
+---
+
+---
+title: Timecode Generators and Slaves
+include: timecode-generators-and-slaves.html
+link: timecode-generators-and-slaves
+uri: synchronization/timecode-generators-and-slaves
+part: subchapter
+---
+
+---
+title: Overview of all Timecode related settings
+menu_title: Overview of Timecode settings
+include: overview-of-all-timecode-related-settings.html
+link: overview-of-all-timecode-related-settings
+uri: synchronization/overview-of-timecode-related-settings
+part: subchapter
+---
+
+---
+title: Transport Masters
+menu_title: Transport Masters
+include: transport-masters.html
+link: transport-masters
+uri: synchronization/transport-masters.html
+part: subchapter
+---
+
+---
+title: Preferences
+menu_title: Preferences
+include: preferences.html
+link: preferences
+uri: preferences-and-session-properties/preferences-dialog
+part: chapter
+---
+
+---
+title: Session Properties
+menu_title: Session Properties
+include: session-properties.html
+link: session-properties
+uri: preferences-and-session-properties/session-properties-dialog
+part: chapter
+---
+
+---
+title: Configuring MIDI
+include: configuring-midi.html
+link: configuring-midi
+uri: setting-up-your-system/setting-up-midi
+part: chapter
+---
+
+---
+title: MIDI on Linux
+include: midi-on-linux.html
+link: midi-on-linux
+uri: setting-up-your-system/setting-up-midi/midi-on-linux
+part: subchapter
+---
+
+---
+title: MIDI on OS X
+include: midi-on-os-x.html
+link: midi-on-os-x
+uri: setting-up-your-system/setting-up-midi/midi-on-os-x
+part: subchapter
+---
+
+---
+title: Keyboard Shortcuts
+include: keyboard-shortcuts.html
+link: keyboard-shortcuts
+uri: setting-up-your-system/keyboard-shortcuts
+part: chapter
+---
+
+---
+title: Ardour's Interface
+uri: ardours-interface
+part: part
+---
+
+---
+title: Ardour's Interface Overview
+include: about-ardours-interface.html
+link: about-ardours-interface
+uri: ardours-interface/about
+part: chapter
+---
+
+---
+title: Main Menu
+include: main-menu.html
+link: main-menu
+uri: ardours-interface/main-menu
+part: chapter
+---
+
+---
+title: The Session Menu
+include: the-session-menu.html
+link: the-session-menu
+uri: ardours-interface/main-menu/Session-menu
+part: subchapter
+---
+
+---
+title: The Transport Menu
+include: the-transport-menu.html
+link: the-transport-menu
+uri: ardours-interface/main-menu/Transport-menu
+part: subchapter
+---
+
+---
+title: The Edit Menu
+include: the-edit-menu.html
+link: the-edit-menu
+uri: ardours-interface/main-menu/Edit-menu
+part: subchapter
+---
+
+---
+title: The Region Menu
+include: the-region-menu.html
+link: the-region-menu
+uri: ardours-interface/main-menu/Region-menu
+part: subchapter
+---
+
+---
+title: The Track Menu
+include: the-track-menu.html
+link: the-track-menu
+uri: ardours-interface/main-menu/Track-menu
+part: subchapter
+---
+
+---
+title: The View Menu
+include: the-view-menu.html
+link: the-view-menu
+uri: ardours-interface/main-menu/View-menu
+part: subchapter
+---
+
+---
+title: The Window Menu
+include: the-window-menu.html
+link: the-window-menu
+uri: ardours-interface/main-menu/Window-menu
+part: subchapter
+---
+
+---
+title: The Help Menu
+include: the-help-menu.html
+link: the-help-menu
+uri: ardours-interface/main-menu/Help-menu
+part: subchapter
+---
+
+---
+title: Status Bar
+include: status-bar.html
+link: status-bar
+uri: ardours-interface/status-bar
+part: chapter
+---
+
+---
+title: Transport Bar
+include: transport-bar.html
+link: transport-bar
+uri: ardours-interface/the-transport-bar
+part: chapter
+---
+
+---
+title: Transport Clocks
+include: transport-clocks.html
+link: transport-clocks
+uri: ardours-interface/using-ardour-clock-displays
+part: chapter
+---
+
+---
+title: Selection and Punch Clocks
+include: selection-and-punch-clocks.html
+link: selection-and-punch-clocks
+uri: ardours-interface/selection-and-punch-clocks
+part: chapter
+---
+
+---
+title: Mini-Timeline
+include: mini-timeline.html
+link: mini-timeline
+part: chapter
+---
+
+---
+title: Other Toolbar Items
+include: other-toolbar-items.html
+link: other-toolbar-items
+uri: ardours-interface/status-indicators
+part: chapter
+---
+
+---
+title: Toolbox
+include: toolbox.html
+link: toolbox
+uri: ardours-interface/the-toolbox
+part: chapter
+---
+
+---
+title: Controls
+link: controls
+part: chapter
+---
+
+---
+title: Zoom Controls
+include: zoom-controls.html
+link: zoom-controls
+uri: ardours-interface/the-zoom-controls
+part: subchapter
+---
+
+---
+title: Grid Controls
+include: grid-controls.html
+link: grid-controls
+uri: ardours-interface/the-grid-controls
+part: subchapter
+---
+
+---
+title: Edit Point Control
+include: edit-point-control.html
+link: edit-point-control
+uri: editing-and-arranging/edit-point
+part: subchapter
+---
+
+---
+title: Nudge Controls
+include: nudge-controls.html
+link: nudge-controls
+uri: ardours-interface/the-nudge-controls
+part: subchapter
+---
+
+---
+title: Rulers and Markers
+link: ruler-and-markers
+uri: ardours-interface/ruler-and-markers
+part: chapter
+---
+
+---
+title: Rulers
+include: ruler.html
+link: ruler
+uri: ardours-interface/the-ruler
+part: subchapter
+---
+
+---
+title: Markers Basics
+include: working-with-markers.html
+link: working-with-markers
+uri: working-with-markers
+part: subchapter
+---
+
+---
+title: Bars:Beats
+include: bbt-markers.html
+link: bbt-markers
+part: subchapter
+---
+
+---
+title: Tempo
+include: tempo-ruler.html
+link: tempo-ruler
+part: subchapter
+---
+
+---
+title: Time Signature
+include: time-signature-ruler.html
+link: time-signature-ruler
+part: subchapter
+---
+
+---
+title: Range Markers
+include: creating-range-markers.html
+link: creating-range-markers
+uri: working-with-markers/creating-range-markers
+part: subchapter
+---
+
+---
+title: Loop Range
+include: the-loop-range.html
+link: the-loop-range
+uri: working-with-markers/loop-range
+part: subchapter
+---
+
+---
+title: Punch Range
+include: punch-range.html
+link: punch-range
+uri: working-with-markers/punch-range
+part: subchapter
+---
+
+---
+title: CD Markers
+include: cd-markers.html
+link: cd-markers
+uri: working-with-markers/cd-markers
+part: subchapter
+---
+
+---
+title: Location Markers
+include: creating-location-markers.html
+link: creating-location-markers
+uri: working-with-markers/creating-location-markers
+part: subchapter
+---
+
+---
+title: Cue Markers
+include: cue-markers.html
+link: cue-markers
+uri: working-with-markers/cue-markers
+part: subchapter
+---
+
+---
+title: Arrangement
+include: arrangement-ruler.html
+link: arrangement-ruler
+uri: working-with-markers/arrangement-ruler.html
+part: subchapter
+---
+
+---
+title: Summary
+include: summary.html
+link: summary
+uri: ardours-interface/the-summary
+part: chapter
+---
+
+---
+title: Editor and Cue Lists
+include: editor-lists.html
+link: editor-lists
+uri: ardours-interface/editor-lists
+part: chapter
+---
+
+---
+title: The Tracks and Busses List
+include: the-tracks-and-busses-list.html
+link: the-tracks-and-busses-list
+uri: ardours-interface/editor-lists/tracks-and-busses-list
+part: subchapter
+---
+
+---
+title: The Tracks List
+include: the-tracks-list.html
+link: the-tracks-list
+uri: ardours-interface/editor-lists/tracks-list
+part: subchapter
+---
+
+---
+title: The Sources List
+include: the-sources-list.html
+link: the-sources-list
+uri: ardours-interface/editor-lists/sources-list
+part: subchapter
+---
+
+---
+title: The Regions List
+include: the-region-list.html
+link: the-region-list
+uri: ardours-interface/editor-lists/region-list
+part: subchapter
+---
+
+---
+title: The Clips List
+include: the-clips-list.html
+link: the-clips-list
+uri: ardours-interface/editor-lists/clips-list
+part: subchapter
+---
+
+---
+title: The Arrangement list
+include: arrangement-list.html
+link: arrangement-list
+uri: ardours-interface/editor-lists/arrangement-list
+part: subchapter
+---
+
+---
+title: The Snapshot List
+include: the-snapshot-list.html
+link: the-snapshot-list
+uri: ardours-interface/editor-lists/snapshot-list
+part: subchapter
+---
+
+---
+title: The Track and Bus Group List
+include: the-track-and-bus-group-list.html
+link: the-track-and-bus-group-list
+uri: ardours-interface/editor-lists/track-and-bus-group-list
+part: subchapter
+---
+
+---
+title: The Ranges and Marks Lists
+include: the-ranges-and-marks-lists.html
+link: the-ranges-and-marks-lists
+uri: ardours-interface/editor-lists/ranges-and-marks-list
+part: subchapter
+---
+
+---
+title: Favorite Plugins Window
+include: favorite-plugins-window.html
+link: favorite-plugins-window
+uri: ardours-interface/favorite-plugins-window
+part: chapter
+---
+
+---
+title: Strips list
+include: strips-list.html
+link: strips-list
+uri: ardours-interface/the-strips-list
+part: chapter
+---
+
+---
+title: Groups list
+include: groups-list.html
+link: groups-list
+uri: ardours-interface/the-groups-list
+part: chapter
+---
+
+---
+title: Mixer Strips
+link: mixer-strips
+part: chapter
+---
+
+---
+title: Audio/MIDI Mixer Strips
+include: audiomidi-mixer-strips.html
+link: audiomidi-mixer-strips
+uri: ardours-interface/audio-midi-mixer-strips
+part: subchapter
+---
+
+---
+title: Audio/MIDI Busses Mixer Strips
+include: audiomidi-busses-mixer-strips.html
+link: audiomidi-busses-mixer-strips
+uri: ardours-interface/busses-mixer-strips
+part: subchapter
+---
+
+---
+title: VCA Mixer Strips
+include: control-masters-mixer-strips.html
+link: control-masters-mixer-strips
+uri: ardours-interface/control-masters
+part: subchapter
+---
+
+---
+title: Master Bus Strip
+include: master-bus-strip.html
+link: master-bus-strip
+uri: ardours-interface/the-master-bus-strip
+part: subchapter
+---
+
+---
+title: Foldback Section
+include: foldback-strip.html
+link: foldback-strip
+uri: ardours-interface/foldback-strip
+part: chapter
+---
+
+---
+title: Editor Tracks
+link: track-controls
+uri: ardours-interface/editor-tracks
+part: chapter
+---
+
+---
+title: Audio Track Controls
+include: audio-track-controls.html
+link: audio-track-controls
+uri: working-with-tracks/audio-track-controls
+part: subchapter
+---
+
+---
+title: MIDI Track Controls
+include: midi-track-controls.html
+link: midi-track-controls
+uri: working-with-tracks/midi-track-controls
+part: subchapter
+---
+
+---
+title: Bus Controls
+include: bus-controls.html
+link: bus-controls
+uri: working-with-tracks/bus-controls
+part: subchapter
+---
+
+---
+title: Track and Bus Groups
+include: track-and-bus-groups.html
+link: track-and-bus-groups
+uri: working-with-tracks/track-and-bus-groups
+part: chapter
+---
+
+---
+title: Quick groups
+include: quick-groups.html
+link: quick-groups
+uri: working-with-tracks/quick-groups
+part: chapter
+---
+
+---
+title: Monitor Section
+include: monitor-section.html
+link: monitor-section
+uri: ardours-interface/the-monitor-section
+part: chapter
+---
+
+---
+title: Sessions & Tracks
+part: part
+---
+
+---
+title: Sessions
+link: sessions
+uri: working-with-sessions
+part: chapter
+---
+
+---
+title: What's in a Session?
+include: whats-in-a-session.html
+link: whats-in-a-session
+uri: working-with-sessions/whats-in-a-session
+part: subchapter
+---
+
+---
+title: Where Are Sessions Stored?
+include: where-are-sessions-stored.html
+link: where-are-sessions-stored
+uri: working-with-sessions/where-are-sessions-stored
+part: subchapter
+---
+
+---
+title: New/Open Session Dialog
+include: newopen-session-dialog.html
+link: newopen-session-dialog
+uri: working-with-sessions/the-new-session-dialog
+part: subchapter
+---
+
+---
+title: Audio/MIDI Setup
+include: audio-midi-setup.html
+link: audio-midi-setup
+part: subchapter
+---
+
+---
+title: Renaming a Session
+include: renaming-a-session.html
+link: renaming-a-session
+uri: working-with-sessions/renaming-a-session
+part: subchapter
+---
+
+---
+title: Session Metadata
+include: metadata.html
+link: metadata
+uri: working-with-sessions/metadata
+part: subchapter
+---
+
+---
+title: Session Templates
+include: session-templates.html
+link: session-templates
+uri: working-with-sessions/session-templates
+part: subchapter
+---
+
+---
+title: Snapshots
+include: snapshots.html
+link: snapshots
+uri: working-with-sessions/snapshots
+part: subchapter
+---
+
+---
+title: Cleaning Up Sessions
+include: cleaning-up-sessions.html
+link: cleaning-up-sessions
+uri: working-with-sessions/cleaning_up
+part: subchapter
+---
+
+---
+title: Backup and Sharing of Sessions
+include: backup-and-sharing-of-sessions.html
+link: backup-and-sharing-of-sessions
+uri: working-with-sessions/backup-and-sharing-of-sessions
+part: subchapter
+---
+
+---
+title: Tracks
+link: tracks
+uri: working-with-tracks
+part: chapter
+---
+
+---
+title: Adding Tracks, Busses and VCAs
+include: adding-tracks-busses-and-vcas.html
+link: adding-tracks-busses-and-vcas
+uri: working-with-tracks/adding-tracks-and-busses
+part: subchapter
+---
+
+---
+title: Track Templates
+include: track-templates.html
+link: track-templates
+uri: working-with-tracks/track-templates
+part: subchapter
+---
+
+---
+title: Track Types
+include: track-types.html
+link: track-types
+uri: working-with-tracks/track-types
+part: subchapter
+---
+
+---
+title: Track Modes
+include: track-modes.html
+link: track-modes
+uri: working-with-tracks/track-modes
+part: subchapter
+---
+
+---
+title: Track Layering
+include: layering-display.html
+link: layering-display
+uri: working-with-tracks/controlling-track-appearance/layering-display
+part: subchapter
+---
+
+---
+title: Channel Configuration
+include: channel-configuration.html
+link: channel-configuration
+part: subchapter
+---
+
+---
+title: Track Ordering
+include: controlling-track-ordering.html
+link: controlling-track-ordering
+uri: working-with-tracks/controlling-track-ordering
+part: subchapter
+---
+
+---
+title: Track Color
+include: track-color.html
+link: track-color
+uri: working-with-tracks/controlling-track-appearance/track-coloring
+part: subchapter
+---
+
+---
+title: Track Height
+include: track-height.html
+link: track-height
+uri: working-with-tracks/controlling-track-appearance/track-height
+part: subchapter
+---
+
+---
+title: Waveform display
+include: waveform-display.html
+link: waveform-display
+uri: working-with-tracks/controlling-track-appearance/waveform-display
+part: subchapter
+---
+
+---
+title: Track Context Menu
+include: track-context-menu.html
+link: track-context-menu
+uri: working-with-tracks/track-context-menu
+part: subchapter
+---
+
+---
+title: Playback
+uri: playback
+part: part
+---
+
+---
+title: Controlling Playback
+include: controlling-playback.html
+link: controlling-playback
+uri: controlling-playback
+part: chapter
+---
+
+---
+title: The Big Clock
+include: big-clock.html
+link: big-clock
+part: chapter
+---
+
+---
+title: Using Key Bindings
+include: using-key-bindings.html
+link: using-key-bindings
+part: chapter
+---
+
+
+---
+title: Recording
+uri: recording
+part: part
+---
+
+
+---
+title: The Recorder
+include: recorder.html
+link: recorder
+part: chapter
+---
+
+---
+title: Monitoring
+include: monitoring.html
+link: monitoring
+uri: recording/monitoring
+part: chapter
+---
+
+---
+title: Monitor Signal Flow
+menu_title: Signal Flow
+include: monitor-signal-flow.html
+link: monitor-signal-flow
+uri: recording/monitoring/monitor-signal-flow
+part: chapter
+---
+
+---
+title: Metronome
+menu_title: Metronome
+include: metronome.html
+link: metronome
+uri: recording/metronome
+part: chapter
+---
+
+---
+title: Latency Considerations
+menu_title: Latency Considerations
+include: latency-considerations.html
+link: latency-considerations
+uri: recording/monitoring/latency-considerations
+part: chapter
+---
+
+---
+title: I/O Plugins
+include: io-plugins.html
+link: io-plugins
+part: chapter
+---
+
+---
+title: Importing and Exporting
+menu_title: Importing and Exporting
+link: importing-and-exporting-session-data
+part: part
+---
+
+---
+title: Importing
+link: importing
+uri: importing
+part: chapter
+---
+
+---
+title: Import Dialog
+include: import-dialog.html
+link: import-dialog
+uri: adding-pre-existing-material/import-dialog
+part: subchapter
+---
+
+---
+title: Supported File Formats
+include: supported-file-formats.html
+link: supported-file-formats
+uri: adding-pre-existing-material/supported-file-formats
+part: subchapter
+---
+
+---
+title: Adding Pre-existing Material
+include: adding-pre-existing-material.html
+link: adding-pre-existing-material
+uri: adding-pre-existing-material
+part: subchapter
+---
+
+---
+title: Copying Versus Linking
+include: copying-versus-linking.html
+link: copying-versus-linking
+uri: adding-pre-existing-material/copying-versus-linking
+part: subchapter
+---
+
+---
+title: Searching for Files Using Tags
+include: searching-for-files-using-tags.html
+link: searching-for-files-using-tags
+uri: adding-pre-existing-material/searching-for-files-using-tags
+part: subchapter
+---
+
+---
+title: Exporting
+link: mixdown
+uri: exporting
+part: chapter
+---
+
+---
+title: Export Dialog
+include: export-dialog.html
+link: export-dialog
+uri: exporting/export-dialog
+part: subchapter
+---
+
+---
+title: Quick Audio Export
+include: quick-audio-export.html
+link: quick-audio-export
+uri: exporting/quick-audio-export
+part: subchapter
+---
+
+---
+title: Export Format Profiles
+include: export-format-profiles.html
+link: export-format-profiles
+uri: exporting/edit-export-format-profile
+part: subchapter
+---
+
+---
+title: Stem Exports
+include: stem-exports.html
+link: stem-exports
+uri: working-with-sessions/interchange-with-other-daws/stem-exports
+part: subchapter
+---
+
+---
+title: Bouncing Regions
+include: bouncing-regions.html
+link: bouncing-regions
+uri: exporting/bouncing-regions
+part: subchapter
+---
+
+---
+title: Interchange with other DAWs
+include: interchange-with-other-daws.html
+link: interchange-with-other-daws
+uri: working-with-sessions/interchange-with-other-daws
+part: chapter
+---
+
+---
+title: Editing
+uri: editing-and-arranging
+part: part
+---
+
+---
+title: Navigating the Editor
+include: navigating-the-editor.html
+link: navigating-the-editor
+part: chapter
+---
+
+---
+title: Editing Basics
+link: editing-basics
+part: chapter
+---
+
+---
+title: Working With Regions
+include: working-with-regions.html
+link: working-with-regions
+uri: working-with-regions
+part: subchapter
+---
+
+---
+title: Region Naming
+include: region-naming.html
+link: region-naming
+uri: working-with-regions/region-naming
+part: subchapter
+---
+
+---
+title: Corresponding Regions Selection
+include: corresponding-regions-selection.html
+link: corresponding-regions-selection
+uri: working-with-regions/corresponding-regions-selection
+part: subchapter
+---
+
+---
+title: Region Context Menu
+include: region-context-menu.html
+link: region-context-menu
+uri: working-with-regions/region-context-menu
+part: subchapter
+---
+
+---
+title: Common Region Edit Operations
+menu_title: Region Editing
+include: common-region-edit-operations.html
+link: common-region-edit-operations
+uri: editing-and-arranging/common-region-edit-operations
+part: subchapter
+---
+
+---
+title: Copy Regions
+include: copy-regions.html
+link: copy-regions
+uri: editing-and-arranging/copy-regions
+part: subchapter
+---
+
+---
+title: Move Regions With the Mouse
+include: move-regions-with-the-mouse.html
+link: move-regions-with-the-mouse
+uri: editing-and-arranging/move-regions
+part: subchapter
+---
+
+---
+title: Align (Spot) Regions
+include: align-spot-regions.html
+link: align-spot-regions
+uri: editing-and-arranging/move-regions/align-spotting-regions
+part: subchapter
+---
+
+---
+title: Edit Mode and Tools
+link: edit-mode-and-tools
+part: chapter
+---
+
+---
+title: Editing Clocks
+include: editing-clocks.html
+link: editing-clocks
+uri: introducing-ardour/basic-gui-operations/editing-clocks
+part: subchapter
+---
+
+---
+title: Which Regions Are Affected?
+menu_title: Affected Regions
+include: which-regions-are-affected.html
+link: which-regions-are-affected
+uri: editing-and-arranging/which-regions-are-affected
+part: subchapter
+---
+
+---
+title: Making Selections
+include: select-regions.html
+link: select-regions
+uri: editing-and-arranging/select-regions
+part: chapter
+---
+
+---
+title: Editing Regions and Selections
+link: editing-regions-and-selections
+part: chapter
+---
+
+---
+title: Trimming Regions
+include: trimming-regions.html
+link: trimming-regions
+uri: editing-and-arranging/change-region-lengths
+part: subchapter
+---
+
+---
+title: Push/Pull Trimming
+include: pushpull-trimming.html
+link: pushpull-trimming
+uri: editing-and-arranging/change-region-lengths/pushpull-trimming
+part: subchapter
+---
+
+---
+title: Move Region Contents
+include: region-slip-drag.html
+link: region-slip-drag
+part: subchapter
+---
+
+---
+title: Stretching
+include: stretching-regions.html
+link: stretching
+part: subchapter
+---
+
+---
+title: Separate Under
+include: separate-under.html
+link: separate-under
+uri: editing-and-arranging/separation/separate-under
+part: subchapter
+---
+
+---
+title: Strip Silence from Audio Regions
+menu_title: Stripping Silence
+include: strip-silence-from-audio-regions.html
+link: strip-silence-from-audio-regions
+uri: editing-and-arranging/strip-silence-from-audio-regions
+part: subchapter
+---
+
+---
+title: Insert/Remove Time
+include: insert-remove-time.html
+link: insert-remove-time
+part: subchapter
+---
+
+---
+title: Region Properties
+include: region-properties.html
+link: region-properties
+part: subchapter
+---
+
+---
+title: Sections
+include: sections.html
+link: sections
+uri: editing-and-arranging/sections
+part: chapter
+---
+
+---
+title: Fades and Crossfades
+include: create-region-fades-and-crossfades.html
+link: create-region-fades-and-crossfades
+uri: editing-and-arranging/create-region-fades-and-crossfades
+part: chapter
+---
+
+---
+title: Adjusting Gain
+link: adjusting-gain
+uri: adjusting-gain
+part: chapter
+---
+
+---
+title: Region Gain
+include: region-gain-adjustment.html
+link: region-gain-adjustment
+part: subchapter
+---
+
+---
+title: Gain Envelopes
+include: gain-envelopes.html
+link: gain-envelopes
+part: subchapter
+---
+
+---
+title: Playlists
+link: playlists
+uri: working-with-playlists
+part: chapter
+---
+
+---
+title: Understanding Playlists
+include: understanding-playlists.html
+link: understanding-playlists
+uri: working-with-playlists/understanding-playlists
+part: subchapter
+---
+
+---
+title: Playlist Operations
+include: playlist-operations.html
+link: playlist-operations
+uri: working-with-playlists/playlist-operations
+part: subchapter
+---
+
+---
+title: Playlist Usecases
+include: playlist-usecases.html
+link: playlist-usecases
+uri: working-with-playlists/playlist_usecases
+part: subchapter
+---
+
+---
+title: Rhythm Ferret
+include: rhythm-ferret.html
+link: rhythm-ferret
+part: chapter
+---
+
+---
+title: MIDI
+part: part
+---
+
+---
+title: MIDI Overview
+include: midi-overview.html
+link: midi-overview
+part: chapter
+---
+
+---
+title: Creating MIDI Tracks
+include: create-midi-tracks.html
+link: create-midi-tracks
+uri: working-with-midi/create-midi-tracks
+part: subchapter
+---
+
+---
+title: Creating MIDI Regions
+include: create-midi-regions.html
+link: create-midi-regions
+uri: working-with-midi/create-midi-regions
+part: subchapter
+---
+
+---
+title: MIDI Editing
+include: edit-midi.html
+link: edit-midi
+uri: working-with-midi
+part: chapter
+---
+
+---
+title: Controlling Visible Note Range
+include: controlling-midi-range.html
+link: controlling-midi-range
+uri: working-with-midi/controlling-midi-range
+part: subchapter
+---
+
+---
+title: Adding New Notes
+include: add-new-notes.html
+link: add-new-notes
+uri: working-with-midi/add-new-notes
+part: subchapter
+---
+
+---
+title: Handling Overlapping Notes
+menu_title: Overlapping Notes
+include: handling-overlapping-notes.html
+link: handling-overlapping-notes
+uri: working-with-midi/handle-overlapping-notes
+part: section
+---
+
+---
+title: Note Selection
+include: note-selection.html
+link: note-selection
+uri: editing-and-arranging/edit-midi/note-selection
+part: subchapter
+---
+
+---
+title: Note Cut, Copy and Paste
+include: note-cut-copy-and-paste.html
+link: note-cut-copy-and-paste
+uri: working-with-midi/note-cut-copy-and-paste
+part: subchapter
+---
+
+---
+title: Note Splitting and Joining
+include: note-splitting-joining.html
+link: note-splitting-joining
+uri: working-with-midi/note-splitting-joining
+part: subchapter
+---
+
+---
+title: Changing Note Properties
+include: change-note-properties.html
+link: change-note-properties
+uri: editing-and-arranging/editing-midi/changing-note-properties
+part: subchapter
+---
+
+---
+title: Editing Velocity
+include: midi-velocity-editing.html
+link: editing-velocity
+uri: editing-and-arranging/editing-midi/editing-velocity
+part: subchapter
+---
+
+---
+title: Patch Change
+include: patch-change.html
+link: patch-change
+uri: working-with-midi/patch-change
+part: subchapter
+---
+
+---
+title: Independent and Dependent MIDI Region Copies
+menu_title: Copy MIDI Region
+include: independent-and-dependent-midi-region-copies.html
+link: independent-and-dependent-midi-region-copies
+uri: working-with-midi/copy-midi-region
+part: subchapter
+---
+
+---
+title: Quantizing MIDI
+include: quantize-midi.html
+link: quantize-midi
+uri: working-with-midi/quantize-midi
+part: subchapter
+---
+
+---
+title: Transposing MIDI
+include: transposing-midi.html
+link: transposing-midi
+uri: working-with-midi/transpose-midi
+part: subchapter
+---
+
+---
+title: MIDI List Editor
+include: midi-list-editor.html
+link: midi-list-editor
+part: subchapter
+---
+
+---
+title: Transforming MIDI&mdash;Mathematical Operations
+menu_title: Transforming MIDI
+include: transforming-midi---mathematical-operations.html
+link: transforming-midi---mathematical-operations
+uri: working-with-midi/transformation-midi
+part: subchapter
+---
+
+---
+title: MIDI Recording
+include: midi-recording.html
+link: midi-recording
+part: chapter
+---
+
+---
+title: Step Entry
+include: step-entry.html
+link: step-entry
+uri: working-with-midi/step-entry
+part: subchapter
+---
+
+---
+title: The Virtual MIDI Keyboard
+include: virtual-keyboard.html
+link: virtual-keyboard
+part: subchapter
+---
+
+---
+title: MIDI Automation
+include: midi-automation.html
+link: midi-automation
+part: chapter
+---
+
+---
+title: Pitch Bend &amp; Aftertouch
+include: automating-midi---pitch-bending-and-aftertouch.html
+link: automating-midi---pitch-bending-and-aftertouch
+uri: working-with-midi/automation-midi
+part: subchapter
+---
+
+---
+title: MIDI Scene Automation
+include: midi-scene-automation.html
+link: midi-scene-automation
+uri: automation/midi-scenes
+part: subchapter
+---
+
+---
+title: MIDI Tracer
+include: midi-tracer.html
+link: midi-tracer
+part: chapter
+---
+
+---
+title: Clips
+link: clips
+part: part
+---
+
+---
+title: Clips Overview
+link: clips-overview
+include: clips-overview.html
+part: chapter
+---
+
+---
+title: Clips in the Editor
+link: clips-in-the-editor
+include: clips-in-the-editor.html
+part: chapter
+---
+
+---
+title: Clips in the Cue Window
+link: clips-in-the-cue-window
+include: clips-in-the-cue-window.html
+part: chapter
+---
+
+---
+title: Adding Local Clip Libraries
+link: adding-3rd-party-clip-libraries
+include: adding-3rd-party-clip-libraries.html
+part: chapter
+---
+
+---
+title: Managing Custom Clips
+link: managing-custom-clips
+include: managing-custom-clips.html
+part: chapter
+---
+
+---
+title: Cue
+link: cue
+part: part
+---
+
+---
+title: Non-Linear Workflow Principles
+link: non-linear-workflow-principles
+include: non-linear-workflow-principles.html
+uri: cue/non-linear-workflow-principles
+part: chapter
+---
+
+---
+title: Cue window elements
+link: cue-window-elements
+include: cue-window-elements.html
+uri: cue/cue-window-elements
+part: chapter
+---
+
+---
+title: Setting Up Cues
+link: setting-up-cues
+include: setting-up-cues.html
+uri: cue/setting-up-cues
+part: chapter
+---
+
+---
+title: Populating the Cue Grid
+link: populating-the-cue-grid
+include: populating-the-cue-grid.html
+uri: cue/setting-up-cues/populating-the-cue-grid
+part: subchapter
+---
+
+---
+title: Playing Back the Cues
+link: playing-back-the-cues
+include: playing-back-the-cues.html
+uri: cue/setting-up-cues/playing-back-the-cues
+part: subchapter
+---
+
+---
+title: Setting Up Clip Properties
+link: clip-properties
+include: clip-properties.html
+uri: cue/setting-up-cues/clip-properties
+part: subchapter
+---
+
+---
+title: Setting Up Launch Options
+link: clip-launch-options
+include: clip-launch-options.html
+uri: cue/setting-up-cues/clip-launch-options
+part: subchapter
+---
+
+---
+title: Setting Up Follow Actions
+link: clip-follow-actions
+include: clip-follow-actions.html
+uri: cue/setting-up-cues/clip-follow-actions
+part: subchapter
+---
+
+---
+title: Setting Up Stretch Options
+link: clip-stretch-options
+include: clip-stretch-options.html
+uri: cue/setting-up-cues/clip-stretch-options
+part: subchapter
+---
+
+---
+title: Mixing Linear and Non-Linear Workflows
+link: mixing-linear-nonlinear-workflows
+include: mixing-linear-nonlinear-workflows.html
+uri: cue/mixing-linear-nonlinear-workflows
+part: chapter
+---
+
+---
+title: Arranging
+part: part
+---
+
+---
+title: Time, Tempo and Time Signature
+link: time-tempo-and-meter
+part: chapter
+---
+
+---
+title: Tempo and Time Signature
+include: tempo-and-meter.html
+link: tempo-and-meter
+uri: working-with-tempo-and-meter
+part: subchapter
+---
+
+---
+title: Techniques for Working with Tempo and Time Signature
+include: techniques-for-working-with-tempo-and-meter.html
+link: techniques-for-working-with-tempo-and-meter
+part: subchapter
+---
+
+---
+title: Mixing
+part: part
+---
+
+---
+title: Basic Mixing
+link: basic-mixing
+part: chapter
+---
+
+---
+title: Metering in Ardour
+include: metering-in-ardour.html
+link: metering-in-ardour
+uri: meters
+part: subchapter
+---
+
+---
+title: Meterbridge
+include: meterbridge.html
+link: meterbridge
+uri: meterbridge
+part: subchapter
+---
+
+---
+title: Signal Routing
+include: signal-routing.html
+link: signal-routing
+uri: signal-routing
+part: subchapter
+---
+
+---
+title: Bundle Manager
+include: bundle-manager.html
+link: bundle-manager
+uri: bundle-manager
+part: subchapter
+---
+
+
+---
+title: Aux Sends
+include: aux-sends.html
+link: aux-sends
+uri: signal-routing/aux-sends
+part: subchapter
+---
+
+---
+title: Comparing Aux Sends and Subgroups
+menu_title: Auxes vs. Groups
+include: comparing-aux-sends-and-subgroups.html
+link: comparing-aux-sends-and-subgroups
+uri: signal-routing/comparing-aux-sends-and-subgroups
+part: subchapter
+---
+
+---
+title: External Sends
+include: external-sends.html
+link: external-sends
+uri: signal-routing/external-sends
+part: subchapter
+---
+
+---
+title: Inserts
+include: inserts.html
+link: inserts
+uri: signal-routing/inserts
+part: subchapter
+---
+
+---
+title: Subgrouping
+include: subgrouping.html
+link: subgrouping
+uri: signal-routing/subgrouping
+part: subchapter
+---
+
+---
+title: Patchbay
+include: patchbay.html
+link: patchbay
+uri: signal-routing/Patchbay
+part: subchapter
+---
+
+---
+title: Track/Bus Signal Flow
+include: trackbus-signal-flow.html
+link: trackbus-signal-flow
+uri: signal-routing/signal-flow
+part: subchapter
+---
+
+---
+title: Sidechaining
+include: sidechaining.html
+link: sidechaining
+uri: signal-routing/sidechaining
+part: subchapter
+---
+
+---
+title: Muting and Soloing
+include: muting-and-soloing.html
+link: muting-and-soloing
+uri: mixing/muting-and-soloing
+part: subchapter
+---
+
+---
+title: Panning
+include: panning.html
+link: panning
+uri: mixing/panning
+part: subchapter
+---
+
+---
+title: Mono Panner
+include: mono-panner.html
+link: mono-panner
+uri: mixing/panning/mono_panner
+part: section
+---
+
+---
+title: Balance Control
+include: balance-control.html
+link: balance-control
+uri: mixing/panning/balance_control
+part: section
+---
+
+---
+title: Stereo Panner
+include: stereo-panner.html
+link: stereo-panner
+uri: mixing/panning/stereo_panner
+part: section
+---
+
+---
+title: VBAP Panner
+include: vbap-panner.html
+link: vbap-panner
+uri: mixing/panning/vbap_panner
+part: section
+---
+
+---
+title: Mixer Scenes
+include: mixer-scenes.html
+link: mixer-scenes
+uri: mixing/mixer-scenes
+part: subchapter
+---
+
+---
+title: Loudness Analyzer and Normalizer
+include: loudness-analyzer.html
+link: loudness-analyzer
+part: subchapter
+---
+
+---
+title: Plugin and Hardware Inserts
+link: plugin-and-hardware-inserts
+part: chapter
+---
+
+---
+title: Working With Plugins
+include: working-with-plugins.html
+link: working-with-plugins
+uri: working-with-plugins
+part: subchapter
+---
+
+---
+title: Processor Box
+include: processor-box.html
+link: processor-box
+uri: working-with-plugins/processor-box
+part: subchapter
+---
+
+---
+title: Plugin Selector
+include: plugin-selector.html
+link: plugin-selector
+uri: working-with-plugins/plugin-selector
+part: subchapter
+---
+
+---
+title: Plugin Manager
+include: plugin-manager.html
+link: plugin-manager
+uri: working-with-plugins/plugin-manager
+part: subchapter
+---
+
+---
+title: Managing Plugin Presets
+include: managing-plugin-presets.html
+link: managing-plugin-presets
+uri: working-with-plugins/managing-plugin-presets
+part: subchapter
+---
+
+---
+title: Working with Ardour-built Plugin Editors
+include: working-with-ardour-built-plugin-editors.html
+link: working-with-ardour-built-plugin-editors
+uri: working-with-plugins/working-with-ardour-built-plugin-editors
+part: subchapter
+---
+
+---
+title: Automation
+include: automation.html
+link: automation
+uri: automation
+part: chapter
+---
+
+---
+title: Automation Nomenclature
+include: automation-nomenclature.html
+link: automation-nomenclature
+part: subchapter
+---
+
+---
+title: Automation States
+include: automation-states.html
+link: automation-states
+part: subchapter
+---
+
+---
+title: Automation Lanes
+include: automation-lanes.html
+link: automation-lanes
+part: subchapter
+---
+
+---
+title: Automation Curves
+include: automation-curves.html
+link: automation-curves
+part: subchapter
+---
+
+---
+title: Automation Modes
+include: automation-modes.html
+link: automation-modes
+part: subchapter
+---
+
+---
+title: Controlling a Track with Automation
+menu_title: Track Automation
+include: track-automation.html
+link: track-automation
+part: subchapter
+---
+
+---
+title: Bundled Plugins
+link: bundled-plugins
+part: part
+---
+
+---
+title: Filters and Effects
+include: bundled-plugins-filters.html
+link: bundled-plugins-filters
+uri: plugins-filters
+part: chapter
+---
+
+---
+title: Instruments
+include: bundled-plugins-instruments.html
+link: bundled-plugins-instruments
+uri: plugins-instruments
+part: chapter
+---
+
+---
+title: Utilities
+include: bundled-plugins-utilities.html
+link: bundled-plugins-utilities
+uri: plugins-utilities
+part: chapter
+---
+
+---
+title: Inline Scopes
+include: bundled-plugins-inline-scopes.html
+link: bundled-plugins-inline-scopes
+uri: plugins-inline-scopes
+part: chapter
+---
+
+---
+title: Video
+part: part
+---
+
+---
+title: Video Timeline and Monitoring
+include: video-timeline-and-monitoring.html
+link: video-timeline-and-monitoring
+uri: video-timeline
+part: chapter
+---
+
+---
+title: Video Timeline Setup
+include: video-timeline-setup.html
+link: video-timeline-setup
+uri: video-timeline/setup
+part: chapter
+---
+
+---
+title: Transcoding, Formats and Codecs
+include: transcoding-formats-amp-codecs.html
+link: transcoding-formats-amp-codecs
+uri: video-timeline/transcoding_formats_codecs
+part: chapter
+---
+
+---
+title: Workflow and Operations
+include: workflow-amp-operations.html
+link: workflow-amp-operations
+uri: video-timeline/operations
+part: chapter
+---
+
+---
+title: Control Surfaces
+link: control-surfaces
+uri: using-control-surfaces
+part: part
+---
+
+---
+title: Using the Ableton Push 2
+menu_title: Ableton Push 2
+include: control-surfaces-ableton-push-2.html
+link: using-the-ableton-push-2
+uri: using-control-surfaces/Ableton_Push2
+part: chapter
+---
+
+---
+title: Using the Contour Design Shuttle Devices
+menu_title: Contour Design
+include: control-surfaces-countourdesign.html
+link: control-surfaces-countourdesign
+uri: using-control-surfaces/Countour_Design
+part: chapter
+---
+
+---
+title: Generic MIDI
+include: generic-midi.html
+link: generic-midi
+uri: using-control-surfaces/midi-binding-maps
+part: chapter
+---
+
+---
+title: Generic MIDI Binding Maps
+include: generic-midi-binding-maps.html
+link: generic-midi-binding-maps
+uri: using-control-surfaces/generic-midi/midi-binding-maps
+part: subchapter
+---
+
+---
+title: Generic MIDI Learn
+include: generic-midi-learn.html
+link: generic-midi-learn
+uri: using-control-surfaces/generic-midi/midi-learn
+part: subchapter
+---
+
+---
+title: Generic MIDI and Encoders
+menu_title: Working With Encoders
+include: generic-midi-and-encoders.html
+link: generic-midi-and-encoders
+uri: using-control-surfaces/generic-midi/working-with-encoders
+part: subchapter
+---
+
+---
+title: Mackie Control Devices
+include: controlling-ardour-with-mackie-control-devices.html
+link: controlling-ardour-with-mackie-control-devices
+uri: using-control-surfaces/mackie-control-protocol
+part: chapter
+---
+
+---
+title: Devices Using Mackie/Logic Control Protocol
+include: devices-using-mackielogic-control-protocol.html
+link: devices-using-mackielogic-control-protocol
+uri: using-control-surfaces/devices-using-mackielogic-control-protocol
+part: subchapter
+---
+
+---
+title: SSL Nucleus
+include: ssl-nucleus.html
+link: ssl-nucleus
+uri: using-control-surfaces/mackie-control-protocol/ssl-nucleus
+part: subchapter
+---
+
+---
+title: Behringer Devices in Mackie/Logic Control Mode
+menu_title: Behringer Devices
+include: behringer-devices-in-mackielogic-control-mode.html
+link: behringer-devices-in-mackielogic-control-mode
+uri: using-control-surfaces/mackie-control-protocol/behringer-devices-in-mackielogic-control-mode
+part: subchapter
+---
+
+---
+title: What to do if your Device is not Listed
+menu_title: Unlisted Devices
+include: what-to-do-if-your-device-is-not-listed.html
+link: what-to-do-if-your-device-is-not-listed
+uri: using-control-surfaces/mackie-control-protocol/devices-not-listed
+part: subchapter
+---
+
+---
+title: Working With Extenders
+menu_title: Working With Extenders
+include: working-with-extenders.html
+link: working-with-extenders
+uri: using-control-surfaces/mackie-control-protocol/working-with-extenders
+part: subchapter
+---
+
+---
+title: Using the Novation Launch Control XL
+menu_title: Novation Launch Control XL
+include: control-surfaces-novation-lcxl.html
+link: control-surfaces-novation-lcxl
+uri: using-control-surfaces/Launch_Control_XL
+part: chapter
+---
+
+---
+title: Using the Novation Launchkey mk4
+menu_title: Novation Launchkey mk4
+include: control-surfaces-novation-launchkey-mk4.html
+link: using-the-launchkey-mk4
+uri: using-control-surfaces/Launchkey_mk4
+part: chapter
+---
+
+---
+title: Using the Novation Launchpad Pro Mk3
+menu_title: Novation Launchpad Pro
+include: control-surfaces-launchpad-pro.html
+link: using-the-launchpad-pro
+uri: using-control-surfaces/Launchpad_Pro
+part: chapter
+---
+
+---
+title: Open Sound Control (OSC)
+include: controlling-ardour-with-osc.html
+pdf-exclude: yes
+link: controlling-ardour-with-osc
+uri: using-control-surfaces/controlling-ardour-with-osc
+part: chapter
+---
+
+---
+title: Basics
+include: osc58-controlling-ardour-with-osc.html
+link: osc58-controlling-ardour-with-osc
+uri: using-control-surfaces/controlling-ardour-with-osc/osc-control
+part: subchapter
+---
+
+---
+title: Using the setup dialog
+include: osc58-using-the-setup-dialog.html
+link: osc58-using-the-setup-dialog
+uri: using-control-surfaces/controlling-ardour-with-osc/osc-setup-dialog
+part: subchapter
+---
+
+---
+title: Linking Surfaces
+include: osc58-linking-surfaces.html
+link: osc58-linking-surfaces
+uri: using-control-surfaces/controlling-ardour-with-osc/linking-surfaces
+part: subchapter
+---
+
+---
+title: Querying Ardour
+include: osc58-querying-ardour.html
+link: osc58-querying-ardour
+uri: using-control-surfaces/controlling-ardour-with-osc/querying-ardour-with-osc
+part: subchapter
+---
+
+---
+title: Feedback
+include: osc58-feedback.html
+link: osc58-feedback
+uri: using-control-surfaces/controlling-ardour-with-osc/feedback-in-osc
+part: subchapter
+---
+
+---
+title: Feedback and strip-types values
+include: osc58-feedback-and-strip-types-values.html
+link: osc58-feedback-and-strip-types-values
+uri: using-control-surfaces/controlling-ardour-with-osc/calculating-feedback-and-strip-types-values
+part: subchapter
+---
+
+---
+title: Jog Modes
+include: osc58-jog-modes.html
+link: osc58-jog-modes
+uri: using-control-surfaces/controlling-ardour-with-osc/jog-modes
+part: subchapter
+---
+
+---
+title: Custom Strip Lists
+include: osc58-custom-strips.html
+link: osc58-custom-strips
+uri: using-control-surfaces/controlling-ardour-with-osc/custom-strips
+part: subchapter
+---
+
+---
+title: Automation
+include: osc58-automation.html
+link: osc58-automation
+uri: using-control-surfaces/controlling-ardour-with-osc/automation
+part: subchapter
+---
+
+---
+title: Personal Monitoring Control
+include: osc58-personal-monitoring-control.html
+link: osc58-personal-monitoring-control
+uri: using-control-surfaces/controlling-ardour-with-osc/osc-personal-monitoring
+part: subchapter
+---
+
+---
+title: Parameter Types
+include: osc58-parameter-types.html
+link: osc58-parameter-types
+uri: using-control-surfaces/controlling-ardour-with-osc/parameter-types-in-osc
+part: subchapter
+---
+
+---
+title: Selection and Expansion Considerations
+include: osc58-selection-and-expansion-considerations.html
+link: osc58-selection-and-expansion-considerations
+uri: using-control-surfaces/controlling-ardour-with-osc/selection-considerations-in-osc
+part: subchapter
+---
+
+---
+title: OSC control for Ardour 4.7 and Prior
+include: osc-control-for-ardour-4.7-and-prior.html
+link: osc-control-for-ardour-4.7-and-prior
+uri: using-control-surfaces/controlling-ardour-with-osc/osc-control-in-ardour-4.7-and-prior
+part: subchapter
+---
+
+---
+title: Using the PreSonus FaderPort
+menu_title: PreSonus FaderPort
+include: control-surfaces-presonus-faderport.html
+link: using-the-presonus-faderport
+uri: using-control-surfaces/Presonus_FaderPort
+part: chapter
+---
+
+---
+title: Using the PreSonus FaderPort 2/8/16
+menu_title: PreSonus FaderPort 2/8/16
+include: control-surfaces-presonus-faderport8.html
+link: using-the-presonus-faderport8
+uri: using-control-surfaces/PreSonus_FaderPort8
+part: chapter
+---
+
+---
+title: Using the Softube Console1
+menu_title: Softube Console1
+include: control-surfaces-softube-console1.html
+link: using-the-softube-console1
+uri: using-control-surfaces/Softube_Console1
+part: chapter
+---
+
+---
+title: Using the Steinberg CC121
+menu_title: Steinberg CC121
+include: control-surfaces-steinberg-cc121.html
+link: control-surfaces-steinberg-cc121
+uri: using-control-surfaces/Steinberg_CC121
+part: chapter
+---
+
+---
+title: Using the Tascam US-2400
+menu_title: Tascam US-2400
+include: control-surfaces-tascam-us-2400.html
+link: control-surfaces-tascam-us-2400
+uri: using-control-surfaces/Tascam_US-2400
+part: chapter
+---
+
+---
+title: Using the WebSockets Server
+menu_title: WebSockets Server
+include: control-surfaces-websockets-server.html
+link: control-surfaces-websockets-server.html
+uri: using-control-surfaces/websockets-server
+part: chapter
+---
+
+---
+title: Troubleshooting
+part: part
+---
+
+---
+title: Plugin DSP Load
+menu_title: Plugin DSP Load
+include: plugin-dsp-load.html
+link: plugin-dsp-load
+uri: troubleshooting/plugin-dsp-load
+part: chapter
+---
+
+---
+title: Performance Meters
+menu_title: Performance Meters
+include: performance-meters.html
+link: performance-meters
+uri: troubleshooting/performance-meters
+part: chapter
+---
+
+---
+title: Scripting
+part: part
+---
+
+---
+title: Lua Scripting
+include: lua-scripting.html
+exclude: yes
+link: lua-scripting
+uri: lua-scripting
+part: chapter
+---
+
+
+---
+title: Lua Bindings Class Reference
+style: luadoc
+include: class-reference.html
+exclude: yes
+pdf-exclude: yes
+link: class-reference
+uri: lua-scripting/class_reference
+part: chapter
+---
+
+
+---
+title: Appendix
+part: part
+---
+
+---
+title: List of Menu Actions
+include: list-of-menu-actions.html
+link: list-of-menu-actions
+uri: appendix/menu-actions-list
+part: chapter
+---
+
+---
+title: Default Keyboard Shortcuts
+include: default-shortcuts.html
+link: default-shortcuts
+part: chapter
+---
+
+---
+title: Ardour Monitor Modes
+include: ardour-monitor-modes.html
+link: ardour-monitor-modes
+uri: appendix/monitor-modes
+part: chapter
+---
+
+---
+title: Files and Directories Ardour Knows About
+include: files-and-directories-ardour-knows-about.html
+link: files-and-directories-ardour-knows-about
+uri: appendix/files-and-directories
+part: chapter
+---
+
+---
+title: MIDI Notes Reference
+include: midi-notes-ref.html
+link: midi-notes-ref
+part: chapter
+---
+
+---
+title: MIDNAM Reference
+include: midnam-ref.html
+link: midnam-ref
+part: chapter
+---
+
+---
+title: Getting More Plugins
+include: getting-more-plugins.html
+link: getting-more-plugins
+uri: working-with-plugins/getting-plugins
+part: chapter
+---

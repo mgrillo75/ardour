@@ -1,0 +1,56 @@
+
+<p>
+  Changing the <dfn>length</dfn> of a region is a very common editing
+  operation, often known as <dfn>trimming</dfn>. There are several ways
+  to accomplish this with Ardour, and some very useful specialized trimming
+  operations.
+</p>
+
+<h2>Drag-Trimming With the Mouse</h2>
+
+<figure class="right">
+  <img src="/images/trimming-region-before.png" alt="Trimming region - before">
+  <img src="/images/trimming-region-after.png" alt="Trimming region - after">
+  <figcaption>
+    Trimming region - before and after
+  </figcaption>
+</figure>
+
+<p>
+  In Grab mode, moving the pointer near the beginning or end of the region changes
+  the cursor to indicate that trimming is possible, and the edge of the region can
+  then be <kbd class="mouse">Left</kbd>-dragged in both directions.
+</p>
+<p>
+  Trimming will obey <a href="@@grid-controls">Snap settings</a>.
+</p>
+
+<h2>Other Trimming operations</h2>
+<p>
+  There are several commands for region trimming. Some use the
+  <a href="@@edit-point-control">edit point</a> to determine where
+  to trim to. Some are not bound to any keys by default (but could be via the
+  <a href="@@keyboard-shortcuts">Keybindings Editor</a>).
+</p>
+<p>
+  These command are both in the <kbd class="menu">Region &gt; Trim</kbd> main menu
+  (with a region selected) or in the context menu of a region, <kbd class="menu">
+  <kbd class="mouse">right</kbd> click on a region &gt; <em>Name_Of_The_Region</em>
+  &gt; Trim</kbd>
+</p>
+
+<table class="dl">
+  <tr><th><dfn>Trim Start at Edit Point</dfn> (<kbd>j</kbd>)</th>
+  <td>Trim selected region(s) start to edit point.</td></tr>
+  <tr><th><dfn>Trim End at Edit Point</dfn> (<kbd>k</kbd>)</th>
+  <td>Trim selected region(s) end to edit point.</td></tr>
+  <tr><th><dfn>Trim to Loop/Punch</dfn></th>
+  <td>Trim selected region(s) beginning and end to the loop/punch boundaries (if it exists).</td></tr>
+  <tr><th><dfn>Trim to Previous</dfn> (<kbd class="mod1">j</kbd>)</th>
+  <td>Trim the start of selected region(s) to the end of the previous region.
+    If the region is too short, it is extended to its maximum to the left.</td></tr>
+  <tr><th><dfn>Trim to Next</dfn> (<kbd class="mod1">k</kbd>)</th>
+  <td>Trim the end of selected region(s) to the start of the following region.
+    If the region is too short, it is extended to its maximum to the right.</td></tr>
+</table>
+

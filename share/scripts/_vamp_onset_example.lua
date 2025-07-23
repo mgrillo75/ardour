@@ -21,6 +21,12 @@ function factory () return function ()
 	-- http://manual.ardour.org/lua-scripting/class_reference/#ArdourUI:RegionSelection
 	for r in sel.regions:regionlist ():iter () do
 		-- "r" is-a http://manual.ardour.org/lua-scripting/class_reference/#ARDOUR:Region
+		
+		-- convert to audio region (skip if not an audio region)
+		local ar = r:to_audioregion ()
+		if ar:isnil () then
+			goto next_region
+		end
 
 		-- prepare lua table to hold results for the given region (by name)
 		onsets[r:name ()] = {}
@@ -37,7 +43,7 @@ function factory () return function ()
 				for f in fl:iter () do
 					-- "f" is-a  http://manual.ardour.org/lua-scripting/class_reference/#Vamp:Plugin:Feature
 					if f.hasTimestamp then
-						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, 48000)
+						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, Session:nominal_sample_rate())
 						--print ("-", f.timestamp:toString(), fn)
 						table.insert (onsets[r:name ()],  fn)
 					end
@@ -63,13 +69,15 @@ function factory () return function ()
 		-- This uses a "high-level" convenience wrapper provided by Ardour
 		-- which reads raw audio-data from the region and and calls
 		--     f = vamp:plugin ():process (); callback (f)
-		vamp:analyze (r:to_readable (), 0, callback)
+		vamp:analyze (ar:to_readable (), 0, callback)
 
 		-- get remaining features (end of analysis)
 		callback (vamp:plugin ():getRemainingFeatures ())
 
 		-- reset the plugin (prepare for next iteration)
 		vamp:reset ()
+		
+		::next_region::
 	end
 
 	-- print results

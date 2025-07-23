@@ -1,0 +1,37 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>{{page.page_title}}</title>
+  <meta name="author" content="The Ardour Team">
+	<meta name="description" content="Official manual for Ardour (www.ardour.org) generated from the online manual (manual.ardour.org)">
+	<meta name="keywords" content="Ardour digital audio workstation manual">
+	<meta name="generator" content="Weasyprint (weasyprint.org)">
+	<meta name="dcterms.created" content="{{ today }}">
+	<meta name="dcterms.modified" content="{{ today }}">
+	<link href="css/common.css" rel="stylesheet">
+	<link href="css/luadoc.css" rel="stylesheet">
+	<link href="css/pdf.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div class="frontcover">
+		<img src="images/ardour_logo.svg" alt="Ardour logo">
+		<p>The Ardour Manual</p>
+		<p id="generationdate">{{ today }}</p>
+  </div>
+
+	<div class="contents">
+		<h1 id="toc">Table of contents</h1>
+
+		{% tree %}
+
+	</div>
+
+	{{ content }}
+
+</body>
+</html>

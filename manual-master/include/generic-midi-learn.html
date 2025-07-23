@@ -1,0 +1,58 @@
+
+<h2>Philosophy</h2>
+<p>
+There are no "best" ways to map an arbitrary MIDI controller for
+controlling Ardour. There may be very legitimate reasons for different
+users to prefer quite different mappings.
+</p>
+
+<h2>Basics</h2>
+
+<ol>
+  <li>Enable Generic MIDI control: <kbd class="menu">Edit &gt; Preferences
+  &gt; Control Surfaces &gt; Generic MIDI</kbd></li>
+  <li>Connect Ardour's MIDI port named <samp>control</samp> to whatever
+  hardware or software you want (using a MIDI patchbay app)</li>
+  <li><kbd class="mod1 mouse">Middle</kbd>-click on whatever on-screen
+  fader, plugin parameter control, button etc. you want to control</li>
+  <li>A small window appears that says "Operate Controller now"</li>
+  <li>Move the hardware knob or fader, or press the note/key.</li>
+  <li>The binding is complete. Moving the hardware should control the Ardour fader etc. </li>
+</ol>
+
+<p>
+There's a complication to this story, however. You cannot use MIDI
+learn with the GUI provided by the plugin. This is true no matter what
+the plugin format or platform is. When we refer to "whatever on-screen
+fader ..." above, we are referring to an “Ardour-owned” control of
+some sort. You can get access to that in one of 3 ways:
+
+<ul>
+  <li>right click on the processor element in the mixer strip, and choose “Edit with Generic GUI”</li>
+  <li>right click on the processor element in the mixer strip, and from “Controls”, make the desired parameter visible inline in the mixer strip</li>
+  <li>in the editor, click on the “A” (automation) button for the
+  track, find the desired parameter. This will make the automation
+  lane for that parameter visible, and it comes with a fader you can
+    use for MIDI learn.</li>
+</ul>
+
+You can’t just “click the GUI” because the plugin owns the GUI, and
+cannot (and should not) be a part of the MIDI learn process.
+</p>
+
+<h2>Cancelling a Learned MIDI Binding</h2>
+
+<p>
+  To unlearn a learned MIDI binding, <kbd class="mod1 mouse">Middle</kbd>-click
+  on the control in the same way as you did to learn it in the first place, but
+  click on the popup to cancel it.
+</p>
+
+<h2>Avoiding work in the future</h2>
+<p>
+If you want the bindings you set up to be used automatically in every
+session, the simplest thing to do is to use <kbd class="menu">Session &gt; Save
+Template</kbd>. Then, when creating new sessions, select that template and
+all the bindings will be automatically set up for you.
+</p>
+

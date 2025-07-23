@@ -1,0 +1,98 @@
+
+<p>
+  It has never been particularly easy to move sessions or projects from one
+  <abbr title="Digital Audio Workstation">DAW</abbr> to another. There are two
+  <dfn>interchange standards</dfn> that have reasonably widespread support:</p>
+<ul>
+  <li>OMF (Open Media Framework), also known as OMFI. Developed and controlled
+  by Avid, never standardized</li>
+  <li>AAF (Advanced Authoring Format). Developed by a consortium of media-related
+  corporations.</li>
+</ul>
+<p>
+  In practice both of these standards have such complex and/or incomplete
+  specifications that different DAWs support them only partially,
+  differently, or not at all.
+</p>
+
+<h2>Transferring an Ardour session from / to another DAW</h2>
+
+<p>
+  To move a session from another DAW to Ardour, or from Ardour to another DAW,
+  there are two basic choices:
+</p>
+<ul>
+  <li><a href="@@stem-exports">Stem exports</a></li>
+  <li><a href="#using-aatranslator">Using AATranslator</a></li>
+</ul>
+
+<h2>Importing AAF files</h2>
+<p>
+  Ardour supports importing AAF session files, including fades, volume automation,
+  pan and multichannel tracks/regions.
+</p>
+<p>
+  To import an AAF file, you have to open the session file selection dialog :
+  <ul>
+    <li>By clicking the <kbd class="menu">Other Sessions</kbd> button on the <a
+    href="@@newopen-session-dialog">Session Setup Dialog</a>,</li>
+    <li>Or by going to <kbd class="menu">Session &gt; Open...</kbd> menu.</li>
+  </ul>
+</p>
+<figure class="center">
+  <img class="mini" src="/images/import-aaf.png" alt="AAF file selection dialog">
+  <figcaption>
+    Select Session File Dialog
+  </figcaption>
+</figure>
+
+<p>
+  Select <kbd class="menu">Advanced Authoring Format (AAF)</kbd> in the file type
+  filter, then select an AAF file and click <kbd class="menu">Open</kbd>.
+</p>
+
+<h2>Importing ProTools&reg; files</h2>
+<p>
+  Ardour provides a basic import tool for ProTools&reg; sessions, in the
+  <kbd class="menu">Session &gt; Import PT Session</kbd> menu.
+</p>
+<p>
+  Though incomplete, this import is intended for ptf and ptx files.
+  Protools&reg; 5, 8, 9, 10, 11 have been tested with varying degrees of success.
+  (versions 6 and 7 are not supported).
+</p>
+<p>
+  The elements of the files that are imported are:
+</p>
+<ul>
+  <li>Audio regions data &amp; position</li>
+  <li>MIDI notes (fused to a unique region).</li>
+</ul>
+
+<h2 id="using-aatranslator">Using AATranslator</h2>
+
+<p>
+  <dfn>AATranslator</dfn> is a Windows application that can convert
+  sessions/projects from many different DAWs into other formats. At the present
+  time (December 2016), it can read and write Ardour 2.X sessions, and can read
+  Ardour 3 sessions.
+</p>
+
+<p> The program runs very well on Linux using <a href="http://www.winehq.org/">Wine</a>
+  (a Windows environment for Linux). There are equivalent solutions for running
+  Windows applications on OS X, but we have no experience with them at this time.
+  Ardour users have reported great results using AATranslator on Ardour 2.X
+  sessions.
+</p>
+
+<p>
+  The <a href="http://www.aatranslator.com.au/">AATranslator website</a> has
+  full details on supported formats and DAWs. The list includes ProTools, Live,
+  Reaper, OMF, AAF and many more.
+</p>
+
+<p class="warning">
+  AATranslator is closed-source, non-free software (as of this writing, June 2017,
+  the cost is 59 USD for the "Standard" version, and 199 USD for the "Enhanced"
+  version).
+</p>

@@ -1,0 +1,328 @@
+
+<p>
+  Feedback from the Ardour to the the control surface is very useful for
+  a number of things. Motor faders need to know where the the track
+  they have been attached to is at before they were assigned otherwise
+  the DAW fader will jump to where the controller fader is. Likewise,
+  the buttons on each strip need to know what their value is so they can
+  light their LED correctly. Transport controls should let you know if
+  they are active too. This is what feedback is all about.
+</p>
+<p>
+  Ardour does feedback by sending the same path back that is used to
+  control the same function. As such any controls that have feedback
+  have a parameter that is the value of the control or its state
+  (on or off). In the case of OSC paths listed on the main OSC page
+  as having no parameter, if they have feedback, they will also work
+  with a 1 for button press and 0 for button release. This is because
+  many OSC controllers will only use exactly the same path for feedback
+  as for control. For example:
+</p>
+
+<table class="dl">
+  <tr><th><kbd class="osc">/transport_stop</kbd></th>
+  <td></td></tr>
+</table>
+<p>can be used also in the form:</p>
+
+<table class="dl">
+  <tr><th><kbd class="osc">/transport_stop <em>press</em></kbd></th>
+  <td>where <em>press</em> is an int/bool indicating if the button is pressed or not.</td></tr>
+</table>
+
+<p>
+  The feedback does not have the same meaning as the control message.
+  Where the button release sent to Ardour will be ignored and has no
+  meaning. Both states have meaning in feedback to the controller.
+  The feedback will be:
+</p>
+
+<table class="dl">
+  <tr><th><kbd class="osc">/transport_stop <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int/bool indicating if the transport is stopped or not.</td></tr>
+</table>
+<p>
+  With feedback turned on, OSC control commands that try to change a
+  control that does not exist will get feedback that resets that control
+  to off. For example, sending a /strip/recenable to a buss will not work
+  and Ardour will try to turn the controller LED off in that case. Also
+  note that Pan operation may be limited by pan width in some cases.
+  That is with pan width at 100% (or -100%) there is no pan position
+  movement available.
+</p>
+<p>
+  It may come as a surprise, but feedback often generates more network
+  traffic than control itself does. Some things are more obvious like
+  head position or meters. But even a simple button push like transport
+  start sends not only a signal to turn on the play LED, but also one to
+  turn off the stop LED, the Rewind LED, the Fast Forward LED and the
+  Loop LED. That is still minor, think instead of a surface refresh
+  such as happens when the surface is first connected and then most of
+  that happens every time the fader strips are banked. This is why
+  feedback is enabled in sections so that as little feedback as is
+  actually needed is sent. This is also a consideration if the surface
+  is connected via wifi.
+</p>
+<h2>List of OSC feedback messages</h2>
+
+<h3>Feedback only</h3>
+<p>
+  These messages are feedback only. They are sent as status from Ardour
+  and some of them may be enabled separately from other feedback. See:
+  <a href="@@osc58-feedback-and-strip-types-values#feedback">
+  Calculating Feedback and Strip-types Values.</a>
+</p>
+<p class="note">
+  See strip section below for info about ssid and wrapping it into the
+  path. Also /master and /monitor support what the /strip does.
+</p>
+<p>
+  In the case where Gainmode is set to position, the track name will
+  show the dB value while values are changing.
+</p>
+<table class="dl">
+  <tr><th><kbd class="osc">/strip/name <em>ssid</em> <em>track_name</em></kbd></th>
+  <td>where <em>track_name</em> is a string representing the name of the track</td></tr>
+  <tr><th><kbd class="osc">/strip/*/automation_name <em>ssid</em>  <em>name</em></kbd></th>
+  <td>where <em>name</em> is a string representing the current automation mode for the control.
+  <a href="@@osc58-automation">See OSC Automation.</a></td></tr>
+  <tr><th><kbd class="osc">/session_name <em>session_name</em></kbd></th>
+  <td>where <em>session_name</em> is a string representing the name of the session</td></tr>
+  <tr><th><kbd class="osc">/strip/meter <em>ssid</em> <em>meter</em></kbd></th>
+  <td>where <em>meter</em> is a value representing the current audio level.
+  (the exact math used is determined by the feedback bits set)</td></tr>
+  <tr><th><kbd class="osc">/strip/signal <em>ssid</em> <em>signal</em></kbd></th>
+  <td>where <em>signal</em> is a float indicating the instantaneous
+  audio level is -40dB or higher.</td></tr>
+  <tr><th><kbd class="osc">/position/smpte <em>time</em></kbd></th>
+  <td>where <em>time</em> is a string with the current play head time. Seconds as per smpte.</td></tr>
+  <tr><th><kbd class="osc">/position/bbt <em>beat</em></kbd></th>
+  <td>where <em>beat</em> is a string with the current play head bar/beat.</td></tr>
+  <tr><th><kbd class="osc">/position/time <em>time</em></kbd></th>
+  <td>where <em>time</em> is a string with the current play head time. Seconds are in milliseconds</td></tr>
+  <tr><th><kbd class="osc">/position/samples <em>samples</em></kbd></th>
+  <td>where <em>samples</em> is a string with the current play head position in samples.</td></tr>
+  <tr><th><kbd class="osc">/heartbeat <em>LED</em></kbd></th>
+  <td>where <em>LED</em> is a float that cycles 1/0 at 1 second intervals.</td></tr>
+  <tr><th><kbd class="osc">/record_tally <em>state</em></kbd></th>
+  <td>Some record enable is true or "ready to record". For a "Recording" sign at studio door.</td></tr>
+</table>
+
+<h3>Transport Control</h3>
+<table class="dl">
+  <tr><th><kbd class="osc">/transport_stop <em>state</em></kbd></th>
+  <td><em>state</em> is true when transport is stopped</td></tr>
+  <tr><th><kbd class="osc">/transport_play <em>state</em></kbd></th>
+  <td><em>state</em> is true when transport speed is 1.0</td></tr>
+  <tr><th><kbd class="osc">/ffwd <em>state</em></kbd></th>
+  <td><em>state</em> is true when transport is moving forward but not at speed 1.0</td></tr>
+  <tr><th><kbd class="osc">/rewind <em>state</em></kbd></th>
+  <td><em>state</em> is true when transport speed is less than 0.0</td></tr>
+  <tr><th><kbd class="osc">/marker <em>position</em></kbd></th>
+  <td><em>position</em> is a string in the form <kbd class="osc">previous &lt;-&gt; next</kbd>
+  or <kbd class="osc">current</kbd> (new Ardour 6.0)</td></tr>
+  <tr><th><kbd class="osc">/loop_toggle <em>state</em></kbd></th>
+  <td><em>state</em> is true when loop mode is true</td></tr>
+  <tr><th><kbd class="osc">/cancel_all_solos <em>state</em></kbd></th>
+  <td>Where <em>state</em> true indicates there are active solos that can be canceled.</td></tr>
+  <tr><th><kbd class="osc">/jog/mode/name <em>name</em></kbd></th>
+  <td>Where <em>name</em> is a string indicating the name of the current jog mode.</td></tr>
+</table>
+
+<h3>Recording control</h3>
+<table class="dl">
+  <!--dt><kbd class="osc">/toggle_punch_in</kbd></th>
+  <td></td></tr>
+  <tr><th><kbd class="osc">/toggle_punch_out</kbd></th>
+  <td></dd-->
+  <tr><th><kbd class="osc">/rec_enable_toggle <em>state</em></kbd></th>
+  <td>Master record enabled.</td></tr>
+</table>
+
+<h3>Master and monitor strips</h3>
+<p>
+  Master and monitor strips are similar to track strips but do not use
+  the SSID. Rather they use their name as part of the path:
+</p>
+<table class="dl">
+  <tr><th><kbd class="osc">/master/gain <em>dB</em></kbd></th>
+  <td>where <em>dB</em> is a float ranging from -193 to +6 representing the actual gain of master in dB</td></tr>
+  <tr><th><kbd class="osc">/master/fader  <em>position</em></kbd></th>
+  <td>where <em>position</em> is an int ranging from 0 to 1023 representing the fader control position</td></tr>
+  <tr><th><kbd class="osc">/master/trimdB <em>dB</em></kbd></th>
+  <td>where <em>dB</em> is a float ranging from -20 to +20 representing the actual trim for master in dB</td></tr>
+  <tr><th><kbd class="osc">/master/pan_stereo_position <em>position</em></kbd></th>
+  <td>where <em>position</em> is a float ranging from 0 to 1 representing the actual pan position for master</td></tr>
+  <tr><th><kbd class="osc">/master/mute  <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the actual mute state of the Master strip</td></tr>
+  <tr><th><kbd class="osc">/monitor/gain <em>dB</em></kbd></th>
+  <td>where <em>dB</em> is a float ranging from -193 to 6 representing the actual gain of monitor in dB</td></tr>
+  <tr><th><kbd class="osc">/monitor/fader  <em>position</em></kbd></th>
+  <td>where <em>position</em> is an int ranging from 0 to 1023 representing the fader control position</td></tr>
+  <tr><th><kbd class="osc">/monitor/mute  <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the actual mute state of the Monitor strip</td></tr>
+  <tr><th><kbd class="osc">/monitor/dim  <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the actual dim state of the Monitor strip</td></tr>
+  <tr><th><kbd class="osc">/monitor/mono  <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the actual mono state of the Monitor strip</td></tr>
+</table>
+
+<h3>Track specific operations</h3>
+<p>
+  For each of the following, <em>ssid</em> is the surface strip ID for the track
+</p>
+<p class="note">
+  Some Surfaces (many Android applets) are not able to deal with more
+  than one parameter in a command. However, the two parameter commands
+  below can also be sent as /strip/command/ssid param. Feedback can be
+  set to match this with the /set_surface/feedback <em>state</em>
+  command. See <a
+  href="@@osc58-feedback-and-strip-types-values#feedback">
+  Calculating Feedback and Strip-types Values.</a>
+</p>
+
+<table class="dl">
+  <tr><th><kbd class="osc">/bank_up <em>LED</em></kbd></th>
+  <td>where <em>LED</em> is a bool that indicates another bank_up operation is possible.</td></tr>
+  <tr><th><kbd class="osc">/bank_down <em>LED</em></kbd></th>
+  <td>where <em>LED</em> is a bool that indicates another bank_down operation is possible.</td></tr>
+  <tr><th><kbd class="osc">/strip/name <em>ssid</em> <em>strip_name</em></kbd></th>
+  <td>where <em>strip_name</em> is a string representing the name of the strip</td></tr>
+  <tr><th><kbd class="osc">/strip/group <em>ssid</em> <em>group_name</em></kbd></th>
+  <td>where <em>group_name</em> is a string representing the name of the group the track belongs to</td></tr>
+  <tr><th><kbd class="osc">/strip/mute <em>ssid</em> <em>mute_st</em></kbd></th>
+  <td>where <em>mute_st</em> is a bool/int representing the actual mute state of the track</td></tr>
+  <tr><th><kbd class="osc">/strip/solo <em>ssid</em> <em>solo_st</em></kbd></th>
+  <td>where <em>solo_st</em> is a bool/int representing the actual solo state of the track</td></tr>
+  <tr><th><kbd class="osc">/strip/monitor_input <em>ssid</em> <em>monitor_st</em></kbd></th>
+  <td>where <em>monitor_st</em> is a bool/int. True/1 meaning the track is force to monitor input</td></tr>
+  <tr><th><kbd class="osc">/strip/monitor_disk <em>ssid</em> <em>monitor_st</em></kbd></th>
+  <td>where <em>monitor_st</em> is a bool/int. True/1 meaning the track is force to monitor disk,
+  where both disk and input are false/0, auto monitoring is used.</td></tr>
+  <tr><th><kbd class="osc">/strip/recenable <em>ssid</em> <em>rec_st</em></kbd></th>
+  <td>where <em>rec_st</em> is a bool/int representing the actual rec state of the track</td></tr>
+  <tr><th><kbd class="osc">/strip/record_safe <em>ssid</em> <em>rec_st</em></kbd></th>
+  <td>where <em>rec_st</em> is a bool/int representing the actual record safe state of the track</td></tr>
+  <tr><th><kbd class="osc">/strip/gain <em>ssid</em> <em>gain</em></kbd></th>
+  <td>where <em>gain</em> is a float ranging from -193 to 6 representing the actual gain of the track in dB.</td></tr>
+  <tr><th><kbd class="osc">/strip/fader <em>ssid</em>  <em>position</em></kbd></th>
+  <td>where <em>position</em> is an float ranging from 0 to 1 representing the actual fader position of the track.</td></tr>
+  <tr><th><kbd class="osc">/strip/*/automation <em>ssid</em>  <em>mode</em></kbd></th>
+  <td>where <em>mode</em> is an int ranging from 0 to 3 representing the actual automation mode for the control.
+  <a href="@@osc58-automation">See OSC Automation.</a></td></tr>
+  <tr><th><kbd class="osc">/strip/trimdB <em>ssid</em>  <em>trim_db</em></kbd></th>
+  <td>where <em>trim_db</em> is a float ranging from -20 to 20 representing the actual trim of the track in dB.</td></tr>
+  <tr><th><kbd class="osc">/strip/pan_stereo_position <em>ssid</em> <em>position</em></kbd></th>
+  <td>where <em>position</em> is a float ranging from 0 to 1 representing the actual pan position of the track</td></tr>
+</table>
+<h3>Selected Operations</h3>
+<p>
+  Selection feedback is the same as for strips, only the path changes
+  from <em>/strip</em> to <em>/select</em> and there is no <em>ssid</em>.
+  there are some extra feedback and commands that will be listed here.
+</p>
+<table class="dl">
+  <tr><th><kbd class="osc">/select/n_inputs <em>number</em></kbd></th>
+  <td>where <em>number</em> number of inputs for this strip</td></tr>
+  <tr><th><kbd class="osc">/select/n_outputs <em>number</em></kbd></th>
+  <td>where <em>number</em> number of outputs for this strip</td></tr>
+  <tr><th><kbd class="osc">/select/comment <em>text</em></kbd></th>
+  <td>where <em>text</em> is the strip comment</td></tr>
+  <tr><th><kbd class="osc">/select/solo_iso <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the Actual solo isolate state of the track</td></tr>
+  <tr><th><kbd class="osc">/select/solo_safe <em>state</em></kbd></th>
+  <td>where <em>state</em> is a bool/int representing the actual solo safe/lock state of the track</td></tr>
+  <tr><th><kbd class="osc">/select/polarity <em>invert</em></kbd></th>
+  <td>where <em>invert</em> is a bool/int representing the actual polarity of the track</td></tr>
+  <tr><th><kbd class="osc">/select/pan_stereo_width <em>width</em></kbd></th>
+  <td>where <em>width</em> is a float ranging from 0 to 1 representing the actual pan width of the track</td></tr>
+  <tr><th><kbd class="osc">/select/send_gain <em>sendid</em> <em>send_gain</em></kbd></th>
+  <td>where <em>sendid</em> = nth_send, <em>send_gain</em>is a float
+  ranging from -193 to +6 representing the actual gain in dB for the send</td></tr>
+  <tr><th><kbd class="osc">/select/send_fader <em>sendid</em> <em>send_gain</em></kbd></th>
+  <td>where <em>sendid</em> = nth_send, <em>send_gain</em>is a float
+  ranging from 0 to 1 representing the actual position for the send as a fader</td></tr>
+  <tr><th><kbd class="osc">/select/send_name <em>sendid</em> <em>send_name</em></kbd></th>
+  <td>where <em>send_name</em> is a string representing the name of the buss
+  this send goes to.</td></tr>
+  <tr><th><kbd class="osc">/select/group/enable <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int representing the current enable state
+  of the group the selected strip is a part of</td></tr>
+  <tr><th><kbd class="osc">/select/group/gain <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the gain sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/relative <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows relative state of thew
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/mute <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the mute sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/solo <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the solo sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/recenable <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the recenable sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/select <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the select sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/active <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the route active sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/color <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the color sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/group/monitoring <em>state</em></kbd></th>
+  <td>where <em>state</em> is an int which shows the monitoring sharing of the
+  group the strip belongs to. See <a href="@@track-and-bus-groups">
+  Track and Bus Groups</a> for more details</td></tr>
+  <tr><th><kbd class="osc">/select/vcas <em>name</em> <em>state</em> ...</kbd></th>
+  <td>where <em>name</em> is a string with the name of the VCA, and
+  <em>state</em> is an int that determines if the named VCA will control
+  this strip. Note that this lists all VCAs in a session. (Ardour 6.0)</td></tr>
+</table>
+
+<h3>Selected Plugin</h3>
+<p>
+Feedback about plugin parameters is sent only for a single, selected
+plugin (parameters for other plugins and other strips can be changed
+with <kbd class="osc">/select/plugin/parameter</kbd> and <kbd
+class="osc">/strip/plugin/parameter</kbd>, but without feedback).
+Whenever the plugin (or strip) changes, the name and activation of the
+plugin and name and value of a number of its parameters (determined by
+the plugin page size) is sent as feedback.
+</p>
+
+<table class="dl">
+  <tr><th><kbd class="osc">/select/plugin/name <em>name</em></kbd></th>
+  <td>where <em>name</em> is a string with the name of the selected
+    plugin</td></tr>
+  <tr><th><kbd class="osc">/select/plugin/parameter/name <em>paid</em> <em>name</em></kbd></th>
+  <td>where <em>name</em> is a string with the name of the specified
+    parameter.</td></tr>
+  <tr><th><kbd class="osc">/select/plugin/parameter <em>paid</em> <em>value</em></kbd></th>
+  <td>where <em>value</em> is a float ranging from 0 to 1 representing
+    the current parameter value.</td></tr>
+</table>
+
+<h3>Menu actions</h3>
+<p class="note">
+	There is no feedback for Menu actions.
+</p>
+<p>
+  Every single menu item in Ardour's GUI is accessible via OSC. However,
+  there is no provision for returning the state of anything set this way.
+  This is not a bad thing as most menu items either do not have an on/off
+  state or that state is quite visible. Bindings that affect other parameters
+  that OSC does track will show on those OSC controls. Examples of this
+  might be track record enable for tracks 1 to 32, play or stop.
+</p>
+

@@ -1,0 +1,119 @@
+<h2>The transport controls</h2>
+
+<p>
+  The <dfn>Transport Bar</dfn> groups all the actions regarding the control of
+  playback and recording.
+</p>
+
+<figure>
+  <img width="50%" src="/images/transport.png" alt="The transport controls">
+  <figcaption>
+    The transport controls
+  </figcaption>
+</figure>
+
+<h3 id="transport_action_buttons">Transport action buttons</h3>
+<p>
+  The upper row contains transport actions, that are all bound to keyboard
+  shortcuts, which allows for speedier use and more focused work:
+</p>
+
+<table class="dl">
+	<tr><th>Midi Panic</th><td>Immediately stops all midi output.</td></tr>
+	<tr><th>Enable/disable Audio Click</th><td>Toggles (on/off) a click track (metronome)
+    along the <a href="@@tempo-and-meter">tempo</a>. Right clicking brings up the
+    <kbd class="menu">Click</kbd> submenu from the Preferences. Scrolling with
+    the mouse wheel adjusts the gain of the click.</td></tr>
+	<tr><th>Go to Start of the Session</th><td>Jumps back at the beginning of the session,
+    as defined by the <a href="@@working-with-markers">start marker</a>.</td></tr>
+	<tr><th>Go to End of the Session</th><td>Jumps forward to the end of the session,
+    as defined by the <a href="@@working-with-markers">end marker</a>.</td></tr>
+	<tr><th>Play Loop Range</th><td>Repeats the defined <a href="@@controlling-playback">loop</a>
+     as defined by the <a href="@@the-loop-range">Loop range</a>, until the "Stop
+     playback" button is pressed. Clicking the "Play loop Range" button while
+     already active switches to normal Play mode, which exits the loop without
+     stopping and restarting playback.</td></tr>
+	<tr><th>Play Range/Selection</th><td>If a range has been defined using the Range
+    Mode button, plays the range, of if an audio or MIDI region is selected,
+    plays this region. In both cases, the playback stops at the end of the range
+    or selected region.</td></tr>
+	<tr><th>Play from playhead</th><td>Starts the playback and optionally record (more
+    below).</td></tr>
+	<tr><th>Stop</th><td>Whatever the playing mode (loop, range, &hellip;) stops all
+    playback. Depending on other settings, some effects (like chorus or reverb)
+    might still be audible for a while.</td></tr>
+	<tr><th>Toggle Record</th><td>Global switch button to activate/deactivate recording.
+    While active, the button blinks red. The button doesn't start recording by
+    itself: if one or more tracks are marked as record-enabled, pressing the
+    "Play from Playhead" starts recording on those tracks.</td></tr>
+</table>
+
+<p class="note">
+  If Ardour is synchronized with other devices then some or all of these control
+  methods may be unavailable&mdash;depending on the synchronization protocol,
+  Ardour may respond only to commands sent from its master device(s).
+</p>
+
+<h3 id="transport_modifiers">The Transport modifiers</h3>
+<h4 id="transport_shuttle">The Shuttle Speed Control</h4>
+<p>
+  Under these buttons is the <dfn>Shuttle Speed Control</dfn> that
+  allows to <em>temporarily</em> scrub through the audio quickly. The slider
+  decides the playback speed: the further from the center it is set,
+  the faster the playback will scrub in both directions. The range of
+  this acceleration can be set by <kbd class="mouse">right</kbd>-clicking
+  the control and setting the multiplier, either 1.5 (&plusmn; 150%) or 2
+  (&plusmn; 200%).
+</p>
+
+<h4 id="transport_varispeed">VariSpeed</h4>
+<p>
+  The <kbd class="menu">VS</kbd> (for <em>V</em>ari<em>S</em>peed)
+  button sets a <em>constant</em> playback/record speed. It can be set
+  in semitones (1 semitone = &times; 2 <sup>1&frasl;12</sup> &asymp;
+  105,9%), cents of semitones, or percentages, and is armed/disarmed
+  by clicking the button. The <kbd class="menu">VS</kbd> button will blink
+  when VariSpeed is enabled. Whether or not this VariSpeed is persistent
+  when stopping/restarting transport depends on the
+  <kbd class="option">Reset default speed on stop</kbd> parameter in the
+  <a href="@@preferences#preferences-transport">Preferences</a> dialog.
+</p>
+
+<h4 id="transport_sync">Transport Sync</h4>
+<p>
+  On the left of the slider is the positional sync button (which might show
+  <dfn>Internal</dfn>, or <dfn>MTC</dfn> or several other values), than can be
+  used to control whether or not the transport position and start is controlled
+  by Ardour, or by an external positional synchronization source, such as MIDI
+  Time Code (MTC), Linear Time Code (LTC) or JACK (see
+  <a href="@@timecode-generators-and-slaves">Timecode Generators and Slaves</a>).
+</p>
+
+<h4 id="transport_status">Transport Status</h4>
+<p>
+  The current playback status (Stop, Play, or speed %) is shown on the right of
+  the speed slider.
+</p>
+
+
+<h2>Using Key Bindings</h2>
+<p>
+  Ardour has many available commands for playback control that can be bound
+  to keys. Many of them have default bindings, some do not, so the list below
+  shows both the default bindings and internal command names for some of them.
+</p>
+
+<table class="dl">
+  <tr><th><kbd>Space</kbd></th><td>Switch between playback and stop.</td></tr>
+  <tr><th><kbd>Home</kbd></th><td>Move playhead to session start marker</td></tr>
+  <tr><th><kbd>End</kbd></th><td>Move playhead to session end marker</td></tr>
+  <tr><th><kbd>&rarr;</kbd></th><td>Playhead to next region boundary</td></tr>
+  <tr><th><kbd>&larr;</kbd></th><td>Playhead to previous region boundary</td></tr>
+  <tr><th><kbd>0</kbd></th><td>Move playhead to start of the timeline</td></tr>
+</table>
+
+<p>
+  The <kbd class="menu">Transport</kbd> and <kbd class="menu">Transport &gt;
+  Playhead</kbd> menus contain a lot more transport actions and their key bindings.
+</p>
+

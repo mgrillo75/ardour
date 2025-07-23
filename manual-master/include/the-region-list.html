@@ -1,0 +1,40 @@
+
+<p>
+  The Regions list shows all the regions in the session, with infos about them 
+  in a tabular form. Any column caption can be clicked to sort the list
+  according to the clicked value:
+</p>
+
+<table class="dl">
+  <tr><th>Name</th><td>The name of the region, can be modified by double-clicking it</td></tr>
+  <tr><th># Ch</th><td>Number of channels for an audio region (0 for MIDI)</td></tr>
+  <tr><th>Tags</th><td>User-added tag text, can be modified by double clicking it</td></tr>
+  <tr><th>Start</th><td>position of the start of the region on the global timeline</td></tr>
+  <tr><th>Length</th><td>duration of the region</td></tr>
+</table>
+
+<p>
+  The time format used for <em>Start</em> and <em>Length</em> follows the <a href="@@editing-clocks">Primary Clock</a> one.
+</p>
+
+<p>
+  At the right of the list are three columns of flags that can be altered:
+</p>
+
+<table class="dl">
+  <tr><th>&square;&nbsp;L</th>
+  <td>whether the region position is locked, so that it cannot be moved.</td></tr>
+  <tr><th>&square;&nbsp;M</th>
+  <td>whether the region is muted, so that it will not be heard.</td></tr>
+  <tr><th>&square;&nbsp;O</th>
+  <td>whether the region is opaque; opaque regions &lsquo;block&rsquo; regions below them from being heard, whereas &lsquo;transparent&rsquo; regions have their contents mixed with whatever is underneath. </td></tr>
+</table>
+
+<p>
+  Hovering the mouse pointer over a column heading shows a tool-tip which can be handy to remember what the columns are for.
+</p>
+
+<p>
+  A handy feature of the region list is that its regions can be dragged and dropped into a suitable track in the session.
+</p>
+

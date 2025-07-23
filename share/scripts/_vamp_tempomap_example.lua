@@ -42,7 +42,7 @@ function factory () return function ()
 				for f in fl:iter () do
 					-- "f" is-a  http://manual.ardour.org/lua-scripting/class_reference/#Vamp:Plugin:Feature
 					if f.hasTimestamp then
-						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, 48000)
+						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, Session:nominal_sample_rate())
 						table.insert (beats[r:name ()], {pos = fn, beat = f.label})
 					end
 				end
@@ -53,7 +53,7 @@ function factory () return function ()
 			if fl then
 				for f in fl:iter () do
 					if f.hasTimestamp then
-						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, 48000)
+						local fn = Vamp.RealTime.realTime2Frame (f.timestamp, Session:nominal_sample_rate())
 						table.insert (bars[r:name ()],  fn)
 					end
 				end

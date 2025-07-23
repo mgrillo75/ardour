@@ -1,0 +1,118 @@
+
+<figure class="right">
+	<img src="/images/processor-box.png" alt="the Processor Box">
+	<figcaption class="center">
+		Processor Box.
+	</figcaption>
+</figure>
+
+<p>
+  In Ardour terminology, a <dfn>processor</dfn> is anything which treats the signal in some way and gets plugged into a mixer
+  strip. Ardour provides several builtin processors such as the fader or panners. Processors can also be <dfn>plugins</dfn>
+  used for effects or as instruments, as well as sends or inserts which affect <a href="@@signal-routing">signal routing</a>.
+</p>
+
+<p>
+  The arrangement of processors is arbitrary, and there is no limit to how many there can be. The Processor Box will
+  automagically add a scrollbar to itself if there are more processors in it than can be shown in the given space.
+</p>
+
+<p>
+  The main box in the top half of a mixer strip shows the <dfn>processor box</dfn>. Processors are shown as colored rectangles,
+  with a small LED beside them that lights up when the processor is enabled. The color of the processor depends on its location
+  in the sequence; processors that are <dfn>pre-fader</dfn> are colored in red, and <dfn>post-fader</dfn> processors are
+  colored green (in the default theme).
+</p>
+
+<p>
+  The <dfn>processor box</dfn> will always contain a blue <dfn>Fader</dfn> processor. This indicates where in the processor
+  chain the main channel fader is located; this is the fader shown in the lower half of the strip. It can be enabled and
+  disabled like any other processor.
+</p>
+
+<h2>Adding Processors</h2>
+
+<p>
+  Processors can be added to the chain by <kbd class="mouse">Right</kbd>-clicking in the processor list, This does three things:
+</p>
+
+<ul>
+  <li>A gap is opened up to indicate the location of the click. The gap shows where any new processors will be inserted.</li>
+  <li>The processor under the click is selected.</li>
+  <li>An options menu is presented.</li>
+</ul>
+
+<p>
+  From the menu, new processors can be inserted.
+</p>
+
+<p>
+  Processors can also be dragged and dropped from the <a href="@@favorite-plugins-window"><dfn>Favorite Plugins</dfn> window</a> to an
+  appropriate spot in the Processor Box.
+</p>
+
+<p class="note">
+  The <dfn>Favorite Plugins</dfn> window can be populated via the <a href="@@plugin-selector">Plugin Selector</a>, or by dragging
+   and dropping an existing processor from the <dfn>processor box</dfn> to the <dfn>Favorite Plugins</dfn> window.
+</p>
+
+<h2>To Reorder (Move) Processors</h2>
+
+<p>
+  Processors can be re-ordered using drag and drop. Dragging a processor allows it to be moved around within the chain, or
+  copied to another processor list on another track or bus.
+</p>
+
+<h2>To Enable/Disable a Processor</h2>
+
+<figure class=right>
+<img src="/images/processor.png" alt="a typical processor" />
+<figcaption class=center>A typical processor.</figcaption>
+</figure>
+
+<p>
+  To the left of the name of each processor is a small LED symbol; if this is lit-up, the processor is active. 
+  <kbd class=mouse>Left</kbd>-clicking on the LED symbol, or <kbd class=mouse>Middle</kbd>-clicking anywhere on the processor
+  will deactivate the processor and effectively bypass it. Click again to reactivate the processor.
+</p>
+
+<p class="note">
+  Some processors have their own bypass controls that are independent of the
+  one that Ardour provides; this can make it appear that the plugin is
+  non-responsive when its independent bypass control is active.
+</p>
+
+<h2>Selecting Processors</h2>
+
+<p>
+  A processor in the <dfn>processor box</dfn> can be selected with a
+  <kbd class=mouse>Left</kbd>-click on it; it will be highlighted in red.
+  Other processors can be selected at the same time by
+  <kbd class=mouse>Left</kbd>-clicking on them while holding down the
+  <kbd class=mod1n></kbd> key, and ranges can be selected by
+  <kbd class=mouse>Left</kbd>-clicking on them while holding down the
+  <kbd class=mod3n></kbd> key.
+</p>
+
+<h2>Renaming Processors</h2>
+
+<p>
+  Context-click on the processor to be removed and select
+  <kbd class="menu">Rename</kbd>. In the newly opened dialog set a new name
+  and click "Rename". The caption of the processor will be instantly changed in the mixer strip.
+</p>
+
+<p>
+  To restore the original name which, for plugins, is typically the plugin's
+  name, open the same dialog and click the button to the right of the text
+  input box, then click "Rename".
+</p>
+
+<h2>Removing Processors</h2>
+
+<p>
+  Context-click on the processor to be removed, and select <kbd class="menu">Delete</kbd>; or
+  <kbd class=mod3n></kbd><kbd class=mouse>Right</kbd>-click on it; or <kbd class=mouse>Left</kbd>-click on it and press the
+  <kbd>Delete</kbd> key. If multiple processors are selected, they will all be deleted at the same time.
+</p>
+

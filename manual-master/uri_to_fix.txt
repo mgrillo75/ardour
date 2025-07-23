@@ -1,0 +1,21 @@
+// URLs that are currently 404 (Feb/14) -- add 301 redirects or re-instantiate the old URI
+// 
+// These URIs are no longer relevant, and are redirected by a meta refresh
+//
+// format : old/URI/to/replace	|@@link (cf master-donc.txt)
+//
+default-keyboard-bindings/mnemonic-bindings-for-os-x/					|@@default-shortcuts
+default-keyboard-bindings/mnemonic-bindings-for-linux/					|@@default-shortcuts
+introduction-to-ardour/keyboard-and-mouse-shortcuts/					|@@keyboard-shortcuts
+editing-and-arranging/creating-regionfades-and-crossfades/				|@@create-region-fades-and-crossfades
+editing-and-arranging/editing-midi/midi_region_cloning/					|@@independent-and-dependent-midi-region-copies
+editing-and-arranging/editing-midi/quantizing-midi/						|@@quantize-midi
+working-with-plugins/the-processor-box/									|@@audiomidi-mixer-strips#audio-midi-processor-box
+ardours-interface/basic-gui-operations/selection-techniques/			|@@using-the-mouse
+ardours-interface/basic-gui-operations/using-the-mouse/					|@@using-the-mouse
+ardours-interface/introducing-the-editor-window/the-editing-toolbar/	|@@toolbox
+ardours-interface/introducing-the-editor-window/the-transport-bar/		|@@transport-bar
+working-with-markers/getting-to-know-the-rangesmarks-list/				|@@the-ranges-and-marks-lists
+working-with-markers/the-punch-range/									|@@selection-and-punch-clocks
+signal-routing/role-of-jack/											|@@starting-ardour
+editing-and-arranging/move-regions/move-regions-with-the-mouse			|@@move-regions-with-the-mouse

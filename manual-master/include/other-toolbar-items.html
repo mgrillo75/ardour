@@ -1,0 +1,151 @@
+
+<h2 id="latency-compensation-info">The Latency Compensation Info</h2>
+
+<figure>
+	<img alt="The Latency Compensation Info" src="/images/latency-compensation-info.png">
+	<figcaption>
+		Latency Compensation Info
+	</figcaption>
+</figure>
+
+<p>
+  This section shows information about the latency compensation Ardour sets
+  to align all signals in time whatever their route (and processing applied).
+</p>
+
+<p>
+  The only button <kbd class="menu">Disable PDC</kbd> allows to enable/disable
+  the <em>P</em>lugin <em>D</em>elay <em>C</em>ompensation. Enabling it will
+  make all signal perfectly aligned, while disabling it will reduce the delay,
+  at the expense of slightly misaligned signals for tracks that have plugins introducing
+  latency.
+</p>
+
+<p>
+	The two infos are:
+</p>
+<ul>
+	<li>the maxium reported latency by a plugin chain (worst route latency)</li>
+	<li>the I/O latency, i.e. how long does it take for a signal arriving at any physical input to be played back again.</li>
+</ul>
+
+
+<h2 id="playhead_options">The Playhead Options</h2>
+
+<figure>
+	<img alt="The playhead options" src="/images/playhead-options.png">
+	<figcaption>
+		The playhead options
+	</figcaption>
+</figure>
+
+<p>
+  Those 2 buttons control the behaviour of the playhead:
+</p>
+<ul>
+	<li><dfn>Follow Range</dfn> is a toggle that can be used to control whether or not making a range selection will move the playhead to the start of the range.</li>
+	<li><dfn>Auto Return</dfn> is a toggle switch too. When active, pressing the Stop button returns the playhead to its previous position, and when inactive, pressing Stop keeps the playhead at its current location. Activating Auto Return can be useful for hearing the same piece of audio before and after tweaking it, without having to set a loop range on it.</li>
+</ul>
+
+<h2 id="status_indicators">The Status indicators</h2>
+
+<figure>
+	<img alt="The Status buttons" src="/images/status_buttons.png">
+	<figcaption>
+		The Status buttons
+	</figcaption>
+</figure>
+
+<p>
+  The <dfn>Status</dfn> buttons show the current session state:
+</p>
+
+<table class="dl">
+  <tr><th>Solo</th><td>Blinks when one or more tracks are being soloed, see <a href="@@muting-and-soloing">Muting and Soloing</a>. Clicking this button disables any active explicit and implicit solo on all tracks and busses.</td></tr>
+  <tr><th>Audition</th><td>Blinks when some audio is auditioned, e.g. by using the import dialog, or using the <kbd class="menu">Audition</kbd> context menu in the <a href="@@the-region-list">Regions List</a>. Clicking this button stops the auditioning.</td></tr>
+  <tr><th>Feedback</th><td>Blinks when Ardour detects a <dfn>feedback loop</dfn>, which happens when the output of an audio signal chain is plugged back to its input. This is probably not wanted and can be dangerous for the hardware and the listener.</td></tr>
+</table>
+
+<h2 id="monitor_section_info">The Monitor Section Info</h2>
+
+<figure>
+	<img alt="Monitor Section Info" src="/images/monitor-section-info.png">
+	<figcaption>
+		Monitor Section Info
+	</figcaption>
+</figure>
+
+<p>
+  This section is only useful and active if the session has a
+  <a href="@@monitor-section">Monitor section</a>. The three buttons are
+  exactly linked to their counterparts in the Monitor slice of the mixer,
+  but as they sit in the toolbar, remain visible even in Editor mode.
+</p>
+
+<p>
+	The three buttons are:
+</p>
+<ul>
+  <li><dfn>Mono</dfn>: sums all of the paths to a single mono signal and applies it to all Monitor Section outputs.</li>
+  <li><dfn>Dim All</dfn>: Reduces overall monitor level by the amount set with the Dim level control.</li>
+  <li><dfn>Mute All</dfn>: Mutes all monitoring.</li>
+</ul>
+
+
+<h2 id="tb_master_level_meter">The Master Level Meter</h2>
+
+<figure>
+	<img alt="The Master Level Meter" src="/images/master-level-meter.png">
+	<figcaption>
+		The Master Level Meter
+	</figcaption>
+</figure>
+<p>
+  The global meter shows the levels of the master's output. Its the same
+  meter that sits in the <a href="@@master-bus-strip">Master's Mixer strip</a>,
+  and also shows a peak indicator, that turns red when  any level exceeds
+  0dB. It can be reset by a <kbd class="mouse">Left</kbd> click.
+</p>
+
+<h2 id="tb_script_buttons">Script/Shortcut buttons</h2>
+
+<figure>
+	<img alt="The Script buttons" src="/images/script-buttons.png">
+	<figcaption>
+		The Script/shortcuts buttons
+	</figcaption>
+</figure>
+
+<p>
+  The buttons in between the Mode Selector and the Master Level Meter are
+  script or shortcuts buttons, which are user-definable buttons to attach
+  any session <a href="@@lua-scripting">lua-script</a> to, or any action
+  shortcut (e.g. for tasks that are used often and buried deep inside
+  nested menus).
+</p>
+<p>
+  The number of buttons (precisely, the number of columns of two buttons)
+  can be set in the <a href="@@preferences#preferences-appearance-toolbar">Preferences</a>.
+</p>
+<p>
+  <kbd class="mouse">Left</kbd>-clicking an affected button launches the
+  script or shortcut, while <kbd class="mouse">right</kbd>-clicking or 
+  clicking an unaffected button allows change the script/shortcut 
+  the button should execute.
+</p>
+
+
+<h2 id="mode_selector">The Mode Selector</h2>
+
+<figure>
+	<img alt="The Mode Selector" src="/images/mode_selector.png">
+	<figcaption>
+		The Mode Selector
+	</figcaption>
+</figure>
+
+<p>
+  The Mode Selector allows switching between the Editor, Mixer or Recording
+  windows. If a window is detached, the corresponding button is lit.
+  Clicking the button switches the detached window visibility.
+</p>
